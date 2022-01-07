@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "icon";
+  src: url("icon.eot?1639985019750");
+  src: url("icon.eot?#iefix-1639985019750") format("embedded-opentype"), url("icon.woff2?1639985019750") format("woff2"), url("icon.woff?1639985019750") format("woff"), url("icon.ttf?1639985019750") format("truetype"), url("icon.svg?1639985019750#icon") format("svg");
+  font-display: block;
+  unicode-range: U+EA01-EA0D;
+}
+
+.be-icon:before {
+  font-family: "icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  line-height: 1em;
+  margin-left: .2em;
+}
+
+/* Glyphs list */
+.be-icon-add:before {
+  content: '\ea01';
+}
+
+.be-icon-arror-left:before {
+  content: '\ea02';
+}
+
+.be-icon-arrow-toleft:before {
+  content: '\ea03';
+}
+
+.be-icon-arrow-toright:before {
+  content: '\ea04';
+}
+
+.be-icon-arrow:before {
+  content: '\ea05';
+}
+
+.be-icon-check-l:before {
+  content: '\ea06';
+}
+
+.be-icon-check:before {
+  content: '\ea07';
+}
+
+.be-icon-download:before {
+  content: '\ea08';
+}
+
+.be-icon-eyes:before {
+  content: '\ea09';
+}
+
+.be-icon-eyes_no:before {
+  content: '\ea0a';
+}
+
+.be-icon-magnifier:before {
+  content: '\ea0b';
+}
+
+.be-icon-q-mark:before {
+  content: '\ea0c';
+}
+
+.be-icon-sequence:before {
+  content: '\ea0d';
+}
