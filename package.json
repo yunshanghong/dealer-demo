@@ -2,7 +2,7 @@
   "name": "toyota-dealer",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "start": "ng serve --open",
     "dev:ssr": "ng run toyota-dealer:serve-ssr --open",
     "serve:ssr": "node dist/toyota-dealer/server/main.js",
     "build:ssr": "ng build --prod && ng run toyota-dealer:server:production",
