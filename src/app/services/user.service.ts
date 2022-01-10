@@ -16,8 +16,8 @@ export class UserService {
 
     set currentUser(user: User){
         this.userName = user && user.userName ? user.userName : null;
-        localStorage.setItem("dealer_token", user && user.accessToken ? user.accessToken : "");
-        console.log(this.currentUser);
+
+        user && user.accessToken ? localStorage.setItem("dealer_token", user.accessToken) : localStorage.removeItem("dealer_token");
         this.userChange.next(this.currentUser);
     }
 

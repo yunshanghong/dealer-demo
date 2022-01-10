@@ -38,12 +38,12 @@ export class LoginComponent extends BaseComponent implements OnInit{
         }
 
         this.apiService.UserLogin(req).subscribe((resp: UserLoginResp) =>{
+            console.log(resp);
             this.userService.currentUser = 
-                { 
-                    userName: this.userService.currentUser.userName,  
-                    accessToken: `${resp.tokenType} ${resp.accessToken}`
-                }
-            
+            { 
+                userName: this.userService.currentUser.userName,
+                accessToken: `${resp.tokenType} ${resp.accessToken}`
+            }
         })
     }
 }

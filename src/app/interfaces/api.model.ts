@@ -30,6 +30,6 @@ export interface UserPasswordForgetReq{
 
 
 export interface User{
-    accessToken: string | null;
-    userName: string | null;
+    accessToken: string;
+    userName: string;
 }
