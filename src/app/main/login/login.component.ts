@@ -24,8 +24,9 @@ export class LoginComponent extends BaseComponent implements OnInit{
 
     ngOnInit() {
         this.loginForm = new FormGroup({
-            'account': new FormControl("admin", [Validators.required]),
-            'password': new FormControl("TfsFc@dm1n", [Validators.required]),
+            "account": new FormControl("admin", [Validators.required]),
+            "password": new FormControl("TfsFc@dm1n", [Validators.required]),
+            "RmbMe": new FormControl(false, []),
         })
     }
 
@@ -37,8 +38,11 @@ export class LoginComponent extends BaseComponent implements OnInit{
         }
 
         this.apiService.UserLogin(req).subscribe((resp: UserLoginResp) =>{
-            this.userService.accessToken = `${resp.tokenType} ${resp.accessToken}`;
-            console.log(resp);
+            this.userService.currentUser = 
+                { 
+                    userName: this.userService.currentUser.userName,  
+                    accessToken: `${resp.tokenType} ${resp.accessToken}`
+                }
             
         })
     }

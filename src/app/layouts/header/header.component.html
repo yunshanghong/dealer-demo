@@ -1,10 +1,12 @@
 
 <header class="hd" id="header">
     <div class="hd-main ct_ctr"><a class="brand-logo hd-main_left" href="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
-    <div class="hd-main_right">
+    <div class="hd-main_right" *ngIf = "user && user.userName && user.accessToken">
         <div class="weblink">
-        <div class="weblink-btmline"><img src="images/hd_line.svg" alt=""></div>
-        <div class="weblink-text">Welcome! <span class="blod">Feather.W</span></div><a class="weblink-pagelink blod linelink" href="personal-info.html">Profile</a><a class="weblink-pagelink login blod linelink" href="login.html">Log out</a>
+            <div class="weblink-btmline"><img src="images/hd_line.svg" alt=""></div>
+            <div class="weblink-text">Welcome! <span class="blod">{{ user.userName }}</span></div>
+            <a class="weblink-pagelink blod linelink" href="personal-info.html">Profile</a>
+            <a class="weblink-pagelink login blod linelink" (click)="logout()">Log out</a>
         </div>
         <div class="searchbtn" data-open="SearchCarId"><i class="be-icon be-icon-magnifier"></i></div>
     </div>

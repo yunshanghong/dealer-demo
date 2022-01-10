@@ -27,3 +27,9 @@ export interface UserLoginResp {
 export interface UserPasswordForgetReq{
     email: string;
 }
+
+
+export interface User{
+    accessToken: string | null;
+    userName: string | null;
+}
