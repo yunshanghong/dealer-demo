@@ -1,6 +1,6 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/interfaces/api.model';
+import { User, UserProfileResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -20,13 +20,32 @@ export class HeaderComponent implements OnInit{
 	) { }
 
 	ngOnInit(){
+		console.log(this.userService.currentUser);
+
 		this.userService.userChange.subscribe((user: User) =>{
 			this.user = user;
 		})
+
+		if(this.userService.currentUser.accessToken){
+			this.apiService.UserProfile().subscribe((resp: UserProfileResp)=>{
+				console.log(resp)
+				this.userService.currentUser = 
+				{
+					...this.userService.currentUser,
+					userName: resp.username,
+					name: resp.name,
+					email: resp.email,
+					mobile: resp.mobile,
+				}
+			})
+		}
 	}
 
 	logout(){
-		this.apiService.UserLogout().subscribe(() =>{
+		this.apiService.UserLogout().subscribe(
+		() => {},
+		() => {},
+		() => {
 			this.userService.currentUser = null;
 			this.router.navigate(["login"]);
 		});

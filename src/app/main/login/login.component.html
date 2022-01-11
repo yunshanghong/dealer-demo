@@ -4,23 +4,26 @@
         <form class="ct_ctr" [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <div class="h1 h1Txt text-center large-blod">Welcome TOYOTA!</div>
             <div class="memcont-box"> 
-            <div class="inputcont error"> 
+            <div class="inputcont" [ngClass]="{'error': !loginForm.get('account').valid && loginForm.get('account').touched}"> 
                 <p class="inputcont-title">Account</p>
                 <div class="inputcont-box">
                 <input type="text" placeholder="Account" formControlName="account">
-                </div><span class="inputcont-errortext">Login Failed. Your username and/or password do not match.</span>
+                </div><span class="inputcont-errortext">account is required.</span>
             </div>
-            <div class="inputcont error"> 
+            <div class="inputcont" [ngClass]="{'error': !loginForm.get('password').valid && loginForm.get('password').touched}"> 
                 <p class="inputcont-title">Password</p>
                 <div class="inputcont-box">
                 <input [type]="showPWD ? 'text' : 'password'" placeholder="Password" formControlName="password"><i class="be-icon be-icon-eyes" (click)="showPWD = !showPWD"></i>
-                </div><span class="inputcont-errortext">Login Failed. Your username and/or password do not match.</span>
+                </div><span class="inputcont-errortext">password is required.</span>
             </div>
             <div class="inputcont flex"> 
                 <input type="checkbox" id="RmbMe" formControlName="RmbMe">
                 <label class="inputcont-rmbmelabel" for="RmbMe">
                 <div class="inputcont-rmbmelabel_icon"><i class="be-icon be-icon-check"></i></div>Remember me
                 </label><a class="linelink" routerLink="/forgetPassword">Forget Password?</a>
+            </div>
+            <div class="inputcont error" *ngIf="loginErr && !loginForm.get('account').touched && !loginForm.get('password').touched"> 
+                <span class="inputcont-errortext">Login Failed. Your username and/or password do not match.</span>
             </div>
             <div class="btncont only"> 
                 <input class="btncont-bgimg" type="submit" [disabled]="!loginForm.valid">
