@@ -4,10 +4,12 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { from, Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(
+	    private router: Router,
 		private userService: UserService
 	) {}
 
@@ -43,6 +45,7 @@ export class TokenInterceptor implements HttpInterceptor {
 			console.log(error);
 			if (error.status === 401) {
 				this.userService.currentUser = null;
+	            this.router.navigate(['login']);
 			}
 			return throwError(error);
 		}));

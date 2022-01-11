@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { mergeMap } from 'rxjs/operators';
 import { UserLoginReq, UserLoginResp, UserProfileResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 import { BaseComponent } from '../base/base.component';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'app-login',
@@ -16,14 +17,14 @@ export class LoginComponent extends BaseComponent implements OnInit{
 
     loginForm: FormGroup;
     showPWD: boolean = false;
-    loginErr: boolean = false;
+    loginErr: string = null;
 
     constructor(
-        private router: Router,
+        @Inject(PLATFORM_ID) public platformId: Object,
         private apiService: ApiService,
         private userService: UserService,
     ) { 
-        super();
+        super(platformId);
     }
 
     ngOnInit() {
@@ -65,12 +66,10 @@ export class LoginComponent extends BaseComponent implements OnInit{
                 email: profileResp.email,
                 mobile: profileResp.mobile,
             }
-            this.router.navigate(["/"]).then(()=>{
-                window.location.reload();
-            })
+            isPlatformBrowser(this.platformId) && window.location.replace("/");
         },
-        (err) =>{
-            this.loginErr = true;
+        (err: HttpErrorResponse) =>{
+            this.loginErr = err.message;
             this.loginForm.get('account').markAsUntouched();
             this.loginForm.get('password').markAsUntouched();
             console.log(err);

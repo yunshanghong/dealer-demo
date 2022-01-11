@@ -26,19 +26,7 @@ export class HeaderComponent implements OnInit{
 			this.user = user;
 		})
 
-		if(this.userService.currentUser.accessToken){
-			this.apiService.UserProfile().subscribe((resp: UserProfileResp)=>{
-				console.log(resp)
-				this.userService.currentUser = 
-				{
-					...this.userService.currentUser,
-					userName: resp.username,
-					name: resp.name,
-					email: resp.email,
-					mobile: resp.mobile,
-				}
-			})
-		}
+		
 	}
 
 	logout(){

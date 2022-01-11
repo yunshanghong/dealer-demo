@@ -19,6 +19,8 @@ const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
 	{ path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
 	{ path: 'forgetPassword', component: ForgetPasswordComponent, canActivate: [LoginGuard] },
+	{ path: 'personalInfo', component: PersonalInfoComponent, canActivate: [LoginGuard] },
+	{ path: 'changePassword', component: ChangePasswordComponent, canActivate: [LoginGuard] },
 	{ path: '**', redirectTo: "/", canActivate: [LoginGuard] },
 ];
 

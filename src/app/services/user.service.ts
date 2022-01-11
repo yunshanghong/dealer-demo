@@ -1,16 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 import { User } from '../interfaces/api.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: Object,
+    ) {
+    }
 
     /* UserInfo */
     private userName: string;
     private email: string;
     private name: string;
     private mobile: string;
-    private rememberMe: boolean;
     
     public userChange: Subject<User> = new Subject<User>();
 
@@ -20,7 +25,7 @@ export class UserService {
             email: this.email,
             name: this.name,
             mobile: this.mobile,
-            accessToken: sessionStorage.getItem("dealer_token") || localStorage.getItem("dealer_token"),
+            accessToken: isPlatformBrowser(this.platformId) && (sessionStorage.getItem("dealer_token") || localStorage.getItem("dealer_token")),
         }
     }
 
@@ -30,8 +35,7 @@ export class UserService {
         this.email = user && user.email ? user.email : null;
         this.name = user && user.name ? user.name : null;
         this.mobile = user && user.mobile ? user.mobile : null;
-        this.rememberMe = user && user.rememberMe ? user.rememberMe : null;
-        if(user && user.accessToken){
+        if(user && user.accessToken && isPlatformBrowser(this.platformId)){
             user.rememberMe ? localStorage.setItem("dealer_token", user.accessToken) : sessionStorage.setItem("dealer_token", user.accessToken);
         }else{
             localStorage.removeItem("dealer_token");

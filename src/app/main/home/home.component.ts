@@ -1,5 +1,4 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../base/base.component';
 
@@ -13,9 +12,10 @@ export class HomeComponent extends BaseComponent implements OnInit, AfterViewIni
     isAnimated: boolean = false;
 
     constructor(
-        private router: Router
+        private router: Router,
+        @Inject(PLATFORM_ID) public platformId: Object,
     ) {
-        super();
+        super(platformId);
     }
 
     @HostListener('window:load', [])

@@ -1,29 +1,29 @@
 <main class="main-container">
     <div class="main-wrap">
         <section class="login-memcont"> 
-        <div class="ct_ctr">
+        <form class="ct_ctr" [formGroup]="infoForm" (ngSubmit)="onSubmit()">
             <div class="h1 h1Txt text-center large-blod">Personal Info</div>
             <div class="memcont-box"> 
             <div class="inputcont"> 
                 <p class="inputcont-title">Account</p>
-                <div class="inputcont-text blod">Feather Wu</div>
+                <div class="inputcont-text blod">{{ user.name }}</div>
             </div>
             <div class="inputcont"> 
                 <p class="inputcont-title">Username</p>
                 <div class="inputcont-box">
-                <input type="text" placeholder="Usee Name" value="Feather Wu">
+                <input type="text" placeholder="Usee Name" formControlName="userName">
                 </div><span class="inputcont-errortext">Username must be at least 3 characters</span>
             </div>
             <div class="inputcont"> 
                 <p class="inputcont-title">Email</p>
                 <div class="inputcont-box">
-                <input type="email" placeholder="Email" value="FeatherWu@begonia.com.tw">
+                <input type="email" placeholder="Email" formControlName="email">
                 </div><span class="inputcont-errortext">Invalid email address</span>
             </div>
             <div class="inputcont"> 
                 <p class="inputcont-title">Mobile</p>
                 <div class="inputcont-box">
-                <input type="email" placeholder="Email" value="+659876543">
+                <input type="text" placeholder="Mobile" formControlName="mobile">
                 </div><span class="inputcont-errortext">Invalid phone number</span>
             </div>
             <div class="inputcont"> 
@@ -37,7 +37,7 @@
                 <input class="btncont-bgimg" type="submit" value="Submit" data-open="Successfully" id="Yesfully">
             </div>
             </div>
-        </div>
+        </form>
         </section>
     </div>
     <div class="bgcar show-for-medium"> 

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserPasswordForgetReq, UserPasswordForgetResp } from 'src/app/interfaces/api.model';
@@ -19,8 +19,9 @@ export class ForgetPasswordComponent extends BaseComponent implements OnInit{
 	constructor(
 		private router: Router,
         private apiService: ApiService,
+        @Inject(PLATFORM_ID) public platformId: Object,
 	) {
-		super();		
+		super(platformId);		
 	}
 
     ngOnInit(){
