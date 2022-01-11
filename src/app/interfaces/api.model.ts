@@ -18,7 +18,6 @@ export interface UserLoginReq {
 	password: string;
 }
 
-
 export interface UserLoginResp {
 	accessToken: string;
     expiresIn: number;
@@ -28,6 +27,11 @@ export interface UserLoginResp {
 
 export interface UserPasswordForgetReq{
     email: string;
+}
+
+export interface UserPasswordForgetResp{
+    success: boolean;
+    message: string;
 }
 
 export interface UserProfileResp{

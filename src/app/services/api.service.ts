@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, UserLoginReq, UserLoginResp, UserProfileResp } from '../interfaces/api.model';
+import { ApiEndpoint, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserProfileResp } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 
 const basicUrl = environment.basicUrl;
@@ -16,6 +16,10 @@ export class ApiService {
 
     UserLogout(){
         return this.http.post(basicUrl + ApiEndpoint.UserLogout, null);
+    }
+
+    UserPasswordForget(req: UserPasswordForgetReq){
+        return this.http.post<UserPasswordForgetResp>(basicUrl + ApiEndpoint.UserPasswordForget, req);
     }
 
     UserProfile(){
