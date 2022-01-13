@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -13,6 +14,7 @@ export class HomeComponent extends BaseComponent implements OnInit, AfterViewIni
 
     constructor(
         private router: Router,
+        private apiService: ApiService,
         @Inject(PLATFORM_ID) public platformId: Object,
     ) {
         super(platformId);

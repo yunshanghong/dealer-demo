@@ -9,7 +9,10 @@ export enum ApiEndpoint{
     UserPasswordUpdate = "User/Password/Update",
 
     // User Profile
-    UserProfile = "User/Profile"
+    UserProfile = "User/Profile",
+
+    // Order
+    OrderFilter = "Order/Filter",
 }
 
 export interface ApiModel<T>{
@@ -62,6 +65,15 @@ export interface UserPasswordUpdateReq{
     newPassword: string;
 }
 
+export interface OrderFilterReq{
+    orderNumber: string;
+    applicationDateFromUtc: Date;
+    applicationDateToUtc: Date;
+    applicantName: string;
+    status: string[],
+    pageIndex: number,
+    pageSize: number;
+}
 export interface User{
     accessToken: string;
     userName: string;
