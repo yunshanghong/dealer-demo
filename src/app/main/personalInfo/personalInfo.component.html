@@ -6,35 +6,37 @@
             <div class="memcont-box"> 
             <div class="inputcont"> 
                 <p class="inputcont-title">Account</p>
-                <div class="inputcont-text blod">{{ user.name }}</div>
+                <div class="inputcont-text blod">{{ user.userName }}</div>
             </div>
-            <div class="inputcont"> 
+            <div class="inputcont" [ngClass]="{'error': !infoForm.get('name').valid && infoForm.get('name').touched}"> 
                 <p class="inputcont-title">Username</p>
                 <div class="inputcont-box">
-                <input type="text" placeholder="Usee Name" formControlName="userName">
+                <input type="text" placeholder="Usee Name" formControlName="name">
                 </div><span class="inputcont-errortext">Username must be at least 3 characters</span>
             </div>
-            <div class="inputcont"> 
+            <div class="inputcont" [ngClass]="{'error': !infoForm.get('email').valid && infoForm.get('email').touched}"> 
                 <p class="inputcont-title">Email</p>
                 <div class="inputcont-box">
                 <input type="email" placeholder="Email" formControlName="email">
                 </div><span class="inputcont-errortext">Invalid email address</span>
             </div>
-            <div class="inputcont"> 
+            <div class="inputcont" [ngClass]="{'error': !infoForm.get('mobile').valid && infoForm.get('mobile').touched}"> 
                 <p class="inputcont-title">Mobile</p>
                 <div class="inputcont-box">
-                <input type="text" placeholder="Mobile" formControlName="mobile">
-                </div><span class="inputcont-errortext">Invalid phone number</span>
+                    <input type="text" placeholder="Mobile" formControlName="mobile">
+                </div>
+                <span class="inputcont-errortext">Invalid phone number</span>
             </div>
             <div class="inputcont"> 
                 <p class="inputcont-title">Password</p>
                 <div class="inputcont-box">
-                <input type="text" placeholder="Password" value="•••••••••••" disabled><a class="linelink" href="change-psw.html">change </a>
+                <input type="text" placeholder="Password" value="•••••••••••" disabled>
+                <a class="linelink" routerLink="/changePassword">change </a>
                 </div>
             </div>
             <div class="btncont"> 
-                <input class="btncont-line" type="submit" value="Cancel" data-open="ConfirmChange">
-                <input class="btncont-bgimg" type="submit" value="Submit" data-open="Successfully" id="Yesfully">
+                <input class="btncont-line" type="button" value="Cancel" data-open="ConfirmChange" (click)="onCancel()">
+                <input class="btncont-bgimg" type="submit" value="Submit" data-open="Successfully" id="Yesfully" [disabled]="!infoForm.valid">
             </div>
             </div>
         </form>

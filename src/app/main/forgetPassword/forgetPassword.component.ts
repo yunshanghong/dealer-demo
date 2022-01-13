@@ -27,27 +27,29 @@ export class ForgetPasswordComponent extends BaseComponent implements OnInit{
     ngOnInit(){
 		const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 		this.forgetPwdForm = new FormGroup({
-            "account": new FormControl(null, [Validators.required]),
+            "userName": new FormControl(null, [Validators.required]),
             "email": new FormControl(null, [Validators.required, Validators.email, Validators.pattern(emailRule)]),
         })
     }
 
 	onSubmit(){
 		const req: UserPasswordForgetReq = {
+			username: this.forgetPwdForm.get("userName").value,
 			email: this.forgetPwdForm.get('email').value
         }
 
         this.apiService.UserPasswordForget(req)
-			.subscribe((resp: UserPasswordForgetResp) => {
-				this.submitErrMsg = resp.message
-			},
-			(err: HttpErrorResponse) => {
-	            this.submitErrMsg = err.message;
-			},
-			() => {
-				this.forgetPwdForm.get('account').markAsUntouched();
-				this.forgetPwdForm.get('email').markAsUntouched();
-			})
+		.subscribe((resp: UserPasswordForgetResp) => {
+			console.log(resp);
+			this.submitErrMsg = resp.message
+		},
+		(err: HttpErrorResponse) => {
+			this.submitErrMsg = err.error || err.message || "Forget Password Failed.";
+		},
+		() => {
+			this.forgetPwdForm.get('userName').markAsUntouched();
+			this.forgetPwdForm.get('email').markAsUntouched();
+		})
 
 	}
 }

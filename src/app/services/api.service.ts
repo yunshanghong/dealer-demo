@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserProfileResp } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -15,13 +15,14 @@ export class ApiService {
         return method.pipe(
             map((apiResp: ApiModel<T2>)=>{
                 console.log(apiResp);
+                if(!apiResp){
+                    return null;
+                }
                 const status = apiResp.status;
                 
                 if(!status.isSuccess || status.errorCode !== 0){
                     throw new HttpErrorResponse({
-                        url: url, 
-                        status: status.errorCode, 
-                        statusText: status.errorDescription
+                        error: status.errorDescription
                     });
                 }
                 return apiResp.data;
@@ -55,5 +56,19 @@ export class ApiService {
             this.http.get<ApiModel<UserProfileResp>>(basicUrl + ApiEndpoint.UserProfile),
             basicUrl + ApiEndpoint.UserProfile
         );
+    }
+
+    UpdateProfile(req: UpdateProfileReq){
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserProfile, req),
+            ApiEndpoint.UserProfile
+        )
+    }
+
+    UpdatePassword(req: UserPasswordUpdateReq){
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserPasswordUpdate, req),
+            ApiEndpoint.UserPasswordUpdate
+        )
     }
 }

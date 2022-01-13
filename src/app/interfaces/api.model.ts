@@ -35,6 +35,7 @@ export interface UserLoginResp {
 }
 
 export interface UserPasswordForgetReq{
+    username: string;
     email: string;
 }
 
@@ -47,7 +48,18 @@ export interface UserProfileResp{
     username: string;
     name: string;
     email: string;
-    mobile: string
+    mobile: string;
+}
+
+export interface UpdateProfileReq{
+    name: string;
+    email: string;
+    mobile: string;
+}
+
+export interface UserPasswordUpdateReq{
+    oldPassword: string;
+    newPassword: string;
 }
 
 export interface User{

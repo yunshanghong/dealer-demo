@@ -32,7 +32,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
         this.loginForm = new FormGroup({
             "account": new FormControl("admin", [Validators.required]),
             "password": new FormControl("TfsFc@dm1n", [Validators.required]),
-            "RmbMe": new FormControl(this.userService.currentUser.rememberMe, []),
+            "RmbMe": new FormControl(true, []),
         })
     }
 
@@ -69,7 +69,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
             isPlatformBrowser(this.platformId) && window.location.replace("/");
         },
         (err: HttpErrorResponse) =>{
-            this.loginErr = err.message || "Login Failed. Your username and/or password do not match.";
+            this.loginErr = err.error || err.message || "Login Failed. Your username and/or password do not match.";
             this.loginForm.get('account').markAsUntouched();
             this.loginForm.get('password').markAsUntouched();
             console.log(err);
