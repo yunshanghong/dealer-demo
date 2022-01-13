@@ -69,7 +69,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
             isPlatformBrowser(this.platformId) && window.location.replace("/");
         },
         (err: HttpErrorResponse) =>{
-            this.loginErr = err.message;
+            this.loginErr = err.message || "Login Failed. Your username and/or password do not match.";
             this.loginForm.get('account').markAsUntouched();
             this.loginForm.get('password').markAsUntouched();
             console.log(err);

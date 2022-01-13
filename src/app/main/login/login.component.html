@@ -23,7 +23,7 @@
                 </label><a class="linelink" routerLink="/forgetPassword">Forget Password?</a>
             </div>
             <div class="inputcont error" *ngIf="loginErr && !loginForm.get('account').touched && !loginForm.get('password').touched"> 
-                <span class="inputcont-errortext">Login Failed. Your username and/or password do not match.</span>
+                <span class="inputcont-errortext">{{ loginErr }}</span>
             </div>
             <div class="btncont only"> 
                 <input class="btncont-bgimg" type="submit" [disabled]="!loginForm.valid">

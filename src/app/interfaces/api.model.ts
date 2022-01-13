@@ -12,6 +12,15 @@ export enum ApiEndpoint{
     UserProfile = "User/Profile"
 }
 
+export interface ApiModel<T>{
+    status: {
+        isSuccess: boolean;
+        errorCode: number;
+        errorDescription: string;
+    },
+    data: T
+}
+
 
 export interface UserLoginReq {
 	username: string;

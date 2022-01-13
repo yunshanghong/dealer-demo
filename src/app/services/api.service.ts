@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserProfileResp } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserProfileResp } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 const basicUrl = environment.basicUrl;
 
@@ -10,19 +11,49 @@ const basicUrl = environment.basicUrl;
 export class ApiService {
     constructor(private http: HttpClient) { }
 
+    private HttpHandle<T2>(method: Observable<ApiModel<T2>>, url: string): Observable<T2>{
+        return method.pipe(
+            map((apiResp: ApiModel<T2>)=>{
+                console.log(apiResp);
+                const status = apiResp.status;
+                
+                if(!status.isSuccess || status.errorCode !== 0){
+                    throw new HttpErrorResponse({
+                        url: url, 
+                        status: status.errorCode, 
+                        statusText: status.errorDescription
+                    });
+                }
+                return apiResp.data;
+            })
+        )
+    }
+
     UserLogin(req: UserLoginReq): Observable<UserLoginResp> {
-        return this.http.post<UserLoginResp>(basicUrl + ApiEndpoint.UserLogin, req)
+        return this.HttpHandle<UserLoginResp>(
+            this.http.post<ApiModel<UserLoginResp>>(basicUrl + ApiEndpoint.UserLogin, req),
+            basicUrl + ApiEndpoint.UserLogin
+        );
     }
 
     UserLogout(){
-        return this.http.post(basicUrl + ApiEndpoint.UserLogout, null);
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserLogout, null),
+            basicUrl + ApiEndpoint.UserLogout
+        );
     }
 
     UserPasswordForget(req: UserPasswordForgetReq){
-        return this.http.post<UserPasswordForgetResp>(basicUrl + ApiEndpoint.UserPasswordForget, req);
+        return this.HttpHandle<UserPasswordForgetResp>(
+            this.http.post<ApiModel<UserPasswordForgetResp>>(basicUrl + ApiEndpoint.UserPasswordForget, req),
+            basicUrl + ApiEndpoint.UserPasswordForget
+        );
     }
 
     UserProfile(){
-        return this.http.get<UserProfileResp>(basicUrl + ApiEndpoint.UserProfile);
+        return this.HttpHandle<UserProfileResp>(
+            this.http.get<ApiModel<UserProfileResp>>(basicUrl + ApiEndpoint.UserProfile),
+            basicUrl + ApiEndpoint.UserProfile
+        );
     }
 }
