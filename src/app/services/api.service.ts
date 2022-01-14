@@ -22,7 +22,7 @@ export class ApiService {
                 
                 if(!status.isSuccess || status.errorCode !== 0){
                     throw new HttpErrorResponse({
-                        error: status.errorDescription
+                        error: { details: status.errorDescription }
                     });
                 }
                 return apiResp.data;

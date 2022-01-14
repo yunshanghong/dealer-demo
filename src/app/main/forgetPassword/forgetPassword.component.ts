@@ -44,12 +44,11 @@ export class ForgetPasswordComponent extends BaseComponent implements OnInit{
 			this.submitErrMsg = resp.message
 		},
 		(err: HttpErrorResponse) => {
-			this.submitErrMsg = err.error || err.message || "Forget Password Failed.";
-		},
-		() => {
+			console.log(err);
+			this.submitErrMsg = err.error.details || err.message || "Forget Password Submit Failed.";
 			this.forgetPwdForm.get('userName').markAsUntouched();
 			this.forgetPwdForm.get('email').markAsUntouched();
-		})
+		});
 
 	}
 }

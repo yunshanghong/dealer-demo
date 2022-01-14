@@ -71,7 +71,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit{
 			}, 4000);
 		},
 		(err: HttpErrorResponse) =>{
-			this.submitErr = err.error || err.message || "Something went wrong here!"
+			this.submitErr = err.error.details || err.message || "Update Personal Information Fail!"
 			this.infoForm.get('name').markAsUntouched();
             this.infoForm.get('email').markAsUntouched();
             this.infoForm.get('mobile').markAsUntouched();
