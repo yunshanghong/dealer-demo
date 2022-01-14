@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UpdateProfileReq, User } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,10 +14,14 @@ import { BaseComponent } from '../base/base.component';
 })
 export class PersonalInfoComponent extends BaseComponent implements OnInit{
 
+	showConfirmModal: boolean = false;
+	showSuccessModal: boolean = false;
+	submitErr: string = null;
     infoForm: FormGroup;
 	user: User;
 
 	constructor(
+		private router: Router,
 		private userService: UserService,
         private apiService: ApiService,
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -58,20 +64,32 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit{
 				email: req.email,
 				mobile: req.mobile,
 			}
-			// TODO: open modal 
-			console.log("OKOK")
+			this.showSuccessModal = true;
+
+			setTimeout(() => {
+				this.showSuccessModal = false;
+			}, 4000);
 		},
-		(err) =>{
-			// TODO: give msg
-			console.log("err")
+		(err: HttpErrorResponse) =>{
+			this.submitErr = err.error || err.message || "Something went wrong here!"
+			this.infoForm.get('name').markAsUntouched();
+            this.infoForm.get('email').markAsUntouched();
+            this.infoForm.get('mobile').markAsUntouched();
 		})
 	}
 
 	onCancel(){
-		// TODO: check if data is changed
-		
-		// TODO: open modal
+		if(this.infoForm.get("name").value !== this.user.name ||
+			this.infoForm.get("email").value !== this.user.email ||
+			this.infoForm.get("mobile").value !== this.user.mobile
+		){
+			this.showConfirmModal = true;
+		}else{
+			this.onNavHome();
+		}
+	}
 
-
+	onNavHome(){
+		window.location.replace("/")
 	}
 }

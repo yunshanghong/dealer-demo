@@ -24,9 +24,8 @@ export class HeaderComponent implements OnInit{
 
 		this.userService.userChange.subscribe((user: User) =>{
 			this.user = user;
+			!user && this.router.navigate(["login"]);
 		})
-
-		
 	}
 
 	logout(){

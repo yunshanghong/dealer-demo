@@ -34,6 +34,9 @@
                 <a class="linelink" routerLink="/changePassword">change </a>
                 </div>
             </div>
+            <div class="inputcont error" *ngIf="submitErr && !infoForm.get('name').touched && !infoForm.get('email').touched && !infoForm.get('mobile').touched"> 
+                <span class="inputcont-errortext">{{ submitErr }}</span>
+            </div>
             <div class="btncont"> 
                 <input class="btncont-line" type="button" value="Cancel" data-open="ConfirmChange" (click)="onCancel()">
                 <input class="btncont-bgimg" type="submit" value="Submit" data-open="Successfully" id="Yesfully" [disabled]="!infoForm.valid">
@@ -47,15 +50,19 @@
         <path class="carline" d="M0,357.467c0,0,72.938-51.748,263.177-54.828c171.219-2.772,196.164-17.058,196.164-17.058s49.955-15.839,67.013-38.989c0,0-19.451-41.196,9.841-65.32c0,0,27.569,43.939,323.941,9.477l38.77-56.862c0,0-133.54,20.677-153.355,56.001c0,0-68.062,18.954-179.202,0c0,0,1.473-27.537,7.389-37.357c3.771-6.26-25.282,4.331-31.32,16.23c0,0-3.17,4.178,1.297,7.781c4.467,3.602,15.849,6.052,15.849,6.052l23.198-28.385c0,0-4.611-23.342,65.703-43.658c0,0,245.896,4.819,292.237-7.514c0,0-41.482,41.856-51.199,85.954l-8.222,76.985c0,0-2.242,35.129-62.036,35.129c0,0-281.032,5.606-291.496,0c0,0-12.332-7.474,4.485-20.554l-5.232-25.786c0,0,19.433-24.512,53.067-24.512h115.477c0,0,35.503,0.968,50.451,21.522c0,0,90.438-12.706,116.972-26.534c0,0,9.716,62.41-50.451,62.41l-260.477-1.121c0,0,12.333,66.147,62.036,66.147s57.178-37.371,57.178-37.371l217.127,9.717c0,0,13.138-1.976,20.554-47.088c7.089-43.122,14.201-60.168,14.201-60.168s9.714-27.825,34.382-28.776c20.185-0.778,31.018,37.745,31.018,37.745s18.579,64.03-15.322,122.578l-11.959,0.374c0,0,36.624-63.531,12.333-124.82c0,0-8.222-20.928-22.423-14.201s-18.686,19.586-18.686,19.586s-10.09,24.885-7.474,48.429h-32.887c0,0,14.948-133.042,65.773-133.042c0,0,32.139-107.255,79.227-121.83c0,0-35.101-11.235-82.937,72.477l-284.796,6.377c0,0,88.57-76.237,167.049-83.712c0,0,296.728-55.683,376.702,77.358c0,0-133.042,1.495-231.702,19.807c0,0,26.16-81.843,81.096-83.338c0,0,25.786,39.614,28.402,97.539c0,0-112.114,10.464-114.73,16.443c0,0,35.129,55.309,33.634,132.668l142.384-25.786l16.443,10.838c0,0-132.294,18.312-162.191,42.603c0,0,121.083-22.423,155.838-14.949l-20.928,10.464c0,0,5.979,24.665,36.624,23.544c30.644-1.121,35.129-24.291,35.129-24.291s20.928-80.722-8.969-109.871c0,0-25.039-23.918-24.665,71.753l13.454,40.735c0,0-15.776-28.483-77.358-22.796c0,0,26.907-100.529,78.106-105.761c0,0,19.433-32.887,0.747-68.763c0,0-193.583,16.443-211.521,23.544c0,0,93.054-120.709,170.413-74.742c0,0,37.371,22.796,65.4,66.895c0,0,37.745,66.255,15.322,124.82c0,0-16.07,41.856,28.402,18.686c44.472-23.17,80.108-45.593,222.239-48.956"></path>
         </svg>
     </div>
-    <div class="popup tiny reveal" id="ConfirmChange" data-reveal>
-        <div class="popup-title text-center blod">Do you want to close without saving the changes?</div>
-        <div class="popup-btn btncont small">
-        <input class="btncont-line" type="submit" value="No" data-close>
-        <input class="btncont-line" type="submit" value="Yes" data-close>
+    <div class="reveal-overlay" style="display: block;" *ngIf="showConfirmModal" (click)="showConfirmModal = false">
+        <div class="popup tiny reveal" id="ConfirmChange" data-reveal style="display: block;" (click)="$event.stopPropagation()">
+            <div class="popup-title text-center blod">Do you want to close without saving the changes?</div>
+            <div class="popup-btn btncont small">
+            <input class="btncont-line" type="button" value="No" data-close (click)="showConfirmModal = false">
+            <input class="btncont-line" type="button" value="Yes" data-close (click)="onNavHome()">
+            </div>
         </div>
     </div>
-    <div class="popup tiny reveal" id="Successfully" data-reveal>
-        <div class="popup-icon"><i class="be-icon be-icon-check-l"></i></div>
-        <div class="popup-title text-center blod">Your profile has been saved successfully!</div>
+    <div class="reveal-overlay" style="display: block;" *ngIf="showSuccessModal" (click)="showSuccessModal = false">
+        <div class="popup tiny reveal" id="Successfully" data-reveal style="display: block;" (click)="$event.stopPropagation()">
+            <div class="popup-icon"><i class="be-icon be-icon-check-l"></i></div>
+            <div class="popup-title text-center blod">Your profile has been saved successfully!</div>
+        </div>
     </div>
 </main>

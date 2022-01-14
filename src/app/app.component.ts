@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserProfileResp } from './interfaces/api.model';
 import { ApiService } from './services/api.service';
 import { UserService } from './services/user.service';
@@ -28,6 +29,9 @@ export class AppComponent implements OnInit{
 					email: resp.email,
 					mobile: resp.mobile,
 				}
+			},
+			(err)=>{
+				this.userService.currentUser = null;
 			})
 		}
 	}
