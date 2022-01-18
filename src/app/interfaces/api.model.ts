@@ -43,7 +43,6 @@ export interface UserPasswordForgetReq{
 }
 
 export interface UserPasswordForgetResp{
-    success: boolean;
     message: string;
 }
 
@@ -65,19 +64,33 @@ export interface UserPasswordUpdateReq{
     newPassword: string;
 }
 
-export interface UserPasswordUpdateResp{
-    message: string;
-}
 
 export interface OrderFilterReq{
     orderNumber: string;
     applicationDateFromUtc: Date;
     applicationDateToUtc: Date;
     applicantName: string;
-    status: string[],
-    pageIndex: number,
+    status: string[];
+    pageIndex: number;
     pageSize: number;
 }
+
+export interface OrderFilterResp{
+    items: [{
+        id: number;
+        orderNumber: string;
+        applicationDate: Date;
+        status: string;
+        vehicleType: string;
+        vehicleNumber: string;
+        applicantName: string;
+    }],
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+    totalPages: number;
+}
+
 export interface User{
     accessToken: string;
     userName: string;

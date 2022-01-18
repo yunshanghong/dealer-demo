@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, OrderFilterReq, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserPasswordUpdateResp, UserProfileResp } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, OrderFilterReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -11,10 +11,9 @@ const basicUrl = environment.basicUrl;
 export class ApiService {
     constructor(private http: HttpClient) { }
 
-    private HttpHandle<T2>(method: Observable<ApiModel<T2>>, url: string): Observable<T2>{
+    private HttpHandle<T2>(method: Observable<ApiModel<T2>>): Observable<T2>{
         return method.pipe(
             map((apiResp: ApiModel<T2>)=>{
-                console.log(apiResp);
                 if(!apiResp){
                     return null;
                 }
@@ -33,46 +32,42 @@ export class ApiService {
     UserLogin(req: UserLoginReq): Observable<UserLoginResp> {
         return this.HttpHandle<UserLoginResp>(
             this.http.post<ApiModel<UserLoginResp>>(basicUrl + ApiEndpoint.UserLogin, req),
-            basicUrl + ApiEndpoint.UserLogin
         );
     }
 
     UserLogout(){
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserLogout, null),
-            basicUrl + ApiEndpoint.UserLogout
         );
     }
 
     UserPasswordForget(req: UserPasswordForgetReq){
         return this.HttpHandle<UserPasswordForgetResp>(
             this.http.post<ApiModel<UserPasswordForgetResp>>(basicUrl + ApiEndpoint.UserPasswordForget, req),
-            basicUrl + ApiEndpoint.UserPasswordForget
         );
     }
 
     UserProfile(){
         return this.HttpHandle<UserProfileResp>(
             this.http.get<ApiModel<UserProfileResp>>(basicUrl + ApiEndpoint.UserProfile),
-            basicUrl + ApiEndpoint.UserProfile
         );
     }
 
     UpdateProfile(req: UpdateProfileReq){
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserProfile, req),
-            ApiEndpoint.UserProfile
         )
     }
 
     UpdatePassword(req: UserPasswordUpdateReq){
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserPasswordUpdate, req),
-            ApiEndpoint.UserPasswordUpdate
         )
     }
 
-    OrderFilter(res: OrderFilterReq){
-        
+    OrderFilter(req: OrderFilterReq){
+        return this.HttpHandle<OrderFilterResp>(
+            this.http.post<ApiModel<OrderFilterResp>>(basicUrl + ApiEndpoint.UserPasswordUpdate, req),
+        )
     }
 }
