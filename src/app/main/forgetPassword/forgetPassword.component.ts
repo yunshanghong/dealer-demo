@@ -14,10 +14,9 @@ import { BaseComponent } from '../base/base.component';
 export class ForgetPasswordComponent extends BaseComponent implements OnInit{
 	
     forgetPwdForm: FormGroup;
-    submitErrMsg: string = null;
+    submitMsg: string = null;
 
 	constructor(
-		private router: Router,
         private apiService: ApiService,
         @Inject(PLATFORM_ID) public platformId: Object,
 	) {
@@ -40,14 +39,12 @@ export class ForgetPasswordComponent extends BaseComponent implements OnInit{
 
         this.apiService.UserPasswordForget(req)
 		.subscribe((resp: UserPasswordForgetResp) => {
-			console.log(resp);
-			this.submitErrMsg = resp.message
+			this.submitMsg = resp.message;
+			this.forgetPwdForm.markAsUntouched();
 		},
 		(err: HttpErrorResponse) => {
-			console.log(err);
-			this.submitErrMsg = err.error.details || err.message || "Forget Password Submit Failed.";
-			this.forgetPwdForm.get('userName').markAsUntouched();
-			this.forgetPwdForm.get('email').markAsUntouched();
+			this.submitMsg = err.error.details || err.message || "Forget Password Submit Failed.";
+			this.forgetPwdForm.markAsUntouched();
 		});
 
 	}

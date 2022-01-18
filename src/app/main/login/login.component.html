@@ -13,7 +13,7 @@
             <div class="inputcont" [ngClass]="{'error': !loginForm.get('password').valid && loginForm.get('password').touched}"> 
                 <p class="inputcont-title">Password</p>
                 <div class="inputcont-box">
-                <input [type]="showPWD ? 'text' : 'password'" placeholder="Password" formControlName="password"><i class="be-icon be-icon-eyes" (click)="showPWD = !showPWD"></i>
+                <input [type]="showPWD ? 'text' : 'password'" placeholder="Password" formControlName="password"><i class="be-icon" [ngClass]="{'be-icon-eyes': showPWD, 'be-icon-eyes_no': !showPWD}" (click)="showPWD = !showPWD"></i>
                 </div><span class="inputcont-errortext">password is required.</span>
             </div>
             <div class="inputcont flex"> 

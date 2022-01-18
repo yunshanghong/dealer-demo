@@ -37,7 +37,6 @@ export class LoginComponent extends BaseComponent implements OnInit{
     }
 
     onLogin(){
-        console.log("submit")
         const req: UserLoginReq = {
             username: this.loginForm.get('account').value,
             password: this.loginForm.get('password').value,
@@ -45,8 +44,6 @@ export class LoginComponent extends BaseComponent implements OnInit{
 
         this.apiService.UserLogin(req).pipe(
             mergeMap((loginResp: UserLoginResp) => {
-                console.log(loginResp);
-                console.log(this.loginForm.get("RmbMe").value);
                 this.userService.currentUser = 
                 {
                     ...this.userService.currentUser,
@@ -57,7 +54,6 @@ export class LoginComponent extends BaseComponent implements OnInit{
             }
         ))
         .subscribe((profileResp: UserProfileResp) =>{
-            console.log(profileResp);
             this.userService.currentUser = 
             {
                 ...this.userService.currentUser,
@@ -70,9 +66,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
         },
         (err: HttpErrorResponse) =>{
             this.loginErr = err.error.details || err.message || "Login Failed. Your username and/or password do not match.";
-            this.loginForm.get('account').markAsUntouched();
-            this.loginForm.get('password').markAsUntouched();
-            console.log(err);
+            this.loginForm.markAsUntouched();
         })
     }
 }
