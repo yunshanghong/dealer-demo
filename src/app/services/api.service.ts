@@ -67,7 +67,7 @@ export class ApiService {
 
     OrderFilter(req: OrderFilterReq){
         return this.HttpHandle<OrderFilterResp>(
-            this.http.post<ApiModel<OrderFilterResp>>(basicUrl + ApiEndpoint.UserPasswordUpdate, req),
+            this.http.post<ApiModel<OrderFilterResp>>(basicUrl + ApiEndpoint.OrderFilter, req),
         )
     }
 }

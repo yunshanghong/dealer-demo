@@ -14,6 +14,7 @@ import { ForgetPasswordComponent } from './main/forgetPassword/forgetPassword.co
 import { ChangePasswordComponent } from './main/changePassword/changePassword.component';
 import { PersonalInfoComponent } from './main/personalInfo/personalInfo.component';
 import { LoginGuard } from './auth/login.guard';
+import { DateTimePipe } from './pipes/viewData.pipe';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -40,6 +41,8 @@ const routes: Routes = [
 		HeaderComponent,
 		FooterComponent,
 		//#endregion
+
+		DateTimePipe,
 	],
 	imports: [
 		RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),

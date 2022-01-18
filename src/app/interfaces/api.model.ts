@@ -76,19 +76,21 @@ export interface OrderFilterReq{
 }
 
 export interface OrderFilterResp{
-    items: [{
-        id: number;
-        orderNumber: string;
-        applicationDate: Date;
-        status: string;
-        vehicleType: string;
-        vehicleNumber: string;
-        applicantName: string;
-    }],
+    items: Array<OrderItem>,
     pageIndex: number;
     pageSize: number;
     totalCount: number;
     totalPages: number;
+}
+
+export interface OrderItem{
+    id: number;
+    orderNumber: string;
+    applicationDate: Date;
+    status: string;
+    vehicleType: string;
+    vehicleNumber: string;
+    applicantName: string;
 }
 
 export interface User{
