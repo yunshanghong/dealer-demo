@@ -8,13 +8,11 @@ import { BaseComponent } from '../base/base.component';
 	templateUrl: './home.component.html',
 	styleUrls: ["../../../styles/index.css"]
 })
-export class HomeComponent extends BaseComponent implements OnInit, AfterViewInit{
+export class HomeComponent extends BaseComponent{
 
     isAnimated: boolean = false;
 
     constructor(
-        private router: Router,
-        private apiService: ApiService,
         @Inject(PLATFORM_ID) public platformId: Object,
     ) {
         super(platformId);
@@ -22,17 +20,6 @@ export class HomeComponent extends BaseComponent implements OnInit, AfterViewIni
 
     @HostListener('window:load', [])
     onWindowLoad() {
-        console.log("load")
         this.isAnimated = true;
     }
-
-    ngOnInit(){
-        console.log("ngOnInit");
-    }
-
-    ngAfterViewInit(){
-        console.log("ngAfterViewInit");
-        
-    }
-
 }

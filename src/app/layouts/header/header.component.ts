@@ -20,8 +20,6 @@ export class HeaderComponent implements OnInit{
 	) { }
 
 	ngOnInit(){
-		console.log(this.userService.currentUser);
-
 		this.userService.userChange.subscribe((user: User) =>{
 			this.user = user;
 			!user && this.router.navigate(["login"]);

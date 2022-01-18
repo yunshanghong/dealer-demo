@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -14,7 +14,6 @@ export class BaseComponent implements OnDestroy{
     }
         
     ngOnDestroy() {
-        console.log('ngOnDestroy')
         isPlatformBrowser(this.platformId) && window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
 	}
 }

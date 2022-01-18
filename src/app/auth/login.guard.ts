@@ -19,10 +19,10 @@ export class LoginGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const user = this.userService.currentUser;
-        console.log(user);
         if( (whiteListUrl[state.url] && !user.accessToken) ||
-            (!whiteListUrl[state.url] && user.accessToken)){
-                return true;
+            (!whiteListUrl[state.url] && user.accessToken))
+        {
+            return true;
         }
         user.accessToken ? this.router.navigate(['/']) : this.router.navigate(['login']);
         return false;

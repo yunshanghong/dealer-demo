@@ -20,7 +20,6 @@ export class AppComponent implements OnInit{
 	ngOnInit(){
 		if(this.userService.currentUser.accessToken){
 			this.apiService.UserProfile().subscribe((resp: UserProfileResp)=>{
-				console.log(resp)
 				this.userService.currentUser = 
 				{
 					...this.userService.currentUser,

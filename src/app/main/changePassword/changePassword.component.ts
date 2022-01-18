@@ -1,9 +1,16 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserPasswordUpdateReq } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
+
+const matchValues = (matchTo: string): (AbstractControl) => ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
+		return control && control.parent && control.value === control.parent.value[matchTo] ? null : { isMatching: false }
+    };
+}
 
 @Component({
 	selector: 'app-changePassword',
@@ -12,7 +19,13 @@ import { BaseComponent } from '../base/base.component';
 })
 export class ChangePasswordComponent extends BaseComponent implements OnInit{
 
+	showOldPWD: boolean = false;
+	showNewPWD: boolean = false;
+	showConfirmPWD: boolean = false;
     pwdForm: FormGroup;
+	changeMsg: string = null;
+	showConfirmModal: boolean = false;
+	showSuccessModal: boolean = false;
 
 	constructor(
         private apiService: ApiService,
@@ -24,10 +37,11 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit{
     
 	ngOnInit(){
 
+		const pwdRule = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*/
 		this.pwdForm = new FormGroup({
             "oldPwd": new FormControl(null, [Validators.required]),
-            "newPwd": new FormControl(null, [Validators.required]),
-            "confirmPwd": new FormControl(null, [Validators.required]),
+            "newPwd": new FormControl(null, [Validators.required, Validators.minLength(8), Validators.pattern(pwdRule)]),
+            "confirmPwd": new FormControl(null, [Validators.required, matchValues("newPwd")]),
         })
     }
 
@@ -36,9 +50,33 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit{
 			oldPassword: this.pwdForm.get("oldPwd").value,
 			newPassword: this.pwdForm.get("newPwd").value,
 		}
-		this.apiService.UpdatePassword(req).subscribe(() =>{
-			
+		this.apiService.UpdatePassword(req)
+		.subscribe(() =>{
+			this.showSuccessModal = true;
+
+			setTimeout(() => {
+				this.showSuccessModal = false;
+			}, 4000);
+		},
+		(err: HttpErrorResponse) => {
+			this.changeMsg = err.error.details || err.message || "Forget Password Submit Failed.";
+			this.pwdForm.markAsUntouched();
 		});
+	}
+
+	onCancel(){
+		if(this.pwdForm.get("oldPwd").value ||
+			this.pwdForm.get("newPwd").value ||
+			this.pwdForm.get("confirmPwd").value
+		){
+			this.showConfirmModal = true;
+		}else{
+			this.onNavPersonalInfo();
+		}
+	}
+
+	onNavPersonalInfo(){
+		this.router.navigate(["/personalInfo"])
 	}
 
 }

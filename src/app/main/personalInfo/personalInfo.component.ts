@@ -30,7 +30,6 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit{
 	}
 
 	ngOnInit(){
-		console.log(this.userService.currentUser);
 		this.userService.userChange.subscribe((user: User) =>{
 			this.user = user;
 			this.infoForm.setValue({
@@ -72,9 +71,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit{
 		},
 		(err: HttpErrorResponse) =>{
 			this.submitErr = err.error.details || err.message || "Update Personal Information Fail!"
-			this.infoForm.get('name').markAsUntouched();
-            this.infoForm.get('email').markAsUntouched();
-            this.infoForm.get('mobile').markAsUntouched();
+            this.infoForm.markAsUntouched();
 		})
 	}
 

@@ -65,6 +65,10 @@ export interface UserPasswordUpdateReq{
     newPassword: string;
 }
 
+export interface UserPasswordUpdateResp{
+    message: string;
+}
+
 export interface OrderFilterReq{
     orderNumber: string;
     applicationDateFromUtc: Date;
