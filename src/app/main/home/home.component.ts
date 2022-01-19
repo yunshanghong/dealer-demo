@@ -62,14 +62,13 @@ export class HomeComponent extends BaseComponent implements OnInit{
     onExport(){
         this.apiService.OrderExport(this.orderInfo)
         .subscribe((resp: Blob) =>{
-            let dataType = resp.type;
-            let binaryData = [];
-            binaryData.push(resp);
-            let downloadLink = document.createElement('a');
-            downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+            const binaryData = [resp];
+            const downloadLink = document.createElement('a');
+            downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: resp.type}));
             downloadLink.setAttribute('download', `Orders_${moment().format("YYYYMMDDHHmmss")}`);
             document.body.appendChild(downloadLink);
             downloadLink.click();
+            downloadLink.remove();
         },
         (err: HttpErrorResponse)=>{
             console.log(err);
