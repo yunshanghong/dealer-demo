@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit{
 
 	user: User = null;
+	showSearch: boolean = false;
 
 	constructor(
         private router: Router,

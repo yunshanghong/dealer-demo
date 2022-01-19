@@ -8,10 +8,10 @@
             <a class="weblink-pagelink blod linelink" routerLink="/personalInfo">Profile</a>
             <a class="weblink-pagelink login blod linelink" (click)="logout()">Log out</a>
         </div>
-        <div class="searchbtn" data-open="SearchCarId"><i class="be-icon be-icon-magnifier"></i></div>
+        <div class="searchbtn" data-open="SearchCarId" (click)="showSearch = true"><i class="be-icon be-icon-magnifier"></i></div>
     </div>
     </div>
-    <div class="searchcont" id="SearchCarId">
+    <div class="searchcont" id="SearchCarId" [ngClass]="{'is-active': showSearch}">
     <div class="ct_ctr"> <a class="brand-logo hd-main_left" href="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
         <div class="searchlist">
         <input class="searchbox" type="text" placeholder="Order Number">
@@ -20,7 +20,7 @@
         <div class="searchcont-btn"><i class="be-icon be-icon-magnifier"></i>
             <input class="blod linelink" type="submit" value="Search">
         </div>
-        <div class="closesearch"></div>
+        <div class="closesearch" (click)="showSearch = false"></div>
         </div>
     </div>
     </div>
