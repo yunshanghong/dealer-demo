@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, OrderFilterReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, OrderReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -11,11 +11,15 @@ const basicUrl = environment.basicUrl;
 export class ApiService {
     constructor(private http: HttpClient) { }
 
-    private HttpHandle<T2>(method: Observable<ApiModel<T2>>): Observable<T2>{
+    private HttpHandle<T2>(method: Observable<ApiModel<T2>>): Observable<any>{
         return method.pipe(
             map((apiResp: ApiModel<T2>)=>{
+                console.log(apiResp);
                 if(!apiResp){
                     return null;
+                }
+                if(apiResp instanceof Blob){
+                    return apiResp;
                 }
                 const status = apiResp.status;
                 
@@ -65,9 +69,19 @@ export class ApiService {
         )
     }
 
-    OrderFilter(req: OrderFilterReq){
+    OrderFilter(req: OrderReq){
         return this.HttpHandle<OrderFilterResp>(
             this.http.post<ApiModel<OrderFilterResp>>(basicUrl + ApiEndpoint.OrderFilter, req),
+        )
+    }
+
+    OrderExport(req: OrderReq){
+        return this.HttpHandle<any>(
+            this.http.post<ApiModel<any>>(
+                basicUrl + ApiEndpoint.OrderExport, 
+                req,
+                { responseType: 'blob' as 'json' }
+            )
         )
     }
 }

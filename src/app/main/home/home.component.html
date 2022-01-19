@@ -25,7 +25,7 @@
             <li class="tabs-title"><a href="#TableList5" data-tabs-target="TableList5">Draft</a></li>
             <li class="tabs-title"><a href="#TableList6" data-tabs-target="TableList6">Canceled</a></li>
             <li class="tabs-title"><a href="#TableList7" data-tabs-target="TableList7">Pending myInfo</a></li>
-        </ul><a class="downloadlist show-for-large" href="/"> <i class="be-icon be-icon-download"> </i>
+        </ul><a class="downloadlist show-for-large" (click)="onExport()"> <i class="be-icon be-icon-download"> </i>
             <div class="linelink blod">Export</div></a>
         </div>
     </section>
@@ -57,8 +57,8 @@
                 <div class="v-nbr"><span class="mo_title hide-for-large">Vehicle Number</span>{{ orderItem.vehicleNumber }}</div>
                 <div class="name"><span class="mo_title hide-for-large">Name</span>{{ orderItem.applicantName }}</div>
                 <div class="action"> 
-                    <a class="linelink" href="/">View </a>
-                    <a class="linelink show-for-large" href="/">Print</a>
+                    <a class="linelink" (click)="onView(orderItem.id)">View </a>
+                    <a class="linelink show-for-large" (click)="onPrint(orderItem.id)">Print</a>
                 </div>
             </li>
 

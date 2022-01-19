@@ -28,13 +28,13 @@ export class TokenInterceptor implements HttpInterceptor {
 			if (!request.headers.has('Content-Type') && !(request.body instanceof FormData)) {
 				request = request.clone({
 					setHeaders: {
-						'content-type': 'application/json'
+						'Content-Type': 'application/json'
 					}
 				});
 			}
 
 			request = request.clone({
-				headers: request.headers.set('Accept', 'application/json')
+				headers: request.headers.set('Accept', '*/*')
 			});
 
 			console.log(request);
