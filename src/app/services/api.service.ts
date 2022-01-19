@@ -15,10 +15,7 @@ export class ApiService {
         return method.pipe(
             map((apiResp: ApiModel<T2>)=>{
                 console.log(apiResp);
-                if(!apiResp){
-                    return null;
-                }
-                if(apiResp instanceof Blob){
+                if(!apiResp || apiResp instanceof Blob){
                     return apiResp;
                 }
                 const status = apiResp.status;

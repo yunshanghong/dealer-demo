@@ -13,6 +13,7 @@ export enum ApiEndpoint{
 
     // Order
     OrderFilter = "Order/Filter",
+    OrderExport = "Order/Export",
 }
 
 export interface ApiModel<T>{
@@ -65,7 +66,7 @@ export interface UserPasswordUpdateReq{
 }
 
 
-export interface OrderFilterReq{
+export interface OrderReq{
     orderNumber: string;
     applicationDateFromUtc: Date;
     applicationDateToUtc: Date;
