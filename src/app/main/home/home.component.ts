@@ -15,7 +15,8 @@ export class HomeComponent extends BaseComponent implements OnInit{
     isAnimated: boolean = false;
     orderItems: Array<OrderItem> = [];
     pageIndex: number = 0;
-    
+    pageSize: number = 10;
+    totalPage: number = 1;
 
     constructor(
         private apiService: ApiService,
@@ -36,14 +37,15 @@ export class HomeComponent extends BaseComponent implements OnInit{
             applicationDateToUtc: null,
             applicantName: null,
             status: null,
-            pageIndex: 0,
-            pageSize: 10,
+            pageIndex: this.pageIndex,
+            pageSize: this.pageSize,
         }
 
         this.apiService.OrderFilter(req)
         .subscribe((resp: OrderFilterResp)=>{
             console.log(resp)
             this.orderItems = resp.items;
+            this.totalPage = resp.totalPages;
         },
         (err: HttpErrorResponse) => {
             console.log(err)
