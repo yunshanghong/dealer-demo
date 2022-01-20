@@ -22,9 +22,9 @@ export class HomeComponent extends BaseComponent implements OnInit{
         applicantName: null,
         status: null,
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 1,
     }
-    totalPage: number = 1;
+    totalPage: Array<number> = new Array(1);
 
     constructor(
         private apiService: ApiService,
@@ -39,15 +39,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
     }
 
     ngOnInit(){
-        this.apiService.OrderFilter(this.orderInfo)
-        .subscribe((resp: OrderFilterResp)=>{
-            console.log(resp)
-            this.orderItems = resp.items;
-            this.totalPage = resp.totalPages;
-        },
-        (err: HttpErrorResponse) => {
-            console.log(err)
-        })
+        this.getOrder();
     }
 
     onView(id: number){
@@ -72,6 +64,25 @@ export class HomeComponent extends BaseComponent implements OnInit{
         },
         (err: HttpErrorResponse)=>{
             console.log(err);
+        })
+    }
+
+    onChangePage(pageIndex: number){
+        if (pageIndex !== this.orderInfo.pageIndex && pageIndex >=0 && pageIndex <= this.totalPage.length-1){
+            this.orderInfo = {...this.orderInfo, pageIndex: pageIndex};
+            this.getOrder();
+        }
+    }
+
+    private getOrder(){
+        this.apiService.OrderFilter(this.orderInfo)
+        .subscribe((resp: OrderFilterResp)=>{
+            console.log(resp)
+            this.orderItems = resp.items;
+            this.totalPage = new Array(resp.totalPages).fill(0);
+        },
+        (err: HttpErrorResponse) => {
+            console.log(err)
         })
     }
 }
