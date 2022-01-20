@@ -49,18 +49,19 @@ export class HomeComponent extends BaseComponent implements OnInit{
 
     onPrint(id: number){
         console.log(id);
+        this.apiService.OrderPdf(id)
+        .subscribe((resp: Blob) =>{
+            this.downloadFile(resp, `OrderId_${id}`);
+        },
+        (err: HttpErrorResponse)=>{
+            console.log(err);
+        })
     }
 
     onExport(){
         this.apiService.OrderExport(this.orderInfo)
         .subscribe((resp: Blob) =>{
-            const binaryData = [resp];
-            const downloadLink = document.createElement('a');
-            downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: resp.type}));
-            downloadLink.setAttribute('download', `Orders_${moment().format("YYYYMMDDHHmmss")}`);
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            downloadLink.remove();
+            this.downloadFile(resp, `Orders_${moment().format("YYYYMMDDHHmmss")}`);
         },
         (err: HttpErrorResponse)=>{
             console.log(err);
@@ -84,5 +85,15 @@ export class HomeComponent extends BaseComponent implements OnInit{
         (err: HttpErrorResponse) => {
             console.log(err)
         })
+    }
+
+    private downloadFile(data: Blob, fileName: string){
+        const binaryData = [data];
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: data.type}));
+        downloadLink.setAttribute('download', fileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
     }
 }

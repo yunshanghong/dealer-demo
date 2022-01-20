@@ -65,17 +65,27 @@
         </ul>
         <nav aria-label="Pagination">
             <ul class="pagination text-center">
-            <li class="pagination-previous disabled"> <i class="be-icon be-icon-arrow-toleft"></i>&nbsp; Prev</li>
-            <li class="current"><span class="show-for-sr"></span>1</li>
-            <li><a href="#" aria-label="Page 2">2</a></li>
-            <li><a class="show-for-large" href="#" aria-label="Page 3">3</a></li>
-            <li><a class="show-for-large" href="#" aria-label="Page 4">4</a></li>
-            <li class="ellipsis"></li>
-            <li><a class="show-for-large" href="#" aria-label="Page 12">12</a></li>
-            <li><a class="show-for-large" href="#" aria-label="Page 13">13</a></li>
-            <li><a href="#" aria-label="Page 14">14</a></li>
-            <li class="pagination-next"><a href="#" aria-label="Next page" pagination-arrows="false">
-                    Next &nbsp;<i class="be-icon be-icon-arrow-toright"></i></a></li>
+            <li class="pagination-previous" *ngIf="totalPage.length !== 1" [ngClass]="{'disabled': orderInfo.pageIndex === 0}" (click)="onChangePage(orderInfo.pageIndex-1)"> 
+                <a aria-label="Prev page" pagination-arrows="false">
+                    <i class="be-icon be-icon-arrow-toleft"></i>&nbsp; Prev
+                </a>
+            </li>
+
+            <li *ngFor="let page of totalPage | First4" [ngClass]="{'current': page.originIndex === orderInfo.pageIndex}" (click)="onChangePage(page.originIndex)">
+                <a [ngClass]="{'show-for-large': page.originIndex !== 0 && page.originIndex !== 1}">{{ page.originIndex + 1 }}</a>
+            </li>
+            
+            <li class="ellipsis" *ngIf="totalPage.length > 7"></li>
+
+            <li *ngFor="let page of totalPage | Last3; let isLast = last;">
+                <a [ngClass]="{'show-for-large': !isLast}" aria-label="Page 12">{{ page.originIndex + 1 }}</a>
+            </li>
+
+            <li class="pagination-next" *ngIf="totalPage.length !== 1" [ngClass]="{'disabled': orderInfo.pageIndex === totalPage.length-1}" (click)="onChangePage(orderInfo.pageIndex+1)">
+                <a aria-label="Next page" pagination-arrows="false">
+                    Next &nbsp;<i class="be-icon be-icon-arrow-toright"></i>
+                </a>
+            </li>
             </ul>
         </nav>
         </div>
