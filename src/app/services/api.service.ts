@@ -11,13 +11,9 @@ const basicUrl = environment.basicUrl;
 export class ApiService {
     constructor(private http: HttpClient) { }
 
-    private HttpHandle<T2>(method: Observable<ApiModel<T2>>): Observable<any>{
+    private HttpHandle<T2>(method: Observable<ApiModel<T2>>): Observable<T2>{
         return method.pipe(
             map((apiResp: ApiModel<T2>)=>{
-                console.log(apiResp);
-                if(!apiResp || apiResp instanceof Blob){
-                    return apiResp;
-                }
                 const status = apiResp.status;
                 
                 if(!status.isSuccess || status.errorCode !== 0){
@@ -36,49 +32,56 @@ export class ApiService {
         );
     }
 
-    UserLogout(){
+    UserLogout(): Observable<void>{
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserLogout, null),
         );
     }
 
-    UserPasswordForget(req: UserPasswordForgetReq){
+    UserPasswordForget(req: UserPasswordForgetReq): Observable<UserPasswordForgetResp>{
         return this.HttpHandle<UserPasswordForgetResp>(
             this.http.post<ApiModel<UserPasswordForgetResp>>(basicUrl + ApiEndpoint.UserPasswordForget, req),
         );
     }
 
-    UserProfile(){
+    UserProfile(): Observable<UserProfileResp>{
         return this.HttpHandle<UserProfileResp>(
             this.http.get<ApiModel<UserProfileResp>>(basicUrl + ApiEndpoint.UserProfile),
         );
     }
 
-    UpdateProfile(req: UpdateProfileReq){
+    UpdateProfile(req: UpdateProfileReq): Observable<void>{
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserProfile, req),
         )
     }
 
-    UpdatePassword(req: UserPasswordUpdateReq){
+    UpdatePassword(req: UserPasswordUpdateReq): Observable<void>{
         return this.HttpHandle<void>(
             this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.UserPasswordUpdate, req),
         )
     }
 
-    OrderFilter(req: OrderReq){
+    OrderFilter(req: OrderReq): Observable<OrderFilterResp>{
         return this.HttpHandle<OrderFilterResp>(
             this.http.post<ApiModel<OrderFilterResp>>(basicUrl + ApiEndpoint.OrderFilter, req),
         )
     }
 
-    OrderExport(req: OrderReq){
-        return this.HttpHandle<any>(
-            this.http.post<ApiModel<any>>(
+    OrderPdf(orderId: number): Observable<Blob>{
+        return  this.http.get<Blob>
+            (
+                basicUrl + ApiEndpoint.OrderPdf.replace("{orderId}", orderId.toString()),
+                { responseType: 'blob' as 'json'}
+            )
+    }
+
+    OrderExport(req: OrderReq): Observable<Blob>{
+        return this.http.post<Blob>
+            (
                 basicUrl + ApiEndpoint.OrderExport, 
                 req,
                 { responseType: 'blob' as 'json' }
             )
-        )
     }
 }

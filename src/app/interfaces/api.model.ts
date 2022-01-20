@@ -13,6 +13,7 @@ export enum ApiEndpoint{
 
     // Order
     OrderFilter = "Order/Filter",
+    OrderPdf = "Order/{orderId}/pdf",
     OrderExport = "Order/Export",
 }
 
