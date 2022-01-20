@@ -69,7 +69,7 @@ export class ApiService {
     }
 
     OrderPdf(orderId: number): Observable<Blob>{
-        return  this.http.get<Blob>
+        return this.http.get<Blob>
             (
                 basicUrl + ApiEndpoint.OrderPdf.replace("{orderId}", orderId.toString()),
                 { responseType: 'blob' as 'json'}
