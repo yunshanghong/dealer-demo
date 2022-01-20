@@ -29,8 +29,8 @@ export class LoginComponent extends BaseComponent implements OnInit{
 
     ngOnInit() {
         this.loginForm = new FormGroup({
-            "account": new FormControl("admin", [Validators.required]),
-            "password": new FormControl("TfsFc@dm1n", [Validators.required]),
+            "account": new FormControl(null, [Validators.required]),
+            "password": new FormControl(null, [Validators.required]),
             "RmbMe": new FormControl(true, []),
         })
     }
