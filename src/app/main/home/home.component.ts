@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderReq, OrderFilterResp, OrderItem } from 'src/app/interfaces/api.model';
+import { OrderReq, OrderFilterResp, OrderItem, OrderByIdResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 import * as moment from 'moment';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
 	selector: 'app-home',
@@ -44,6 +45,13 @@ export class HomeComponent extends BaseComponent implements OnInit{
 
     onView(id: number){
         console.log(id);
+        this.apiService.OrderById(id)
+        .subscribe((resp: OrderByIdResp)=>{
+            console.log(resp);
+        },
+        (err: HttpErrorResponse)=>{
+            console.log(err)
+        })
 
     }
 
@@ -51,7 +59,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
         console.log(id);
         this.apiService.OrderPdf(id)
         .subscribe((resp: Blob) =>{
-            this.downloadFile(resp, `OrderId_${id}`);
+            isPlatformBrowser(this.platformId) && this.downloadFile(resp, `OrderId_${id}`);
         },
         (err: HttpErrorResponse)=>{
             console.log(err);
@@ -61,7 +69,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
     onExport(){
         this.apiService.OrderExport(this.orderInfo)
         .subscribe((resp: Blob) =>{
-            this.downloadFile(resp, `Orders_${moment().format("YYYYMMDDHHmmss")}`);
+            isPlatformBrowser(this.platformId) && this.downloadFile(resp, `Orders_${moment().format("YYYYMMDDHHmmss")}`);
         },
         (err: HttpErrorResponse)=>{
             console.log(err);

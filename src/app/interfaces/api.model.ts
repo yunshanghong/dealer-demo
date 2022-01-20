@@ -13,8 +13,11 @@ export enum ApiEndpoint{
 
     // Order
     OrderFilter = "Order/Filter",
+    OrderById = "Order/{orderId}",
     OrderPdf = "Order/{orderId}/pdf",
     OrderExport = "Order/Export",
+
+    OrderId = "{orderId}",
 }
 
 export interface ApiModel<T>{
@@ -93,6 +96,49 @@ export interface OrderItem{
     vehicleType: string;
     vehicleNumber: string;
     applicantName: string;
+}
+
+export interface OrderByIdResp{
+    id: number,
+    orderNumber: string,
+    customerType: string,
+    vehicleCondition: string,
+    vehicleType: string,
+    brand: string,
+    vehicleModelCode: string,
+    vehicleModelName: string,
+    vehicleVariantCode: string,
+    vehicleVariantName: string,
+    hasAdditionalStructure: boolean,
+    priceWithGst: number,
+    financedAmount: number,
+    interest: number,
+    tenure: number,
+    monthlyInstallment: number,
+    customer: Customer,
+    guarantor: Customer,
+    vehicleNumber: string,
+    supportingDocs: Array<any>
+}
+
+export interface Customer{
+    id: number,
+    isMyInfo: boolean,
+    name: string,
+    nric: string,
+    email: string,
+    mobile: string,
+    gender: string,
+    nationality: string,
+    residentialStatus: string,
+    dateOfBirth: Date,
+    postalCode: string,
+    address: string,
+    unitNumber: string,
+    netAnnualIncome: number,
+    employerName: string,
+    assessmentYear: string,
+    supportingDocs: string
 }
 
 export interface User{
