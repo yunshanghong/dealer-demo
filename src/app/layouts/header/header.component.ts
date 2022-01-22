@@ -1,6 +1,6 @@
-import { Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { User, UserProfileResp } from 'src/app/interfaces/api.model';
+import { User } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 
