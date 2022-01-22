@@ -7562,6 +7562,11 @@ screen and (min-width: 40em) {
     background: transparent;
 }
 
+.pagination .disabled a,
+.pagination .disabled i {
+    color: #cacaca !important;
+}
+
 .pagination .ellipsis::after {
     padding: 0.1875rem 0.9375rem;
     content: '\2026';
@@ -11172,12 +11177,12 @@ screen and (min-width: 90em) {
 /* Vendor Style*/
 @font-face {
     font-family: "icon";
-    src: url("../assets/fonts/icons/icon.eot?1642498399755");
-    src: url("../assets/fonts/icons/icon.eot?#iefix-1642498399755") format("embedded-opentype"),
-        url("../assets/fonts/icons/icon.woff2?1642498399755") format("woff2"),
-        url("../assets/fonts/icons/icon.woff?1642498399755") format("woff"),
-        url("../assets/fonts/icons/icon.ttf?1642498399755") format("truetype"),
-        url("../assets/fonts/icons/icon.svg?1642498399755#icon") format("svg");
+    src: url("../assets/fonts/icons/icon.eot?1642735852476");
+    src: url("../assets/fonts/icons/icon.eot?#iefix-1642735852476") format("embedded-opentype"),
+        url("../assets/fonts/icons/icon.woff2?1642735852476") format("woff2"),
+        url("../assets/fonts/icons/icon.woff?1642735852476") format("woff"),
+        url("../assets/fonts/icons/icon.ttf?1642735852476") format("truetype"),
+        url("../assets/fonts/icons/icon.svg?1642735852476#icon") format("svg");
     font-display: block;
     unicode-range: U+EA01-EA13;
 }

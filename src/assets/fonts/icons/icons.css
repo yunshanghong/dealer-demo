@@ -1,9 +1,9 @@
 @font-face {
   font-family: "icon";
-  src: url("icon.eot?1639985019750");
-  src: url("icon.eot?#iefix-1639985019750") format("embedded-opentype"), url("icon.woff2?1639985019750") format("woff2"), url("icon.woff?1639985019750") format("woff"), url("icon.ttf?1639985019750") format("truetype"), url("icon.svg?1639985019750#icon") format("svg");
+  src: url("icon.eot?1642735852476");
+  src: url("icon.eot?#iefix-1642735852476") format("embedded-opentype"), url("icon.woff2?1642735852476") format("woff2"), url("icon.woff?1642735852476") format("woff"), url("icon.ttf?1642735852476") format("truetype"), url("icon.svg?1642735852476#icon") format("svg");
   font-display: block;
-  unicode-range: U+EA01-EA0D;
+  unicode-range: U+EA01-EA13;
 }
 
 .be-icon:before {
@@ -37,46 +37,70 @@
   content: '\ea02';
 }
 
-.be-icon-arrow-toleft:before {
+.be-icon-arrow-todown-toyota-red:before {
   content: '\ea03';
 }
 
-.be-icon-arrow-toright:before {
+.be-icon-arrow-todown:before {
   content: '\ea04';
 }
 
-.be-icon-arrow:before {
+.be-icon-arrow-toleft:before {
   content: '\ea05';
 }
 
-.be-icon-check-l:before {
+.be-icon-arrow-toright:before {
   content: '\ea06';
 }
 
-.be-icon-check:before {
+.be-icon-arrow:before {
   content: '\ea07';
 }
 
-.be-icon-download:before {
+.be-icon-calendar-toyota-red:before {
   content: '\ea08';
 }
 
-.be-icon-eyes:before {
+.be-icon-calendar:before {
   content: '\ea09';
 }
 
-.be-icon-eyes_no:before {
+.be-icon-check-l:before {
   content: '\ea0a';
 }
 
-.be-icon-magnifier:before {
+.be-icon-check:before {
   content: '\ea0b';
 }
 
-.be-icon-q-mark:before {
+.be-icon-download:before {
   content: '\ea0c';
 }
 
-.be-icon-sequence:before {
+.be-icon-eyes:before {
   content: '\ea0d';
+}
+
+.be-icon-eyes_no:before {
+  content: '\ea0e';
+}
+
+.be-icon-magnifier:before {
+  content: '\ea0f';
+}
+
+.be-icon-q-mark:before {
+  content: '\ea10';
+}
+
+.be-icon-sequence:before {
+  content: '\ea11';
+}
+
+.be-icon-trash-can:before {
+  content: '\ea12';
+}
+
+.be-icon-upload:before {
+  content: '\ea13';
 }

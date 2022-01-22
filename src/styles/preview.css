@@ -1,0 +1,158 @@
+/**
+ * Foundation for Sites by ZURB
+ * Version 6.4.3
+ * foundation.zurb.com
+ * Licensed under MIT Open Source
+ */
+/* Container Style*/
+.main-wrap {
+  position: relative;
+  z-index: 10; }
+
+.h1 {
+  margin-bottom: 2.5rem;
+  width: 100%;
+  letter-spacing: 0.125rem; }
+  @media screen and (min-width: 40em) and (max-width: 63.99875em) {
+    .h1 {
+      font-size: 2rem; } }
+  @media screen and (max-width: 39.99875em) {
+    .h1 {
+      margin-top: 0.9375rem; } }
+
+.cell.large-8.grid-y {
+  position: relative;
+  overflow: hidden; }
+
+.card {
+  font-size: 0.875rem;
+  color: #666666; }
+  @media print, screen and (min-width: 64em) {
+    .card {
+      font-size: 1rem; } }
+
+.card-divider {
+  color: #fff;
+  background: #666666;
+  padding: 1.25rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+  .card-divider span {
+    position: relative;
+    top: 0.1875rem; }
+
+.card-section {
+  padding: 1.875rem 1.25rem; }
+  .card-section .grid-x {
+    margin-bottom: 1.5625rem;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    .card-section .grid-x:last-child {
+      margin-bottom: 0; }
+  .card-section .star {
+    color: #e60021; }
+  .card-section p {
+    margin-bottom: 0; }
+  .card-section .listName::after {
+    content: ""; }
+    @media print, screen and (min-width: 64em) {
+      .card-section .listName::after {
+        content: " :"; } }
+    @media screen and (min-width: 75em) {
+      .card-section .listName::after {
+        content: ""; } }
+  .card-section .listValue {
+    word-wrap: break-word;
+    font-weight: normal; }
+    .card-section .listValue::before {
+      content: ": "; }
+      @media print, screen and (min-width: 64em) {
+        .card-section .listValue::before {
+          content: ""; } }
+      @media screen and (min-width: 75em) {
+        .card-section .listValue::before {
+          content: ": "; } }
+  .card-section .fileName {
+    min-height: 2rem;
+    background: #f2f2f2;
+    padding: 0 0.625rem; }
+    .card-section .fileName p {
+      line-height: 1;
+      margin-bottom: 0;
+      position: relative;
+      top: 10px; }
+
+.fileUploadCard .grid-x {
+  margin-bottom: 0; }
+
+.fileUploadCard .card-section > p {
+  margin-bottom: 1.4375rem; }
+
+.fileUploadCard .star {
+  margin-right: 1.875rem; }
+
+.fileUploadCard .text-red {
+  line-height: 1; }
+
+.fileUploadCard .fileName {
+  margin-bottom: 1.25rem; }
+
+.btncont {
+  margin: 3.125rem auto 1.25rem auto;
+  width: 50%; }
+
+@media (max-width: 390px) {
+  .btncont .btncont-line,
+  .btncont .btncont-bgimg {
+    font-size: 0.875rem;
+    padding: 0.625rem; } }
+
+.align-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+@media print, screen and (min-width: 40em) {
+  .bgcar {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 0;
+    z-index: 1;
+    width: 150%;
+    max-width: 81.25rem; } }
+
+@media print, screen and (min-width: 64em) {
+  .bgcar {
+    position: absolute;
+    left: -300px;
+    bottom: 1.875rem; } }
+
+.bgcar .carline {
+  fill: none;
+  stroke: #c6c6c6;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke-dasharray: 12000;
+  stroke-dashoffset: 12000;
+  -webkit-animation: dash 5s linear forwards;
+          animation: dash 5s linear forwards; }
+
+@-webkit-keyframes dash {
+  from {
+    stroke-dashoffset: 12000; }
+  to {
+    stroke-dashoffset: 0; } }
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 12000; }
+  to {
+    stroke-dashoffset: 0; } }

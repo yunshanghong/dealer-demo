@@ -1,0 +1,492 @@
+/**
+ * Foundation for Sites by ZURB
+ * Version 6.4.3
+ * foundation.zurb.com
+ * Licensed under MIT Open Source
+ */
+/* Container Style*/
+.main-wrap {
+    position: relative;
+    z-index: 10;
+}
+
+.h1 {
+    margin-bottom: 2.5rem;
+    width: 100%;
+    letter-spacing: 0.125rem;
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.99875em) {
+    .h1 {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 39.99875em) {
+    .h1 {
+        margin-top: 0.9375rem;
+    }
+}
+
+.cell.large-8.grid-y {
+    position: relative;
+    overflow: hidden;
+}
+
+.card {
+    font-size: 0.875rem;
+    color: #666666;
+}
+
+@media print,
+screen and (min-width: 64em) {
+    .card {
+        font-size: 1rem;
+    }
+}
+
+.card-divider {
+    color: #fff;
+    background: #666666;
+    padding: 1.25rem;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.card-divider span {
+    position: relative;
+    top: 0.1875rem;
+}
+
+.card-section {
+    padding: 1.875rem 1.25rem;
+}
+
+.card-section .grid-x {
+    margin-bottom: 1.6875rem;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.card-section .grid-x:last-child {
+    margin-bottom: 0;
+}
+
+.card-section p {
+    line-height: 1.3;
+    margin-bottom: 0.1875rem;
+    position: relative;
+    top: 0.125rem;
+}
+
+@media screen and (min-width: 90em) {
+    .card-section p {
+        margin-bottom: 0;
+    }
+}
+
+.card-section .star {
+    color: #e60021;
+}
+
+.card-section select,
+.card-section input[type="text"],
+.card-section input[type="file"] {
+    height: inherit;
+    min-height: 2rem;
+    font-size: 0.875rem;
+    color: #666666;
+    padding: 0 0.625rem;
+    border: 1px solid #494949;
+}
+
+@media print,
+screen and (min-width: 64em) {
+
+    .card-section select,
+    .card-section input[type="text"],
+    .card-section input[type="file"] {
+        font-size: 1rem;
+    }
+}
+
+.card-section select {
+    background-image: url(../assets/images/font_svg/arrow-todown-toyota-red.svg);
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    background-position: right center;
+    cursor: pointer;
+}
+
+.card-section select option {
+    color: #666666;
+    cursor: pointer;
+}
+
+.card-section label {
+    color: #666666;
+    font-size: 0.875rem;
+}
+
+@media print,
+screen and (min-width: 64em) {
+    .card-section label {
+        font-size: 1rem;
+    }
+}
+
+.card-section #datepicker {
+    background-image: url(../assets/images/font_svg/calendar-toyota-red.svg);
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    background-position: right 0.625rem center;
+}
+
+.card .fileInput {
+    background: #f2f2f2;
+    position: relative;
+    margin-top: 0;
+}
+
+.card .fileInput input {
+    outline: none;
+    border: none;
+    background: #f2f2f2;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.card .fileInput .fileInputValue {
+    width: calc(100% - 55px);
+    position: absolute;
+    top: 0.375rem;
+    left: 0.625rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card .fileInput i.be-icon-trash-can {
+    color: #d5d5d5;
+    font-size: 1.25rem;
+    line-height: 1;
+    margin: 0;
+    position: absolute;
+    top: 0.4375rem;
+    right: 0.625rem;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.card .fileInput i.be-icon-trash-can.icon-red {
+    color: #cc0033;
+}
+
+.card .fileInput i.be-icon-trash-can:hover {
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+}
+
+.card .fileInput i.be-icon-trash-can::before {
+    margin: 0;
+}
+
+.card .fileInput::after {
+    display: block;
+    content: "";
+    height: 1.25rem;
+    border-left: 1px solid #d9d9d9;
+    position: absolute;
+    top: 0.4375rem;
+    right: 2.4375rem;
+}
+
+.card .fileInput ::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 90em) {
+    .card .fileInput {
+        margin-top: 0.3125rem;
+    }
+}
+
+i.be-icon.be-icon-upload {
+    color: #cc0033;
+    margin-right: 0.625rem;
+}
+
+i.be-icon.be-icon-upload::before {
+    font-weight: 600;
+}
+
+.note {
+    display: block;
+    font-size: 0.875rem;
+    color: #b3b3b3;
+    margin-bottom: 2rem;
+}
+
+@media print,
+screen and (min-width: 64em) {
+    .note {
+        font-size: 1rem;
+    }
+}
+
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+input[type="radio"]+label {
+    margin: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked+label .radioLabel_icon {
+    border: 0.0625rem solid #cc0033;
+    background-color: #cc0033;
+}
+
+.radioLabel {
+    font-size: 1rem;
+    position: relative;
+    top: 0.125rem;
+}
+
+.radioLabel_icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.875rem;
+    color: #fff;
+    border: 0.0625rem solid #666666;
+    margin: -0.375rem 0.25rem 0 0;
+}
+
+.radioLabel_icon .be-icon::before {
+    -webkit-transform: scale(0.8) translate(-0.03125rem, 0.125rem);
+    transform: scale(0.8) translate(-0.03125rem, 0.125rem);
+}
+
+.align-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.text-red {
+    line-height: 1;
+}
+
+.fileUploadCard .grid-x:first-child {
+    margin-bottom: 1.25rem;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.fileUploadCard .grid-x {
+    margin-bottom: 0;
+}
+
+.fileUploadCard .fileInput {
+    margin-bottom: 1.25rem;
+}
+
+.fileUploadCard .text-red {
+    margin-right: 1.875rem;
+}
+
+.fileUploadCard .fileUploadNote {
+    color: #b3b3b3;
+    padding-top: 0.625rem;
+}
+
+.fileUploadCard .star {
+    margin-right: 1.875rem;
+}
+
+input::-webkit-input-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #666666;
+    font-weight: 600;
+    opacity: 1;
+    /* Firefox */
+}
+
+input::-moz-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #666666;
+    font-weight: 600;
+    opacity: 1;
+    /* Firefox */
+}
+
+input:-ms-input-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #666666;
+    font-weight: 600;
+    opacity: 1;
+    /* Firefox */
+}
+
+input::-ms-input-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #666666;
+    font-weight: 600;
+    opacity: 1;
+    /* Firefox */
+}
+
+input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #666666;
+    font-weight: 600;
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #666666;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #666666;
+}
+
+.switch-container {
+    width: 2.625rem;
+    height: 1.375rem;
+    padding: 0.0625rem;
+    border-radius: 1.5625rem;
+    border: 1px solid #fff;
+    background: #666666;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.switch {
+    height: 1.125rem;
+    width: 1.125rem;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.switch-container-on {
+    background: #fff;
+    border: 1px solid #666666;
+}
+
+.switch-container-on .switch {
+    background: #666666;
+    margin-left: 1.25rem;
+}
+
+.btncont {
+    margin: 3.125rem auto 1.25rem auto;
+    width: 50%;
+}
+
+@media (max-width: 390px) {
+
+    .btncont .btncont-line,
+    .btncont .btncont-bgimg {
+        font-size: 0.875rem;
+        padding: 0.625rem;
+    }
+}
+
+@media print,
+screen and (min-width: 40em) {
+    .bgcar {
+        position: absolute;
+        bottom: 2.5rem;
+        right: 0;
+        z-index: 1;
+        width: 150%;
+        max-width: 81.25rem;
+    }
+}
+
+@media print,
+screen and (min-width: 64em) {
+    .bgcar {
+        position: absolute;
+        left: -300px;
+        bottom: 1.875rem;
+    }
+}
+
+.bgcar .carline {
+    fill: none;
+    stroke: #c6c6c6;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 12000;
+    stroke-dashoffset: 12000;
+    -webkit-animation: dash 5s linear forwards;
+    animation: dash 5s linear forwards;
+}
+
+@-webkit-keyframes dash {
+    from {
+        stroke-dashoffset: 12000;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dash {
+    from {
+        stroke-dashoffset: 12000;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    top: 0.5625rem;
+}
+
+.ui-widget-content .ui-icon {
+    background-image: url("../assets/images/ui-icons_222222_256x240.png") !important;
+}
+
+.ui-widget-header .ui-icon {
+    background-image: url("../assets/images/ui-icons_222222_256x240.png") !important;
+}
