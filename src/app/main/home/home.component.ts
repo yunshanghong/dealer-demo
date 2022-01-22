@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderReq, OrderFilterResp, OrderItem, OrderByIdResp } from 'src/app/interfaces/api.model';
+import { OrderReq, OrderFilterResp, OrderItem } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 import * as moment from 'moment';
@@ -29,30 +29,24 @@ export class HomeComponent extends BaseComponent implements OnInit{
 
     constructor(
         private apiService: ApiService,
+        private router: Router,
         @Inject(PLATFORM_ID) public platformId: Object,
     ) {
         super(platformId);
     }
 
-    @HostListener('window:load', [])
-    onWindowLoad() {
-        this.isAnimated = true;
-    }
-
     ngOnInit(){
+        this.isAnimated = false;
+        setTimeout(() => {
+            this.isAnimated = true;
+        }, 500);
+
         this.getOrder();
     }
 
     onView(id: number){
+        this.router.navigate([`preview/${id}`])
         console.log(id);
-        this.apiService.OrderById(id)
-        .subscribe((resp: OrderByIdResp)=>{
-            console.log(resp);
-        },
-        (err: HttpErrorResponse)=>{
-            console.log(err)
-        })
-
     }
 
     onPrint(id: number){

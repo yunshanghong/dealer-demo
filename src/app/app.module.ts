@@ -15,6 +15,9 @@ import { ChangePasswordComponent } from './main/changePassword/changePassword.co
 import { PersonalInfoComponent } from './main/personalInfo/personalInfo.component';
 import { LoginGuard } from './auth/login.guard';
 import { DateTimePipe } from './pipes/viewData.pipe';
+import { PreviewComponent } from './main/preview/preview.component';
+import { First4Pipe, Last3Pipe } from './pipes/pagination.pipe';
+import { CreateUpdateComponent } from './main/create-update/create-update.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -22,6 +25,8 @@ const routes: Routes = [
 	{ path: 'forgetPassword', component: ForgetPasswordComponent, canActivate: [LoginGuard] },
 	{ path: 'personalInfo', component: PersonalInfoComponent, canActivate: [LoginGuard] },
 	{ path: 'changePassword', component: ChangePasswordComponent, canActivate: [LoginGuard] },
+	{ path: 'preview/:id', component: PreviewComponent, canActivate: [LoginGuard] },
+	{ path: 'create-update', component: CreateUpdateComponent, canActivate: [LoginGuard] },
 	{ path: '**', redirectTo: "/", canActivate: [LoginGuard] },
 ];
 
@@ -42,10 +47,14 @@ const routes: Routes = [
 		FooterComponent,
 		//#endregion
 
+		//#region 
 		DateTimePipe,
+		First4Pipe,
+		Last3Pipe,
+		//#endregion
 	],
 	imports: [
-		RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+		RouterModule.forRoot(routes),
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
     	HttpClientModule,
     	FormsModule,
@@ -54,7 +63,6 @@ const routes: Routes = [
 	providers: [
     	{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, },
     	LoginGuard,
-
 	],
 	bootstrap: [AppComponent]
 })

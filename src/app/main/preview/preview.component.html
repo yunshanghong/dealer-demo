@@ -1,0 +1,547 @@
+<!-- [START] Content ==================================================-->
+<main class="main-container">
+    <div class="main-wrap">
+        <section class="ct_ctr blod">
+        <div class="h1 h1Txt text-center large-blod">NEW APPLICATION</div>
+        <div class="grid-x grid-margin-x">
+            <div class="cell large-4">
+            <div class="card shadow">
+                <div class="card-divider heightHeader"><span>A. DETAILS OF MOTOR VEHICLE TO BE FINANCED</span></div>
+                <div class="card-section">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Customer Type<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">{{ orderInfo?.customerType }} </p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Vehicle Condition<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">{{ orderInfo?.vehicleCondition }}</p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Vehicle Type<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">{{ orderInfo?.vehicleType }}</p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Make<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">{{ orderInfo?.brand }}</p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Model<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">{{orderInfo?.vehicleModelName}}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="card shadow">
+                <div class="card-divider"> <span>ADDITIONAL INFORMATION</span></div>
+                <div class="card-section">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Vehicle Number<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">{{ orderInfo?.vehicleNumber }}</p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-5 large-12 xlarge-5">
+                    <p class="listName">Log Card  Attachment<span class="star">*</span>
+                    </p>
+                    </div>
+                    <div class="cell small-7 large-12 xlarge-5"></div>
+                    <div class="cell">
+                    <div class="fileName">
+                        <p>2021111148944....pdf
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-5 large-12 xlarge-5">
+                    <p class="listName">Sales Agreement<span class="star">*</span>
+                    </p>
+                    </div>
+                    <div class="cell small-7 large-12 xlarge-5"></div>
+                    <div class="cell">
+                    <div class="fileName">
+                        <p>2021111148944....pdf
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Additional  Structure<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">{{ orderInfo?.hasAdditionalStructure ? 'Yes' : 'No'}}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="card shadow">
+                <div class="card-divider"> <span>B. FINANCING DETAILS (PER UNIT)</span></div>
+                <div class="card-section">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                    <p class="listName">Price inclusive  GST<span class="star">*</span>
+                    </p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                    <p class="listValue">$1,000,000
+                    </p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Amount Financed<span class="star">*</span></p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                    <p class="listValue">${{ orderInfo.financedAmount | number}}</p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                    <p class="listName">Financing Period (Months)<span class="star">*</span>
+                    </p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                    <p class="listValue">84
+                    </p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                    <p class="listName">Interest Rate (X% per annum)<span class="star">*</span>
+                    </p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                    <p class="listValue">2.48
+                    </p>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6 medium-4 large-12 xlarge-5">
+                    <p class="listName">Monthly  Instalments<span class="star">*</span>
+                    </p>
+                    </div>
+                    <div class="cell small-6 medium-8 large-12 xlarge-7">
+                    <p class="listValue">$2,500
+                    </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="cell large-8 grid-y">
+            <div class="grid-x grid-margin-x">
+                <div class="cell large-6 grid-x">
+                <div class="card shadow">
+                    <div class="card-divider"> <span>C. PERSONAL PARTICULARS OF APPLICANT</span></div>
+                    <div class="card-section">
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">MyInfo Status
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Pending
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">MyInfo<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">no
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Applicant Name<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Nick Lin
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">NRIC/Passport/ Company Reg. No*<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">S8912345C
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Gender<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Female
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Nationality<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Singaporean
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Residential Status<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Citizen
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Date of Birth<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">05/04/1989
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Postal Code<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">078881
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Address<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">1 Wallich St
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Unit Number<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">#04-11
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Mobile Number<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">98765432
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Email Address<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">nicklin@abc.com
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Net Annual Income<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">nicklin@abc.com
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Name of Employer/Self Employed<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">ABC Corp
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Assessment Year<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">2021
+                        </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="cell large-6 grid-x">
+                <div class="card shadow">
+                    <div class="card-divider"> <span>D. DETAILS OF GUARANTOR</span></div>
+                    <div class="card-section">
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">MyInfo Status
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Compeleted
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">MyInfo<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">no
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Applicant Name<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Nick Lin
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">NRIC/Passport/ Company Reg. No*<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">S8912345C
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Gender<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Female
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Nationality<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Singaporean
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Residential Status<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">Citizen
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Date of Birth<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">05/04/1989
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Postal Code<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">078881
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Address<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">1 Wallich St
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Unit Number<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">#04-11
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Mobile Number<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">98765432
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Email Address<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">nicklin@abc.com
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Net Annual Income<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">nicklin@abc.com
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Name of Employer/Self Employed<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">ABC Corp
+                        </p>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-12 xlarge-5">
+                        <p class="listName">Assessment Year<span class="star">*</span>
+                        </p>
+                        </div>
+                        <div class="cell small-6 medium-8 large-12 xlarge-7">
+                        <p class="listValue">2021
+                        </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="card shadow fileUploadCard">
+                <div class="card-divider"> <span>FILE UPLOAD</span></div>
+                <div class="card-section">
+                <p>
+                    NRIC and Income Documents<span class="star">*</span> 
+                    <a class="weblink-pagelink blod linelink text-red" href="#">Show All</a>
+                </p>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-12 medium-4">
+                    <div class="fileName">
+                        <p>2021111148944....pdf
+                        </p>
+                    </div>
+                    </div>
+                    <div class="cell small-12 medium-4">
+                    <div class="fileName">
+                        <p>20211111.pdf
+                        </p>
+                    </div>
+                    </div>
+                    <div class="cell small-12 medium-4">
+                    <div class="fileName">
+                        <p>20211111.pdf
+                        </p>
+                    </div>
+                    </div>
+                    <div class="cell small-12 medium-4">
+                    <div class="fileName">
+                        <p>20211111.pdf
+                        </p>
+                    </div>
+                    </div>
+                    <div class="cell small-12 medium-4">
+                    <div class="fileName">
+                        <p>20211111.pdf
+                        </p>
+                    </div>
+                    </div>
+                    <div class="cell small-12 medium-4">
+                    <div class="fileName">
+                        <p>20211111.pdf
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="btncont">
+            <input class="btncont-line" type="submit" value="Edit Details">
+            <input class="btncont-line" type="submit" value="Download">
+            <input class="btncont-bgimg" type="submit" value="Submit">
+        </div>
+        </section>
+    </div>
+</main>
