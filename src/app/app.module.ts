@@ -18,6 +18,7 @@ import { DateTimePipe } from './pipes/viewData.pipe';
 import { PreviewComponent } from './main/preview/preview.component';
 import { First4Pipe, Last3Pipe } from './pipes/pagination.pipe';
 import { CreateUpdateComponent } from './main/create-update/create-update.component';
+import { BaseComponent } from './main/base/base.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -35,11 +36,14 @@ const routes: Routes = [
 
 		//#region Main page
 		AppComponent,
+		BaseComponent,
 		HomeComponent,
 		LoginComponent,
 		ChangePasswordComponent,
 		ForgetPasswordComponent,
 		PersonalInfoComponent,
+		PreviewComponent,
+		CreateUpdateComponent,
 		//#endregion
 
 		//#region Layouts
@@ -54,7 +58,7 @@ const routes: Routes = [
 		//#endregion
 	],
 	imports: [
-		RouterModule.forRoot(routes),
+		RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
     	HttpClientModule,
     	FormsModule,

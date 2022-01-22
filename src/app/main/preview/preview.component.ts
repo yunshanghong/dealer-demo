@@ -12,7 +12,29 @@ import { BaseComponent } from '../base/base.component';
 })
 export class PreviewComponent extends BaseComponent implements OnInit{
 
-    orderInfo: OrderByIdResp;
+    orderInfo: OrderByIdResp
+    // = {
+    //     id: 1,
+    //     orderNumber: "string",
+    //     customerType: "string",
+    //     vehicleCondition: "string",
+    //     vehicleType: "string",
+    //     brand: "string",
+    //     vehicleModelCode: "string",
+    //     vehicleModelName: "string",
+    //     vehicleVariantCode: "string",
+    //     vehicleVariantName: "string",
+    //     hasAdditionalStructure: true,
+    //     priceWithGst: 10000,
+    //     financedAmount: 20000,
+    //     interest: 30000,
+    //     tenure: 40000,
+    //     monthlyInstallment: 50000,
+    //     customer: null,
+    //     guarantor: null,
+    //     vehicleNumber: "string",
+    //     supportingDocs: []
+    // };
 
     constructor(
         @Inject(PLATFORM_ID) protected platformId: Object,

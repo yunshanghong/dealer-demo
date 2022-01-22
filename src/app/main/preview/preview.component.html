@@ -115,7 +115,7 @@
                         <p class="listName">Amount Financed<span class="star">*</span></p>
                     </div>
                     <div class="cell small-6 medium-8 large-12 xlarge-7">
-                    <p class="listValue">${{ orderInfo.financedAmount | number}}</p>
+                    <p class="listValue">${{ orderInfo?.financedAmount | number:'2.' }}</p>
                     </div>
                 </div>
                 <div class="grid-x grid-margin-x">
