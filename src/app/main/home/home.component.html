@@ -51,7 +51,7 @@
 
             <li *ngFor="let orderItem of orderItems; let i = index"> 
                 <div class="o-nbr"> <span class="mo_title hide-for-large">Order Number</span>{{ orderItem.orderNumber }}</div>
-                <div class="date"><span class="mo_title hide-for-large">Application Date</span>{{ orderItem.applicationDate | DateTime }}</div>
+                <div class="date"><span class="mo_title hide-for-large">Application Date</span>{{ orderItem.applicationDate | date:'dd/MM/yyyy' }}</div>
                 <div class="status"> <span class="mo_title hide-for-large">Status</span><span class="status-tag">{{ orderItem.status }}</span></div>
                 <div class="type"><span class="mo_title hide-for-large">Type</span>{{ orderItem.vehicleType }}</div>
                 <div class="v-nbr"><span class="mo_title hide-for-large">Vehicle Number</span>{{ orderItem.vehicleNumber }}</div>

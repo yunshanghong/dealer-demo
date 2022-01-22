@@ -14,7 +14,6 @@ import { ForgetPasswordComponent } from './main/forgetPassword/forgetPassword.co
 import { ChangePasswordComponent } from './main/changePassword/changePassword.component';
 import { PersonalInfoComponent } from './main/personalInfo/personalInfo.component';
 import { LoginGuard } from './auth/login.guard';
-import { DateTimePipe } from './pipes/viewData.pipe';
 import { PreviewComponent } from './main/preview/preview.component';
 import { First4Pipe, Last3Pipe } from './pipes/pagination.pipe';
 import { CreateUpdateComponent } from './main/create-update/create-update.component';
@@ -52,7 +51,6 @@ const routes: Routes = [
 		//#endregion
 
 		//#region 
-		DateTimePipe,
 		First4Pipe,
 		Last3Pipe,
 		//#endregion
