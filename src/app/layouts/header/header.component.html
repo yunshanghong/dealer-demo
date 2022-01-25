@@ -1,6 +1,6 @@
 
 <header class="hd" id="header">
-    <div class="hd-main ct_ctr"><a class="brand-logo hd-main_left" href="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
+    <div class="hd-main ct_ctr"><a class="brand-logo hd-main_left" routerLink="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
     <div class="hd-main_right" *ngIf = "user && user.userName && user.accessToken">
         <div class="weblink">
             <div class="weblink-btmline"><img src="assets/images/hd_line.svg" alt=""></div>
@@ -12,7 +12,7 @@
     </div>
     </div>
     <div class="searchcont" id="SearchCarId" [ngClass]="{'is-active': showSearch}">
-    <div class="ct_ctr"> <a class="brand-logo hd-main_left" href="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
+    <div class="ct_ctr"> <a class="brand-logo hd-main_left" routerLink="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
         <div class="searchlist">
         <input class="searchbox" type="text" placeholder="Order Number">
         <input class="searchbox" type="text" placeholder="Application Date" autocomplete="off" id="DateFrom">

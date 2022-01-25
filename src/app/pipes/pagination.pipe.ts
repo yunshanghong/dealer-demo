@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Pagination } from '../interfaces/pagination.model';
+import { Pagination } from '../interfaces/common.model';
 
 @Pipe({ name: 'First4' })
 export class First4Pipe implements PipeTransform {
