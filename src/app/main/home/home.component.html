@@ -22,15 +22,13 @@
     <section class="index-tabbox"> 
         <div class="ct_ctr">
         <ul class="tabbox tabs" id="SortBtn" data-tabs>
-            <li class="tabs-title is-active"><a href="#TableList1" data-tabs-target="TableList1" aria-selected="true">All</a></li>
-            <li class="tabs-title"><a href="#TableList2" data-tabs-target="TableList2">Approved</a></li>
-            <li class="tabs-title"><a href="#TableList3" data-tabs-target="TableList3">Pending Approval</a></li>
-            <li class="tabs-title"><a href="#TableList4" data-tabs-target="TableList4">Declined</a></li>
-            <li class="tabs-title"><a href="#TableList5" data-tabs-target="TableList5">Draft</a></li>
-            <li class="tabs-title"><a href="#TableList6" data-tabs-target="TableList6">Canceled</a></li>
-            <li class="tabs-title"><a href="#TableList7" data-tabs-target="TableList7">Pending myInfo</a></li>
-        </ul><a class="downloadlist show-for-large" (click)="onExport()"> <i class="be-icon be-icon-download"> </i>
-            <div class="linelink blod">Export</div></a>
+            <li class="tabs-title" [ngClass]="{'is-active': orderInfo.status.length === 0}"><a aria-selected="true" (click)="onChangeStatus(null)">All</a></li>
+            <li *ngFor= "let tabName of searchTabs; let i = index" class="tabs-title" [ngClass]="{'is-active': orderInfo.status.indexOf(tabName) !== -1}"><a (click)="onChangeStatus(tabName)"> {{ tabName }}</a></li>
+        </ul>
+        <a class="downloadlist show-for-large" (click)="onExport()"> 
+            <i class="be-icon be-icon-download"> </i>
+            <div class="linelink blod">Export</div>
+        </a>
         </div>
     </section>
     <section class="index-tablelist" data-tabs-content="SortBtn"> 
@@ -67,7 +65,7 @@
             </li>
 
         </ul>
-        <nav aria-label="Pagination">
+        <nav aria-label="Pagination" *ngIf="orderItems.length > 0">
             <ul class="pagination text-center">
             <li class="pagination-previous" *ngIf="totalPage.length !== 1" [ngClass]="{'disabled': orderInfo.pageIndex === 0}" (click)="onChangePage(orderInfo.pageIndex-1)"> 
                 <a aria-label="Prev page" pagination-arrows="false">

@@ -14,6 +14,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class HomeComponent extends BaseComponent implements OnInit{
 
+    searchTabs: Array<string> = ["Approved", "Pending Approval", "Declined", "Draft", "Canceled", "Pending myInfo"]
     isAnimated: boolean = false;
     orderItems: Array<OrderItem> = [];
     orderInfo: OrderReq = {
@@ -21,7 +22,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
         applicationDateFromUtc: null,
         applicationDateToUtc: null,
         applicantName: null,
-        status: null,
+        status: [],
         pageIndex: 0,
         pageSize: 1,
     }
@@ -75,6 +76,13 @@ export class HomeComponent extends BaseComponent implements OnInit{
             this.orderInfo = {...this.orderInfo, pageIndex: pageIndex};
             this.getOrder();
         }
+    }
+
+    onChangeStatus(status: string){
+        const newStatus = [];
+        status && newStatus.push(status);
+        this.orderInfo.status = newStatus;
+        this.getOrder();
     }
 
     private getOrder(){
