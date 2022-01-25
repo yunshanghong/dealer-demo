@@ -102,12 +102,10 @@
                 <div class="card-section">
                 <div class="grid-x grid-margin-x">
                     <div class="cell small-6 medium-4 large-12 xlarge-5">
-                    <p class="listName">Price inclusive  GST<span class="star">*</span>
-                    </p>
+                        <p class="listName">Price inclusive  GST<span class="star">*</span></p>
                     </div>
                     <div class="cell small-6 medium-8 large-12 xlarge-7">
-                    <p class="listValue">$1,000,000
-                    </p>
+                        <p class="listValue">{{ orderInfo?.priceWithGst | currency }}</p>
                     </div>
                 </div>
                 <div class="grid-x grid-margin-x">
@@ -115,37 +113,31 @@
                         <p class="listName">Amount Financed<span class="star">*</span></p>
                     </div>
                     <div class="cell small-6 medium-8 large-12 xlarge-7">
-                    <p class="listValue">${{ orderInfo?.financedAmount | number }}</p>
+                        <p class="listValue">{{ orderInfo?.financedAmount | currency }}</p>
                     </div>
                 </div>
                 <div class="grid-x grid-margin-x">
                     <div class="cell small-6 medium-4 large-12 xlarge-5">
-                    <p class="listName">Financing Period (Months)<span class="star">*</span>
-                    </p>
+                        <p class="listName">Financing Period (Months)<span class="star">*</span></p>
                     </div>
                     <div class="cell small-6 medium-8 large-12 xlarge-7">
-                    <p class="listValue">84
-                    </p>
+                        <p class="listValue">{{ orderInfo?.tenure | number }}</p>
                     </div>
                 </div>
                 <div class="grid-x grid-margin-x">
                     <div class="cell small-6 medium-4 large-12 xlarge-5">
-                    <p class="listName">Interest Rate (X% per annum)<span class="star">*</span>
-                    </p>
+                        <p class="listName">Interest Rate (X% per annum)<span class="star">*</span></p>
                     </div>
                     <div class="cell small-6 medium-8 large-12 xlarge-7">
-                    <p class="listValue">2.48
-                    </p>
+                        <p class="listValue">{{ orderInfo?.interest | number }}</p>
                     </div>
                 </div>
                 <div class="grid-x grid-margin-x">
                     <div class="cell small-6 medium-4 large-12 xlarge-5">
-                    <p class="listName">Monthly  Instalments<span class="star">*</span>
-                    </p>
+                        <p class="listName">Monthly  Instalments<span class="star">*</span></p>
                     </div>
                     <div class="cell small-6 medium-8 large-12 xlarge-7">
-                    <p class="listValue">$2,500
-                    </p>
+                        <p class="listValue">{{ orderInfo?.monthlyInstallment | currency }}</p>
                     </div>
                 </div>
                 </div>
@@ -169,152 +161,122 @@
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">MyInfo<span class="star">*</span>
-                        </p>
+                            <p class="listName">MyInfo<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">no
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.isMyInfo ? 'Yes' : 'No' }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Applicant Name<span class="star">*</span>
-                        </p>
+                            <p class="listName">Applicant Name<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Nick Lin
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.name }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">NRIC/Passport/ Company Reg. No*<span class="star">*</span>
-                        </p>
+                            <p class="listName">NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">S8912345C
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.nric }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Gender<span class="star">*</span>
-                        </p>
+                            <p class="listName">Gender<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Female
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.gender }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Nationality<span class="star">*</span>
-                        </p>
+                            <p class="listName">Nationality<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Singaporean
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.nationality }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Residential Status<span class="star">*</span>
-                        </p>
+                            <p class="listName">Residential Status<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Citizen
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.residentialStatus }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Date of Birth<span class="star">*</span>
-                        </p>
+                            <p class="listName">Date of Birth<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">05/04/1989
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.dateOfBirth | date:'dd/MM/yyyy' }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Postal Code<span class="star">*</span>
-                        </p>
+                            <p class="listName">Postal Code<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">078881
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.postalCode }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Address<span class="star">*</span>
-                        </p>
+                            <p class="listName">Address<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">1 Wallich St
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.address }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Unit Number<span class="star">*</span>
-                        </p>
+                            <p class="listName">Unit Number<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">#04-11
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.unitNumber }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Mobile Number<span class="star">*</span>
-                        </p>
+                            <p class="listName">Mobile Number<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">98765432
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.mobile }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Email Address<span class="star">*</span>
-                        </p>
+                            <p class="listName">Email Address<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">nicklin@abc.com
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.email }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Net Annual Income<span class="star">*</span>
-                        </p>
+                            <p class="listName">Net Annual Income<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">nicklin@abc.com
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.netAnnualIncome | number }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Name of Employer/Self Employed<span class="star">*</span>
-                        </p>
+                            <p class="listName">Name of Employer/Self Employed<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">ABC Corp
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.employerName }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Assessment Year<span class="star">*</span>
-                        </p>
+                            <p class="listName">Assessment Year<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">2021
-                        </p>
+                            <p class="listValue">{{ orderInfo?.customer?.assessmentYear }}</p>
                         </div>
                     </div>
                     </div>
@@ -323,167 +285,139 @@
                 <div class="cell large-6 grid-x">
                 <div class="card shadow">
                     <div class="card-divider"> <span>D. DETAILS OF GUARANTOR</span></div>
-                    <div class="card-section">
+                    <div class="card-section" *ngIf = "orderInfo?.guarantor">
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">MyInfo Status
-                        </p>
+                            <p class="listName">MyInfo Status</p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Compeleted
-                        </p>
+                            <p class="listValue">Compeleted</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">MyInfo<span class="star">*</span>
-                        </p>
+                            <p class="listName">MyInfo<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">no
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.isMyInfo ? 'Yes' : 'No' }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Applicant Name<span class="star">*</span>
-                        </p>
+                            <p class="listName">Applicant Name<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Nick Lin
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.name }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">NRIC/Passport/ Company Reg. No*<span class="star">*</span>
-                        </p>
+                            <p class="listName">NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">S8912345C
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.nric }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Gender<span class="star">*</span>
-                        </p>
+                            <p class="listName">Gender<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Female
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.gender }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Nationality<span class="star">*</span>
-                        </p>
+                            <p class="listName">Nationality<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Singaporean
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.nationality }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Residential Status<span class="star">*</span>
-                        </p>
+                            <p class="listName">Residential Status<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">Citizen
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.residentialStatus }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Date of Birth<span class="star">*</span>
-                        </p>
+                            <p class="listName">Date of Birth<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">05/04/1989
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.dateOfBirth | date:'dd/MM/yyyy' }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Postal Code<span class="star">*</span>
-                        </p>
+                            <p class="listName">Postal Code<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">078881
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.postalCode }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Address<span class="star">*</span>
-                        </p>
+                            <p class="listName">Address<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">1 Wallich St
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.address }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Unit Number<span class="star">*</span>
-                        </p>
+                            <p class="listName">Unit Number<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">#04-11
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.unitNumber }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Mobile Number<span class="star">*</span>
-                        </p>
+                            <p class="listName">Mobile Number<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">98765432
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.mobile }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Email Address<span class="star">*</span>
-                        </p>
+                            <p class="listName">Email Address<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">nicklin@abc.com
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.email }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Net Annual Income<span class="star">*</span>
-                        </p>
+                            <p class="listName">Net Annual Income<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">nicklin@abc.com
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.netAnnualIncome | number }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Name of Employer/Self Employed<span class="star">*</span>
-                        </p>
+                            <p class="listName">Name of Employer/Self Employed<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">ABC Corp
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.employerName }}</p>
                         </div>
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                        <p class="listName">Assessment Year<span class="star">*</span>
-                        </p>
+                            <p class="listName">Assessment Year<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
-                        <p class="listValue">2021
-                        </p>
+                            <p class="listValue">{{ orderInfo?.guarantor?.assessmentYear }}</p>
                         </div>
                     </div>
+                    </div>
+
+                    <div class="card-section text-center align-center" *ngIf = "!orderInfo?.guarantor">
+                        <p>Without any guarantor  </p>
                     </div>
                 </div>
                 </div>
