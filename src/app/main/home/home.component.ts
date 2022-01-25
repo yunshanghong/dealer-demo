@@ -14,6 +14,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class HomeComponent extends BaseComponent implements OnInit{
 
+    createBtns: Array<string> = ["New PC", "New CV", "Used PC", "Used CV"]; 
     searchTabs: Array<string> = ["Approved", "Pending Approval", "Declined", "Draft", "Canceled", "Pending myInfo"]
     isAnimated: boolean = false;
     orderItems: Array<OrderItem> = [];

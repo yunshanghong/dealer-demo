@@ -4,17 +4,8 @@
         <div class="ct_ctr">
         <h1 class="blod pagename">Home </h1>
         <div class="pagelink"> 
-            <a class="pagelink-box" href="#"> 
-               <p class="text-center"><i class="be-icon be-icon-add"> </i>New PC</p>
-            </a>
-            <a class="pagelink-box" href="#"> 
-                <p class="text-center"><i class="be-icon be-icon-add"> </i>New CV</p>
-            </a>
-            <a class="pagelink-box" href="#"> 
-                <p class="text-center"><i class="be-icon be-icon-add"> </i>Used PC</p>
-            </a>
-            <a class="pagelink-box" href="#"> 
-                <p class="text-center"><i class="be-icon be-icon-add"> </i>Used CV</p>
+            <a *ngFor="let btnName of createBtns" class="pagelink-box" [routerLink]="['/create-update']" [queryParams]="{type: btnName}"> 
+               <p class="text-center"><i class="be-icon be-icon-add"> </i>{{ btnName }}</p>
             </a>
         </div>
         </div>
@@ -23,7 +14,7 @@
         <div class="ct_ctr">
         <ul class="tabbox tabs" id="SortBtn" data-tabs>
             <li class="tabs-title" [ngClass]="{'is-active': orderInfo.status.length === 0}"><a aria-selected="true" (click)="onChangeStatus(null)">All</a></li>
-            <li *ngFor= "let tabName of searchTabs; let i = index" class="tabs-title" [ngClass]="{'is-active': orderInfo.status.indexOf(tabName) !== -1}"><a (click)="onChangeStatus(tabName)"> {{ tabName }}</a></li>
+            <li *ngFor= "let tabName of searchTabs" class="tabs-title" [ngClass]="{'is-active': orderInfo.status.indexOf(tabName) !== -1}"><a (click)="onChangeStatus(tabName)"> {{ tabName }}</a></li>
         </ul>
         <a class="downloadlist show-for-large" (click)="onExport()"> 
             <i class="be-icon be-icon-download"> </i>
