@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, OrderReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp, OrderByIdResp } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, OrderReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp, OrderByIdResp, VehicleBrand } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -89,5 +89,11 @@ export class ApiService {
                 req,
                 { responseType: 'blob' as 'json' }
             )
+    }
+
+    VehicleBrand(): Observable<Array<VehicleBrand>>{
+        return this.HttpHandle<Array<VehicleBrand>>(
+            this.http.get<ApiModel<Array<VehicleBrand>>>(basicUrl + ApiEndpoint.VehicleBrand)
+        )
     }
 }

@@ -18,6 +18,7 @@ import { PreviewComponent } from './main/preview/preview.component';
 import { First4Pipe, Last3Pipe } from './pipes/pagination.pipe';
 import { CreateUpdateComponent } from './main/create-update/create-update.component';
 import { BaseComponent } from './main/base/base.component';
+import { ModelFilterPipe } from './pipes/dropdownList.pipe';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -53,6 +54,7 @@ const routes: Routes = [
 		//#region 
 		First4Pipe,
 		Last3Pipe,
+		ModelFilterPipe,
 		//#endregion
 	],
 	imports: [

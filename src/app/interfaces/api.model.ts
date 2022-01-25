@@ -18,6 +18,9 @@ export enum ApiEndpoint{
     OrderExport = "Order/Export",
 
     OrderId = "{orderId}",
+
+    // Vehicle
+    VehicleBrand = "Vehicle/brand/%20",
 }
 
 export interface ApiModel<T>{
@@ -139,6 +142,18 @@ export interface Customer{
     employerName: string,
     assessmentYear: string,
     supportingDocs: string
+}
+
+export interface VehicleBrand{
+    id: number,
+    brandName: string,
+    vehicleModels: Array<Vehicle>,
+}
+
+export interface Vehicle{
+    id: number,
+    name: string,
+    code: string,
 }
 
 export interface User{
