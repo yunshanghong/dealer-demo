@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserPasswordForgetReq, UserPasswordForgetResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
