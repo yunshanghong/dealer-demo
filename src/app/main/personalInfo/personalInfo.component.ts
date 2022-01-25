@@ -32,7 +32,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit{
 	ngOnInit(){
 		this.userService.userChange.subscribe((user: User) =>{
 			this.user = user;
-			this.infoForm.setValue({
+			this.infoForm.patchValue({
 				name: user.name,
 				email: user.email,
 				mobile: user.mobile,
