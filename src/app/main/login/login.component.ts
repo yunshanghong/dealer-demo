@@ -5,8 +5,8 @@ import { UserLoginReq, UserLoginResp, UserProfileResp } from 'src/app/interfaces
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 import { BaseComponent } from '../base/base.component';
-import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-login',
@@ -23,6 +23,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
         @Inject(PLATFORM_ID) public platformId: Object,
         private apiService: ApiService,
         private userService: UserService,
+        private router: Router,
     ) { 
         super(platformId);
     }
@@ -61,7 +62,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
                 email: profileResp.email,
                 mobile: profileResp.mobile,
             }
-            isPlatformBrowser(this.platformId) && window.location.replace("/");
+            this.router.navigate(["/"]);
         },
         (err: HttpErrorResponse) =>{
             this.loginErr = err.error.details || err.message || "Login Failed. Your username and/or password do not match.";

@@ -87,6 +87,6 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit{
 	}
 
 	onNavHome(){
-		window.location.replace("/")
+		this.router.navigate(["/"]);
 	}
 }
