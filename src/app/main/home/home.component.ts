@@ -55,7 +55,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
         console.log(id);
         this.apiService.OrderPdf(id)
         .subscribe((resp: Blob) =>{
-            isPlatformBrowser(this.platformId) && this.downloadFile(resp, `OrderId_${id}`);
+            isPlatformBrowser(this.platformId) && super.downloadFile(resp, `OrderId_${id}`);
         },
         (err: HttpErrorResponse)=>{
             console.log(err);
@@ -65,7 +65,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
     onExport(){
         this.apiService.OrderExport(this.orderInfo)
         .subscribe((resp: Blob) =>{
-            isPlatformBrowser(this.platformId) && this.downloadFile(resp, `Orders_${moment().format("YYYYMMDDHHmmss")}`);
+            isPlatformBrowser(this.platformId) && super.downloadFile(resp, `Orders_${moment().format("YYYYMMDDHHmmss")}`);
         },
         (err: HttpErrorResponse)=>{
             console.log(err);
@@ -96,15 +96,5 @@ export class HomeComponent extends BaseComponent implements OnInit{
         (err: HttpErrorResponse) => {
             console.log(err)
         })
-    }
-
-    private downloadFile(data: Blob, fileName: string){
-        const binaryData = [data];
-        const downloadLink = document.createElement('a');
-        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: data.type}));
-        downloadLink.setAttribute('download', fileName);
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        downloadLink.remove();
     }
 }

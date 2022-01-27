@@ -16,4 +16,14 @@ export class BaseComponent implements OnDestroy{
     ngOnDestroy() {
         isPlatformBrowser(this.platformId) && window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
 	}
+
+    protected downloadFile(data: Blob, fileName: string){
+        const binaryData = [data];
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: data.type}));
+        downloadLink.setAttribute('download', fileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
+    }
 }

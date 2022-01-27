@@ -1,7 +1,8 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { OrderByIdResp } from 'src/app/interfaces/api.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrderDetail } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 
@@ -12,28 +13,54 @@ import { BaseComponent } from '../base/base.component';
 })
 export class PreviewComponent extends BaseComponent implements OnInit{
 
-    orderInfo: OrderByIdResp
+    id: number;
+    orderInfo: OrderDetail
 
     constructor(
         @Inject(PLATFORM_ID) protected platformId: Object,
         private apiService: ApiService,
         private route: ActivatedRoute,
+        private router: Router,
     ) { 
         super(platformId);
     }
 
     ngOnInit(){
-        const id = this.route.snapshot.params["id"];
+        this.id = this.route.snapshot.params["id"];
 
-        this.apiService.OrderById(id)
-        .subscribe((resp: OrderByIdResp)=>{
+        this.apiService.OrderById(this.id)
+        .subscribe((resp: OrderDetail)=>{
             console.log(resp);
             this.orderInfo = resp;
         },
         (err: HttpErrorResponse)=>{
             console.log(err)
         })
-
     }
-        
+
+    onEdit(){
+        this.router.navigate(['create-update', this.id], {
+            state: { orderInfo: this.orderInfo }
+        })
+    }
+
+    onDownload(){
+        this.apiService.OrderPdf(this.id)
+        .subscribe((resp: Blob) =>{
+            isPlatformBrowser(this.platformId) && super.downloadFile(resp, `OrderId_${this.id}`);
+        },
+        (err: HttpErrorResponse)=>{
+            console.log(err);
+        })
+    }
+
+    onSubmit(){
+        this.apiService.OrderSubmit(this.id)
+        .subscribe(()=>{
+            console.log("OKOK")
+        },
+        (err: HttpErrorResponse) => {
+            console.log(err);
+        })
+    }
 }
