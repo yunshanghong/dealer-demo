@@ -70,7 +70,7 @@
             
             <li class="ellipsis" *ngIf="totalPage.length > 7"></li>
 
-            <li *ngFor="let page of totalPage | Last3; let isLast = last;">
+            <li *ngFor="let page of totalPage | Last3; let isLast = last;" [ngClass]="{'current': page.originIndex === orderInfo.pageIndex}" (click)="onChangePage(page.originIndex)">
                 <a [ngClass]="{'show-for-large': !isLast}" aria-label="Page 12">{{ page.originIndex + 1 }}</a>
             </li>
 
