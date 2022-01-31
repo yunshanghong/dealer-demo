@@ -28,6 +28,7 @@ const routes: Routes = [
 	{ path: 'changePassword', component: ChangePasswordComponent, canActivate: [LoginGuard] },
 	{ path: 'preview/:id', component: PreviewComponent, canActivate: [LoginGuard] },
 	{ path: 'create-update', component: CreateUpdateComponent, canActivate: [LoginGuard] },
+	{ path: 'create-update/:id', component: CreateUpdateComponent, canActivate: [LoginGuard] },
 	{ path: '**', redirectTo: "/", canActivate: [LoginGuard] },
 ];
 

@@ -12,13 +12,19 @@ export enum ApiEndpoint{
     UserProfile = "User/Profile",
 
     // Order
-    OrderFilter = "Order/Filter",
+    OrderAttachUpload = "Order/Attachment",
+    OrderAttach = "Order/Attachment/{fileId}",
+    OrderCreate = "Order",
     OrderById = "Order/{orderId}",
+    OrderSubmit = "Order/Submit/{orderId}",
+    OrderFilter = "Order/Filter",
     OrderPdf = "Order/{orderId}/pdf",
+    OrderAddress = "Order/Address",
+    OrderDropdown = "Order/Dropdown",
     OrderExport = "Order/Export",
-
+    
     OrderId = "{orderId}",
-
+    FileId = "{fileId}",
     // Vehicle
     VehicleBrand = "Vehicle/brand/%20",
 }
@@ -101,9 +107,9 @@ export interface OrderItem{
     applicantName: string;
 }
 
-export interface OrderByIdResp{
-    id: number,
-    orderNumber: string,
+export interface OrderDetail{
+    id?: number,
+    orderNumber?: string,
     customerType: string,
     vehicleCondition: string,
     vehicleType: string,
@@ -121,11 +127,11 @@ export interface OrderByIdResp{
     customer: Customer,
     guarantor: Customer,
     vehicleNumber: string,
-    supportingDocs: Array<any>
+    supportingDocs: Array<string>
 }
 
 export interface Customer{
-    id: number,
+    id?: number,
     isMyInfo: boolean,
     name: string,
     nric: string,
@@ -141,7 +147,18 @@ export interface Customer{
     netAnnualIncome: number,
     employerName: string,
     assessmentYear: string,
-    supportingDocs: string
+    supportingDocs?: string
+}
+
+export interface Dropdown{
+    id: number;
+    category: string;
+    items: Array<DropdownItem>
+}
+
+export interface DropdownItem{
+    id: number;
+    name: string;
 }
 
 export interface VehicleBrand{

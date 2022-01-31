@@ -1,0 +1,588 @@
+<!-- [START] Content ==================================================-->
+    <main class="main-container">
+    <div class="main-wrap">
+        <section class="ct_ctr blod">
+            <div class="h1 h1Txt text-center large-blod">NEW APPLICATION</div>
+            <div class="grid-x grid-margin-x" >
+                <div class="cell large-4">
+                <div class="card shadow">
+                    <div class="card-divider heightHeader"><span>A. DETAILS OF MOTOR VEHICLE TO BE FINANCED</span></div>
+                    <div class="card-section">
+                    <form [formGroup]="vehicleForm">
+                        <div class="grid-x grid-margin-x">
+                        <div class="cell xxlarge-5">
+                            <p> Customer Type<span class="star">*</span>
+                            </p>
+                        </div>
+                        <div class="cell xxlarge-7">
+                            <div class="grid-x grid-margin-x">
+                            <div class="cell small-6"> 
+                                <input id="A-Customer Type-Corporate" type="radio" value="Corporate" formControlName="customerType"/>
+                                <label class="radioLabel blod" for="A-Customer Type-Corporate">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Corporate
+                                </label>
+                            </div>
+                            <div class="cell small-6">
+                                <input id="A-Customer Type-Individual" type="radio" value="Individual" formControlName="customerType"/>
+                                <label class="radioLabel blod" for="A-Customer Type-Individual">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Individual
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                        <div class="cell xxlarge-5">
+                            <p> Vehicle Condition<span class="star">*</span>
+                            </p>
+                        </div>
+                        <div class="cell xxlarge-7">
+                            <div class="grid-x grid-margin-x">
+                            <div class="cell small-6"> 
+                                <input id="A-Vehicle Condition-New" type="radio" value="New" formControlName="vehicleCondition"/>
+                                <label class="radioLabel blod" for="A-Vehicle Condition-New">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>New
+                                </label>
+                            </div>
+                            <div class="cell small-6">
+                                <input id="A-Vehicle Condition-Used" type="radio" value="Used" formControlName="vehicleCondition"/>
+                                <label class="radioLabel blod" for="A-Vehicle Condition-Used">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Used
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                        <div class="cell xxlarge-5">
+                            <p> Vehicle Type<span class="star">*</span>
+                            </p>
+                        </div>
+                        <div class="cell xxlarge-7">
+                            <div class="grid-x grid-margin-x">
+                            <div class="cell small-6"> 
+                                <input id="A-Vehicle Type-PC" type="radio" value="PC" formControlName="vehicleType"/>
+                                <label class="radioLabel blod" for="A-Vehicle Type-PC">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>PC
+                                </label>
+                            </div>
+                            <div class="cell small-6">
+                                <input id="A-Vehicle Type-CV" type="radio" value="CV" formControlName="vehicleType"/>
+                                <label class="radioLabel blod" for="A-Vehicle Type-CV">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>CV
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                        <div class="cell xxlarge-5">
+                            <p>Make<span class="star">*</span></p>
+                        </div>
+                        <div class="cell xxlarge-7">
+                            <select class="blod" id="Make" formControlName="brand" (change)="onBrandChange()">
+                                <option *ngFor="let brand of vehicleBrands" class="blod" [value]="brand.brandName" > {{ brand.brandName }}</option>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                        <div class="cell xxlarge-5">
+                            <p>Model<span class="star">*</span></p>
+                        </div>
+                        <div class="cell xxlarge-7">
+                            <select class="blod" id="Model" formControlName="vehicleModelCode">
+                                <option *ngFor="let vehicle of vehicleBrands | modelFilter: vehicleForm.get('brand').value" class="blod" [value]="vehicle.code">{{ vehicle.name }}</option>
+                            </select>
+                        </div>
+                        </div>
+                    </form>
+                    </div>
+                </div><span class="note">NOTE: Select "default" if make or model does not exist</span>
+                <div class="card shadow">
+                    <div class="card-divider"> <span>ADDITIONAL INFORMATION</span></div>
+                    <div class="card-section">
+                    <form>
+                        <div class="grid-x grid-margin-x">
+                        <div class="cell xxlarge-5">
+                            <p>Vehicle Number<span class="star">*</span>
+                            </p>
+                        </div>
+                        <div class="cell xxlarge-7">
+                            <input class="blod" type="text" name="Vehicle Number"/>
+                        </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell small-5">
+                                <p> Log Card  Attachment<span class="star">*</span></p>
+                            </div>
+                            <label class="cell small-7" for="logCard"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
+                            <div class="cell">
+                                <div class="fileInput">
+                                <input type="file" id="logCard" (change)="logCardAttach = $event.target.files[0]"/>
+                                <span class="fileInputValue">{{ logCardAttach?.name }}</span>
+                                <a (click)="logCardAttach = null"> <i class="be-icon be-icon-trash-can" [ngClass]="{'icon-red': logCardAttach}"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell small-5">
+                                <p>  Sales Agreement<span class="star">*</span></p>
+                            </div>
+                            <label class="cell small-7" for="sales"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
+                            <div class="cell">
+                                <div class="fileInput">
+                                <input type="file" id="sales" (change)="salesAttach = $event.target.files[0]"/>
+                                <span class="fileInputValue">{{ salesAttach?.name }}</span>
+                                <a (click)="salesAttach = null"> <i class="be-icon be-icon-trash-can" [ngClass]="{'icon-red': salesAttach}"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                        <div class="cell xxlarge-5">
+                            <p> Additional  Structure<span class="star">*</span>
+                            </p>
+                        </div>
+                        <div class="cell xxlarge-7">
+                            <div class="grid-x grid-margin-x">
+                            <div class="cell small-6"> 
+                                <input id="Additional-Additional  Structure-Yes" type="radio" name="Additional  Structure" value="Yes"/>
+                                <label class="radioLabel blod" for="Additional-Additional  Structure-Yes">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Yes
+                                </label>
+                            </div>
+                            <div class="cell small-6">
+                                <input id="Additional-Additional  Structure-No" type="radio" name="Additional  Structure" value="No"/>
+                                <label class="radioLabel blod" for="Additional-Additional  Structure-No">
+                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>No
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                <div class="card shadow">
+                    <div class="card-divider"> <span>B. FINANCING DETAILS (PER UNIT)</span></div>
+                    <div class="card-section">
+                    <form [formGroup]="financeForm">
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell xxlarge-5">
+                                <p>Price inclusive  GST<span class="star">*</span></p>
+                            </div>
+                            <div class="cell xxlarge-7">
+                                <input class="blod" type="number" formControlName="priceWithGst"/>
+                            </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell xxlarge-5">
+                                <p>Amount Financed<span class="star">*</span></p>
+                            </div>
+                            <div class="cell xxlarge-7">
+                                <input class="blod" type="number" formControlName="financedAmount"/>
+                            </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell xxlarge-5">
+                                <p>Financing Period (Months)<span class="star">*</span></p>
+                            </div>
+                            <div class="cell xxlarge-7">
+                                <input class="blod" type="number" formControlName="tenure"/>
+                            </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell xxlarge-5">
+                                <p>Interest Rate (X% per annum)<span class="star">*</span></p>
+                            </div>
+                            <div class="cell xxlarge-7">
+                                <input class="blod" type="number" formControlName="interest"/>
+                            </div>
+                        </div>
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell xxlarge-5">
+                                <p>Monthly  Instalments<span class="star">*</span></p>
+                            </div>
+                            <div class="cell xxlarge-7">
+                                <input class="blod" type="number" formControlName="monthlyInstallment"/>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                </div>
+                <div class="cell large-8 grid-y">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell large-6 grid-x">
+                    <div class="card shadow">
+                        <div class="card-divider"> <span>C. PERSONAL PARTICULARS OF APPLICANT</span></div>
+                        <div class="card-section">
+                        <form [formGroup]="customerForm">
+                            <div class="grid-x grid-margin-x">
+                                <div class="cell xxlarge-5">
+                                    <p> MyInfo<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <div class="grid-x grid-margin-x">
+                                    <div class="cell small-6"> 
+                                        <input id="C-MyInfo-Yes" type="radio" [value]=true formControlName="isMyInfo"/>
+                                        <label class="radioLabel blod" for="C-MyInfo-Yes">
+                                        <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Yes
+                                        </label>
+                                    </div>
+                                    <div class="cell small-6">
+                                        <input id="C-MyInfo-No" type="radio" [value]=false formControlName="isMyInfo"/>
+                                        <label class="radioLabel blod" for="C-MyInfo-No">
+                                        <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>No
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x">
+                                <div class="cell xxlarge-5">
+                                    <p>Applicant Name<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="name"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="nric"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p> Gender<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <div class="grid-x grid-margin-x">
+                                        <div class="cell small-6"> 
+                                            <input id="C-Gender-Male" type="radio" value="Male" formControlName="gender"/>
+                                            <label class="radioLabel blod" for="C-Gender-Male">
+                                            <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Male
+                                            </label>
+                                        </div>
+                                        <div class="cell small-6">
+                                            <input id="C-Gender-Female" type="radio" value="Female" formControlName="gender"/>
+                                            <label class="radioLabel blod" for="C-Gender-Female">
+                                            <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Nationality<span class="star">*</span>
+                                    </p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <select class="blod" id="Nationality" formControlName="nationality">
+                                        <option class="blod" [value]="nation.name" *ngFor="let nation of nations">{{ nation.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Residential Status<span class="star">*</span>
+                                    </p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <select class="blod" id="Residential Status" formControlName="residentialStatus">
+                                        <option class="blod" [value]="status.name" *ngFor="let status of residentStatus">{{ status.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Date of Birth<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input id="datepicker" type="text" aria-required="true" placeholder="DD/MM/YY" autocomplete="off" formControlName="dateOfBirth"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Postal Code<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="postalCode"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Address<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="address"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Unit Number<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="unitNumber"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x">
+                                <div class="cell xxlarge-5">
+                                    <p>Mobile Number<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="mobile"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x">
+                                <div class="cell xxlarge-5">
+                                    <p>Email Address<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="email"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Net Annual Income<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="netAnnualIncome"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Name of Employer/Self Employed<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <input class="blod" type="text" formControlName="employerName"/>
+                                </div>
+                            </div>
+                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
+                                <div class="cell xxlarge-5">
+                                    <p>Assessment Year<span class="star">*</span></p>
+                                </div>
+                                <div class="cell xxlarge-7">
+                                    <select class="blod" id="Assessment Year" formControlName="assessmentYear">
+                                        <option class="blod" value="2022">2022</option>
+                                        <option class="blod" value="2">2</option>
+                                        <option class="blod" value="3">3</option>
+                                        <option class="blod" value="4">4</option>
+                                        <option class="blod" value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="cell large-6 grid-x">
+                    <div class="card shadow">
+                        <div class="card-divider"> <span>D. DETAILS OF GUARANTOR</span>
+                        <div class="switch-container " [ngClass]="{'switch-container-on': guarantorOn}" (click)="onSwitchGuarantor()"> 
+                            <div class="switch"> </div>
+                        </div>
+                        </div>
+                        <div class="card-section" *ngIf="guarantorOn">
+                            <form [formGroup]="guarantorForm">
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p> MyInfo<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell small-6"> 
+                                                <input id="D-MyInfo-Yes" type="radio" [value]=true formControlName="isMyInfo"/>
+                                                <label class="radioLabel blod" for="D-MyInfo-Yes">
+                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Yes
+                                                </label>
+                                            </div>
+                                            <div class="cell small-6">
+                                                <input id="D-MyInfo-No" type="radio" [value]=false formControlName="isMyInfo"/>
+                                                <label class="radioLabel blod" for="D-MyInfo-No">
+                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>Applicant Name<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="name"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="nric"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p> Gender<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell small-6"> 
+                                                <input id="D-Gender-Male" type="radio" value="Male" formControlName="gender"/>
+                                                <label class="radioLabel blod" for="D-Gender-Male">
+                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Male
+                                                </label>
+                                            </div>
+                                            <div class="cell small-6">
+                                                <input id="D-Gender-Female" type="radio" value="Female" formControlName="gender"/>
+                                                <label class="radioLabel blod" for="D-Gender-Female">
+                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Nationality<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <select class="blod" id="Nationality" formControlName="nationality">
+                                            <option class="blod" [value]="nation.name" *ngFor="let nation of nations">{{ nation.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Residential Status<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <select class="blod" id="Residential Status" formControlName="residentialStatus">
+                                            <option class="blod" [value]="status.name" *ngFor="let status of residentStatus">{{ status.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Date of Birth<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input id="datepicker" type="text" name="" aria-required="true" placeholder="DD/MM/YY" autocomplete="off" formControlName="dateOfBirth"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Postal Code<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="postalCode"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Address<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="address"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Unit Number<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="unitNumber"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>Mobile Number<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="mobile"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>Email Address<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="email"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Net Annual Income<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="netAnnualIncome"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Name of Employer/Self Employed<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input class="blod" type="text" formControlName="employerName"/>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                    <div class="cell xxlarge-5">
+                                        <p>Assessment Year<span class="star">*</span></p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <select class="blod" name="Assessment Year" id="Assessment Year" formControlName="assessmentYear">
+                                            <option class="blod" value="2022">2022</option>
+                                            <option class="blod" value="2">2</option>
+                                            <option class="blod" value="3">3</option>
+                                            <option class="blod" value="4">4</option>
+                                            <option class="blod" value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-section text-center align-center" *ngIf="!guarantorOn">
+                            If the application has any guarantor,<br>please switch the button 
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="card shadow fileUploadCard" *ngIf="!(customerForm.get('isMyInfo').value && guarantorForm.get('isMyInfo').value)">
+                    <div class="card-divider"> <span>FILE UPLOAD</span></div>
+                    <div class="card-section">
+                    <div class="grid-x">
+                        <p>NRIC and Income Documents<span class="star">*</span> </p>
+                        <label for="doc1"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
+                        <input type="file" id="doc1" style="display: none;" multiple (change)="onDocsAttach($event.target.files)">
+                    </div>
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-12 medium-4" *ngFor="let doc of docsAttach; let i = index">
+                            <div class="fileInput">
+                                <input type="file" (change)="docsAttach[i] = $event.target.files[0]"/>
+                                <span class="fileInputValue">{{ doc.name }}</span>
+                                <a > <i class="be-icon be-icon-trash-can icon-red"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="fileUploadNote">
+                        <li>NOTE: Allowed format .pdf, .docx, .xlsx, .zip, .rar, .7Z, .jpg, .png</li>
+                        <li>File Amount: allow 10 files. File Size:50MB</li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="btncont">
+                <input class="btncont-line" type="button" value="Discard" (click)="onDiscard()">
+                <input class="btncont-line" type="button" value="Save as Draft" (click)="onSave()">
+                <input class="btncont-bgimg" type="button" value="Preview" (click)="onPreview()">
+            </div>
+        </section>
+    </div>
+</main>
+<!-- [END] Content ==================================================-->
