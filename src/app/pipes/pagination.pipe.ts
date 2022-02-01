@@ -1,14 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Pagination } from '../interfaces/common.model';
 
-@Pipe({ name: 'First4' })
-export class First4Pipe implements PipeTransform {
+@Pipe({ name: 'First' })
+export class FirstPipe implements PipeTransform {
 
-    transform(obj: Array<number>): Array<Pagination> {
-        const result = obj.map((item, index) => (index < 4 ) ? { originIndex: index} : null).filter((item: Pagination) => item);
-        console.log(result);
-
-        return result; 
+    transform(obj: Array<number>, inputIndex: number): Array<Pagination> {
+        const result = obj?.map((item, index) => !inputIndex || (index < inputIndex ) ? { originIndex: index } : null)?.filter((item: Pagination) => item);
+        return result;
     }
 }
 
