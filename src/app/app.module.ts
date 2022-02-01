@@ -15,11 +15,11 @@ import { ChangePasswordComponent } from './main/changePassword/changePassword.co
 import { PersonalInfoComponent } from './main/personalInfo/personalInfo.component';
 import { LoginGuard } from './auth/login.guard';
 import { PreviewComponent } from './main/preview/preview.component';
-import { FirstPipe, Last3Pipe } from './pipes/pagination.pipe';
+import { FirstPipe, LastPipe } from './pipes/pagination.pipe';
 import { CreateUpdateComponent } from './main/create-update/create-update.component';
 import { BaseComponent } from './main/base/base.component';
 import { ModelFilterPipe } from './pipes/dropdownList.pipe';
-import { DocNamePipe } from './pipes/docs.pipe';
+import { PreviewDocNamePipe, UploadDocNamePipe } from './pipes/docs.pipe';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -55,9 +55,10 @@ const routes: Routes = [
 
 		//#region 
 		FirstPipe,
-		Last3Pipe,
+		LastPipe,
 		ModelFilterPipe,
-		DocNamePipe,
+		PreviewDocNamePipe,
+		UploadDocNamePipe,
 		//#endregion
 	],
 	imports: [

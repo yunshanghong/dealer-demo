@@ -116,11 +116,12 @@
                                 <p> Log Card  Attachment<span class="star">*</span></p>
                             </div>
                             <label class="cell small-7" for="logCard"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
-                            <div class="cell">
+                            <input type="file" id="logCard" style="display: none;" (change)="onFileAttach($event.target.files[0], 'LogCard')" (click)="$event.target.value=null">
+                            <div class="cell" *ngFor="let logCard of uploadAttachFile | UploadDocName:'LogCard'">
                                 <div class="fileInput">
-                                <input type="file" id="logCard" (change)="logCardAttach = $event.target.files[0]"/>
-                                <span class="fileInputValue">{{ logCardAttach?.name }}</span>
-                                <a (click)="logCardAttach = null"> <i class="be-icon be-icon-trash-can" [ngClass]="{'icon-red': logCardAttach}"></i></a>
+                                <input type="file" (change)="onFileAttach($event.target.files[0], 'LogCard')"/>
+                                <span class="fileInputValue">{{ logCard?.fileName }}</span>
+                                <a (click)="onFileDelete(logCard.index)"> <i class="be-icon be-icon-trash-can icon-red" ></i></a>
                                 </div>
                             </div>
                         </div>
@@ -129,11 +130,12 @@
                                 <p>  Sales Agreement<span class="star">*</span></p>
                             </div>
                             <label class="cell small-7" for="sales"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
-                            <div class="cell">
+                            <input type="file" id="sales" style="display: none;" (change)="onFileAttach($event.target.files[0], 'SalesAgreement')" (click)="$event.target.value=null">
+                            <div class="cell" *ngFor="let saleAgreement of uploadAttachFile | UploadDocName:'SalesAgreement'">
                                 <div class="fileInput">
-                                <input type="file" id="sales" (change)="salesAttach = $event.target.files[0]"/>
-                                <span class="fileInputValue">{{ salesAttach?.name }}</span>
-                                <a (click)="salesAttach = null"> <i class="be-icon be-icon-trash-can" [ngClass]="{'icon-red': salesAttach}"></i></a>
+                                <input type="file" (change)="onFileAttach($event.target.files[0], 'SalesAgreement')"/>
+                                <span class="fileInputValue">{{ saleAgreement?.fileName }}</span>
+                                <a (click)="onFileDelete(saleAgreement.index)"> <i class="be-icon be-icon-trash-can icon-red" ></i></a>
                                 </div>
                             </div>
                         </div>
@@ -350,7 +352,7 @@
                                     <p>Net Annual Income<span class="star">*</span></p>
                                 </div>
                                 <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="netAnnualIncome"/>
+                                    <input class="blod" type="number" formControlName="netAnnualIncome"/>
                                 </div>
                             </div>
                             <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
@@ -519,7 +521,7 @@
                                         <p>Net Annual Income<span class="star">*</span></p>
                                     </div>
                                     <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="netAnnualIncome"/>
+                                        <input class="blod" type="number" formControlName="netAnnualIncome"/>
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
@@ -558,14 +560,14 @@
                     <div class="grid-x">
                         <p>NRIC and Income Documents<span class="star">*</span> </p>
                         <label for="doc1"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
-                        <input type="file" id="doc1" style="display: none;" multiple (change)="onDocsAttach($event.target.files)">
+                        <input type="file" id="doc1" style="display: none;" multiple (change)="onDocsAppend($event.target.files, 'GeneralFile')" (click)="$event.target.value=null">
                     </div>
                     <div class="grid-x grid-margin-x">
-                        <div class="cell small-12 medium-4" *ngFor="let doc of docsAttach; let i = index">
+                        <div class="cell small-12 medium-4" *ngFor="let generalFile of uploadAttachFile | UploadDocName:'GeneralFile'">
                             <div class="fileInput">
-                                <input type="file" (change)="docsAttach[i] = $event.target.files[0]"/>
-                                <span class="fileInputValue">{{ doc.name }}</span>
-                                <a > <i class="be-icon be-icon-trash-can icon-red"></i></a>
+                                <input type="file" (change)="onDocChange(generalFile.index, $event.target.files[0])"/>
+                                <span class="fileInputValue">{{ generalFile.fileName }}</span>
+                                <a (click)="onFileDelete(generalFile.index)"> <i class="be-icon be-icon-trash-can icon-red"></i></a>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, OrderReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp, OrderDetail, VehicleBrand, Dropdown } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, OrderReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp, OrderDetail, VehicleBrand, Dropdown, AttachUploadReq } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -14,6 +14,7 @@ export class ApiService {
     private HttpHandle<T2>(method: Observable<ApiModel<T2>>): Observable<T2>{
         return method.pipe(
             map((apiResp: ApiModel<T2>)=>{
+                console.log(apiResp);
                 const status = apiResp.status;
                 
                 if(!status.isSuccess || status.errorCode !== 0){
@@ -62,9 +63,9 @@ export class ApiService {
         )
     }
 
-    OrderCreate(req: OrderDetail): Observable<any>{
-        return this.HttpHandle<any>(
-            this.http.post<ApiModel<any>>(basicUrl + ApiEndpoint.OrderCreate, req),
+    OrderCreate(req: OrderDetail): Observable<OrderDetail>{
+        return this.HttpHandle<OrderDetail>(
+            this.http.post<ApiModel<OrderDetail>>(basicUrl + ApiEndpoint.OrderCreate, req),
         )
     }
 
@@ -86,9 +87,9 @@ export class ApiService {
         )
     }
 
-    OrderUpdate(orderId:number, req: OrderDetail): Observable<any>{
-        return this.HttpHandle<void>(
-            this.http.put<ApiModel<void>>(basicUrl + ApiEndpoint.OrderById.replace(ApiEndpoint.OrderId, orderId.toString()), req)
+    OrderUpdate(orderId:number, req: OrderDetail): Observable<OrderDetail>{
+        return this.HttpHandle<OrderDetail>(
+            this.http.put<ApiModel<OrderDetail>>(basicUrl + ApiEndpoint.OrderById.replace(ApiEndpoint.OrderId, orderId.toString()), req)
         )
     }
 
@@ -98,8 +99,16 @@ export class ApiService {
         )
     }
 
-    OrderAttachUpload(){
+    OrderAttachUpload(req: AttachUploadReq): Observable<void>{
+        return this.HttpHandle<void>(
+            this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.OrderAttachUpload, req)
+        )
+    }
 
+    OrderAttachDelete(fileId: number){
+        return this.HttpHandle<any>(
+            this.http.delete<ApiModel<any>>(basicUrl + ApiEndpoint.OrderAttach.replace(ApiEndpoint.FileId, fileId.toString()))
+        )
     }
 
     OrderPdf(orderId: number): Observable<Blob>{

@@ -38,7 +38,6 @@ export interface ApiModel<T>{
     data: T
 }
 
-
 export interface UserLoginReq {
 	username: string;
 	password: string;
@@ -127,7 +126,13 @@ export interface OrderDetail{
     customer: Customer,
     guarantor: Customer,
     vehicleNumber: string,
-    supportingDocs: Array<string>
+    supportingDocs: Array<SupportingDoc>
+}
+
+export interface SupportingDoc{
+    id: number;
+    fileName: string;
+    fileType: "LogCard" | "SalesAgreement" | "GeneralFile";
 }
 
 export interface Customer{
@@ -171,6 +176,20 @@ export interface Vehicle{
     id: number,
     name: string,
     code: string,
+}
+
+export interface AttachUploadReq{
+    attachmentType: "LogCard" | "SalesAgreement" | "GeneralFile";
+    orderId: string;
+    fileName: string;
+    fileContent: string; //Base64 encoded string
+}
+
+export interface FileRecord {
+    id?: number;
+    fileName?: string;
+    fileType?: "LogCard" | "SalesAgreement" | "GeneralFile";
+    file?: File;
 }
 
 export interface User{

@@ -67,7 +67,7 @@
                     </div>
                     <div class="cell small-7 large-12 xlarge-5"></div>
                     <div class="cell">
-                        <div class="fileName" *ngFor="let doc of orderInfo?.supportingDocs | DocName: 'LogCard'">
+                        <div class="fileName" *ngFor="let doc of orderInfo?.supportingDocs | PreviewDocName: 'LogCard'">
                             <p>{{ doc.fileName }}</p>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="cell small-7 large-12 xlarge-5"></div>
                     <div class="cell">
-                        <div class="fileName" *ngFor="let doc of orderInfo?.supportingDocs | DocName: 'SalesAgreement'">
+                        <div class="fileName" *ngFor="let doc of orderInfo?.supportingDocs | PreviewDocName: 'SalesAgreement'">
                             <p>{{ doc.fileName }}</p>
                         </div>
                     </div>
@@ -424,10 +424,10 @@
                 <div class="card-section">
                     <p>
                         NRIC and Income Documents<span class="star">*</span> 
-                        <a class="weblink-pagelink blod linelink text-red" (click)="generalDocsLimit = Infinity" *ngIf="(orderInfo?.supportingDocs | DocName: 'GeneralFile')?.length > 6">Show All</a>
+                        <a class="weblink-pagelink blod linelink text-red" (click)="generalDocsLimit = Infinity" *ngIf="(orderInfo?.supportingDocs | PreviewDocName: 'GeneralFile')?.length > 6">Show All</a>
                     </p>
                     <div class="grid-x grid-margin-x">
-                        <div class="cell small-12 medium-4" *ngFor="let doc of orderInfo?.supportingDocs | DocName: 'GeneralFile' | First: generalDocsLimit">
+                        <div class="cell small-12 medium-4" *ngFor="let doc of orderInfo?.supportingDocs | PreviewDocName: 'GeneralFile' | First: generalDocsLimit">
                             <div class="fileName">
                                 <p>{{ doc.fileName }}</p>
                             </div>
