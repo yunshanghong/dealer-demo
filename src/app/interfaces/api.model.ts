@@ -192,6 +192,14 @@ export interface FileRecord {
     file?: File;
 }
 
+export interface AddressResp{
+    postalCode: string;
+    buildingNo: number;
+    buildingName: string;
+    streetName: string;
+    countryCode: string;
+}
+
 export interface User{
     accessToken: string;
     userName: string;
