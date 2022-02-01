@@ -10,12 +10,12 @@ export class FirstPipe implements PipeTransform {
     }
 }
 
-@Pipe({ name: 'Last3' })
-export class Last3Pipe implements PipeTransform {
+@Pipe({ name: 'Last' })
+export class LastPipe implements PipeTransform {
 
-    transform(obj: Array<number>): Array<Pagination> {
+    transform(obj: Array<number>, inputIndex: number): Array<Pagination> {
 
-        const result = obj.map((item, index) => (index > 3 && index > obj.length-4) ? { originIndex: index } : null).filter((item: Pagination) => item);
+        const result = obj.map((item, index) => (index > inputIndex && index > obj.length - inputIndex - 1) ? { originIndex: index } : null).filter((item: Pagination) => item);
 
         console.log(result);
         return result;
