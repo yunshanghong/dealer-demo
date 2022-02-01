@@ -64,7 +64,7 @@
                 </a>
             </li>
 
-            <li *ngFor="let page of totalPage | First4" [ngClass]="{'current': page.originIndex === orderInfo.pageIndex}" (click)="onChangePage(page.originIndex)">
+            <li *ngFor="let page of totalPage | First:4" [ngClass]="{'current': page.originIndex === orderInfo.pageIndex}" (click)="onChangePage(page.originIndex)">
                 <a [ngClass]="{'show-for-large': page.originIndex !== 0 && page.originIndex !== 1}">{{ page.originIndex + 1 }}</a>
             </li>
             
