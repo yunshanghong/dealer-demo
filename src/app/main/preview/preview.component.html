@@ -424,7 +424,7 @@
                 <div class="card-section">
                     <p>
                         NRIC and Income Documents<span class="star">*</span> 
-                        <a class="weblink-pagelink blod linelink text-red" (click)="generalDocsLimit = null">Show All</a>
+                        <a class="weblink-pagelink blod linelink text-red" (click)="generalDocsLimit = Infinity" *ngIf="(orderInfo?.supportingDocs | DocName: 'GeneralFile')?.length > 6">Show All</a>
                     </p>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-12 medium-4" *ngFor="let doc of orderInfo?.supportingDocs | DocName: 'GeneralFile' | First: generalDocsLimit">

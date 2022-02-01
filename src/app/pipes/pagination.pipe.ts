@@ -5,7 +5,7 @@ import { Pagination } from '../interfaces/common.model';
 export class FirstPipe implements PipeTransform {
 
     transform(obj: Array<number>, inputIndex: number): Array<Pagination> {
-        const result = obj?.map((item, index) => !inputIndex || (index < inputIndex ) ? { originIndex: index } : null)?.filter((item: Pagination) => item);
+        const result = obj?.map((item, index) => (index < inputIndex ) ? { originIndex: index } : null)?.filter((item: Pagination) => item);
         return result;
     }
 }
