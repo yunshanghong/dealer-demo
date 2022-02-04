@@ -16,8 +16,8 @@
             <div class="searchlist">
             <input class="searchbox" type="text" placeholder="Order Number" [(ngModel)]="searchBarInfo.orderNumber">
             <mat-date-range-input [rangePicker]="picker" class="searchbox">
-                <input matStartDate placeholder="Application" (click)="picker.open()" [(ngModel)]="searchBarInfo.applicationDateFromUtc" />
-                <input matEndDate placeholder="Date" (click)="picker.open()" [(ngModel)]="searchBarInfo.applicationDateToUtc"/>
+                <input matStartDate placeholder="Application Date" (click)="picker.open()" [(ngModel)]="searchBarInfo.applicationDateFromUtc" style="height: 100%"/>
+                <input matEndDate (click)="picker.open()" [(ngModel)]="searchBarInfo.applicationDateToUtc" style="height: 100%"/>
             </mat-date-range-input>
             <mat-date-range-picker #picker></mat-date-range-picker>
             <input class="searchbox" type="text" placeholder="Name" [(ngModel)]="searchBarInfo.applicantName">
