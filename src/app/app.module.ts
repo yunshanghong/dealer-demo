@@ -20,6 +20,8 @@ import { CreateUpdateComponent } from './main/create-update/create-update.compon
 import { BaseComponent } from './main/base/base.component';
 import { ModelFilterPipe } from './pipes/dropdownList.pipe';
 import { PreviewDocNamePipe, UploadDocNamePipe } from './pipes/docs.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -67,6 +69,8 @@ const routes: Routes = [
     	HttpClientModule,
     	FormsModule,
 		ReactiveFormsModule,
+	    MatDatepickerModule,
+		BrowserAnimationsModule,
 	],
 	providers: [
     	{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, },

@@ -1,33 +1,31 @@
 
 <header class="hd" id="header">
     <div class="hd-main ct_ctr"><a class="brand-logo hd-main_left" routerLink="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
-    <div class="hd-main_right" *ngIf = "user && user.userName && user.accessToken">
-        <div class="weblink">
-            <div class="weblink-btmline"><img src="assets/images/hd_line.svg" alt=""></div>
-            <div class="weblink-text">Welcome! <span class="blod">{{ user.userName }}</span></div>
-            <a class="weblink-pagelink blod linelink" routerLink="/personalInfo">Profile</a>
-            <a class="weblink-pagelink login blod linelink" (click)="logout()">Log out</a>
-        </div>
-        <div class="searchbtn" data-open="SearchCarId" (click)="showSearch = true"><i class="be-icon be-icon-magnifier"></i></div>
-    </div>
-    </div>
-    <div class="searchcont" id="SearchCarId" [ngClass]="{'is-active': showSearch}">
-    <div class="ct_ctr"> <a class="brand-logo hd-main_left" routerLink="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
-        <div class="searchlist">
-        <input class="searchbox" type="text" placeholder="Order Number">
-        <input class="searchbox" type="text" placeholder="Application Date" autocomplete="off" id="DateFrom">
-        <!-- <mat-form-field>
-            <input type="text" name="birthday" matInput placeholder="生日" [matDatepicker]="birthdayPicker" />
-            <mat-datepicker-toggle [for]="birthdayPicker" matSuffix></mat-datepicker-toggle>
-            <mat-datepicker #birthdayPicker></mat-datepicker>
-        </mat-form-field> -->
-        
-        <input class="searchbox" type="text" placeholder="Name">
-        <div class="searchcont-btn"><i class="be-icon be-icon-magnifier"></i>
-            <input class="blod linelink" type="submit" value="Search">
-        </div>
-        <div class="closesearch" (click)="showSearch = false"></div>
+        <div class="hd-main_right" *ngIf = "user && user.userName && user.accessToken">
+            <div class="weblink">
+                <div class="weblink-btmline"><img src="assets/images/hd_line.svg" alt=""></div>
+                <div class="weblink-text">Welcome! <span class="blod">{{ user.userName }}</span></div>
+                <a class="weblink-pagelink blod linelink" routerLink="/personalInfo">Profile</a>
+                <a class="weblink-pagelink login blod linelink" (click)="logout()">Log out</a>
+            </div>
+            <div class="searchbtn" data-open="SearchCarId" (click)="showSearch = true" *ngIf="currRoute==='/'"><i class="be-icon be-icon-magnifier"></i></div>
         </div>
     </div>
+    <div class="searchcont" id="SearchCarId" [ngClass]="{'is-active': showSearch}" *ngIf="currRoute==='/'">
+        <div class="ct_ctr"> <a class="brand-logo hd-main_left" routerLink="/" title="Go Home"><img class="brand-logo__img" src="assets/images/logo.png" alt="Toyota Financial Services" width="150" height="50"></a>
+            <div class="searchlist">
+            <input class="searchbox" type="text" placeholder="Order Number" [(ngModel)]="searchBarInfo.orderNumber">
+            <mat-date-range-input [rangePicker]="picker" class="searchbox">
+                <input matStartDate placeholder="Application" (click)="picker.open()" [(ngModel)]="searchBarInfo.applicationDateFromUtc" />
+                <input matEndDate placeholder="Date" (click)="picker.open()" [(ngModel)]="searchBarInfo.applicationDateToUtc"/>
+            </mat-date-range-input>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <input class="searchbox" type="text" placeholder="Name" [(ngModel)]="searchBarInfo.applicantName">
+            <div class="searchcont-btn"><i class="be-icon be-icon-magnifier"></i>
+                <input class="blod linelink" type="button" value="Search" (click)="onSearch()">
+            </div>
+            <div class="closesearch" (click)="showSearch = false"></div>
+            </div>
+        </div>
     </div>
 </header>

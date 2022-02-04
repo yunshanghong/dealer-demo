@@ -77,15 +77,21 @@ export interface UserPasswordUpdateReq{
     newPassword: string;
 }
 
+export interface OrderReq extends SearchBarInfo{
+    status: string[];
+    pageIndex: number;
+    pageSize: number;
+    sortRequest: {
+        key: string;
+        isAscending: boolean;
+    }
+}
 
-export interface OrderReq{
+export interface SearchBarInfo{
     orderNumber: string;
     applicationDateFromUtc: Date;
     applicationDateToUtc: Date;
     applicantName: string;
-    status: string[];
-    pageIndex: number;
-    pageSize: number;
 }
 
 export interface OrderFilterResp{

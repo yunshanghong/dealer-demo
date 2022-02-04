@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderReq, OrderFilterResp, OrderItem } from 'src/app/interfaces/api.model';
+import { OrderReq, OrderFilterResp, OrderItem, SearchBarInfo } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 import * as moment from 'moment';
 import { isPlatformBrowser } from '@angular/common';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
 	selector: 'app-home',
@@ -25,19 +26,31 @@ export class HomeComponent extends BaseComponent implements OnInit{
         applicantName: null,
         status: [],
         pageIndex: 0,
-        pageSize: 1,
+        pageSize: 10,
+        sortRequest: null
     }
     totalPage: Array<number> = new Array(1);
 
     constructor(
         private apiService: ApiService,
         private router: Router,
+		private searchService: SearchService,
         @Inject(PLATFORM_ID) public platformId: Object,
     ) {
         super(platformId);
     }
 
     ngOnInit(){
+        this.searchService.getEmitter()
+        .subscribe((searchInfo: SearchBarInfo) => {
+            this.orderInfo = {
+                ... this.orderInfo, 
+                ... searchInfo,
+                applicationDateToUtc: moment(searchInfo.applicationDateToUtc).add(1, "day").toDate(),
+                pageIndex: 0,
+            };
+            this.getOrder();
+        })
         this.isAnimated = false;
         setTimeout(() => {
             this.isAnimated = true;
