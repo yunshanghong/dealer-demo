@@ -2,6 +2,7 @@
   "name": "toyota-dealer",
   "version": "0.0.0",
   "scripts": {
+    "postinstall": "ngcc",
     "start": "ng serve --open",
     "dev:ssr": "ng run toyota-dealer:serve-ssr --open",
     "serve:ssr": "node dist/toyota-dealer/server/main.js",
@@ -14,10 +15,13 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~10.1.5",
+    "@angular/cdk": "^10.2.7",
     "@angular/common": "~10.1.5",
     "@angular/compiler": "~10.1.5",
     "@angular/core": "~10.1.5",
     "@angular/forms": "~10.1.5",
+    "@angular/material": "^10.2.7",
+    "@angular/material-moment-adapter": "^10.2.7",
     "@angular/platform-browser": "~10.1.5",
     "@angular/platform-browser-dynamic": "~10.1.5",
     "@angular/platform-server": "~10.1.5",
