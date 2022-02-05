@@ -12,15 +12,6 @@ import { SearchService } from 'src/app/services/search.service';
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styles: [`/deep/ .mat-date-range-input-container { height: 100%; }`],
-
-	providers: [
-		{
-			provide: DateAdapter,
-			useClass: MomentDateAdapter,
-			deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-		},
-    	{provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
-	]
 })
 export class HeaderComponent implements OnInit{
 

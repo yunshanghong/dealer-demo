@@ -22,6 +22,9 @@ import { ModelFilterPipe } from './pipes/dropdownList.pipe';
 import { PreviewDocNamePipe, UploadDocNamePipe } from './pipes/docs.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DATE_FORMATS } from './interfaces/date.model';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -74,6 +77,8 @@ const routes: Routes = [
 	],
 	providers: [
     	{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, },
+		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    	{provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
     	LoginGuard,
 	],
 	bootstrap: [AppComponent]

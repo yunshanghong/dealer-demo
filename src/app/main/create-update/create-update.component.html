@@ -304,7 +304,8 @@
                                     <p>Date of Birth<span class="star">*</span></p>
                                 </div>
                                 <div class="cell xxlarge-7">
-                                    <input id="datepicker" type="text" aria-required="true" placeholder="DD/MM/YY" autocomplete="off" formControlName="dateOfBirth"/>
+                                    <input id="datepicker" type="text" placeholder="DD/MM/YY" matInput [matDatepicker]="picker1" (click)="picker1.open()" formControlName="dateOfBirth"/>
+                                    <mat-datepicker #picker1></mat-datepicker>
                                 </div>
                             </div>
                             <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
@@ -473,7 +474,8 @@
                                         <p>Date of Birth<span class="star">*</span></p>
                                     </div>
                                     <div class="cell xxlarge-7">
-                                        <input id="datepicker" type="text" name="" aria-required="true" placeholder="DD/MM/YY" autocomplete="off" formControlName="dateOfBirth"/>
+                                        <input id="datepicker" type="text" placeholder="DD/MM/YY" matInput [matDatepicker]="picker2" (click)="picker2.open()" formControlName="dateOfBirth"/>
+                                        <mat-datepicker #picker2></mat-datepicker>
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
