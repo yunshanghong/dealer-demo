@@ -105,6 +105,12 @@ screen and (min-width: 64em) {
     border: 1px solid #494949;
 }
 
+.card-section select.error,
+.card-section input[type="text"].error,
+.card-section input[type="file"].error {
+    border: 2px solid #cc0033;
+}
+
 @media print,
 screen and (min-width: 64em) {
 
@@ -163,13 +169,9 @@ screen and (min-width: 64em) {
 }
 
 .card .fileInput .fileInputValue {
-    width: calc(100% - 55px);
     position: absolute;
     top: 0.375rem;
     left: 0.625rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .card .fileInput i.be-icon-trash-can {
@@ -195,6 +197,14 @@ screen and (min-width: 64em) {
 
 .card .fileInput i.be-icon-trash-can::before {
     margin: 0;
+}
+
+.card .fileInput.error {
+    border: 2px solid #cc0033;
+}
+
+.card .fileInput.error .fileInputValue {
+    color: #cc0033;
 }
 
 .card .fileInput::after {
@@ -489,4 +499,22 @@ screen and (min-width: 64em) {
 
 .ui-widget-header .ui-icon {
     background-image: url("../assets/images/ui-icons_222222_256x240.png") !important;
+}
+
+.error-text {
+    display: block;
+    font-size: 0.875rem;
+    color: #cc0033;
+    margin-bottom: 2rem;
+}
+
+@media print,
+screen and (min-width: 64em) {
+    .error-text {
+        font-size: 1rem;
+    }
+}
+
+.mb56 {
+    margin-bottom: 3.5rem;
 }
