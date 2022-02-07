@@ -313,7 +313,7 @@
                                     <p>Postal Code<span class="star">*</span></p>
                                 </div>
                                 <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="postalCode"/>
+                                    <input class="blod" type="text" formControlName="postalCode" (keyup)="onChangePostal($event.target.value, 'customerForm')"/>
                                 </div>
                             </div>
                             <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
@@ -483,7 +483,7 @@
                                         <p>Postal Code<span class="star">*</span></p>
                                     </div>
                                     <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="postalCode"/>
+                                        <input class="blod" type="text" formControlName="postalCode" (keyup)="onChangePostal($event.target.value, 'guarantorForm')"/>
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">

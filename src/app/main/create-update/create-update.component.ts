@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { AttachUploadReq, Dropdown, DropdownItem, FileRecord, OrderDetail, SupportingDoc, VehicleBrand } from 'src/app/interfaces/api.model';
+import { AddressResp, AttachUploadReq, Dropdown, DropdownItem, FileRecord, OrderDetail, SupportingDoc, VehicleBrand } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 import { Location } from '@angular/common';
@@ -314,6 +314,18 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
 
         console.log(this.uploadAttachFile);
         console.log(this.deleteAttachId);
+    }
+
+    onChangePostal(value: string, formName: "customerForm" | "guarantorForm"){
+        if(value.length === 6){
+            this.apiService.OrderAddress(value)
+            .subscribe((resp: AddressResp[]) =>{
+                console.log(resp)
+                const data = resp[0];
+                const address = `${data?.buildingName || ""} ${data?.buildingNo || ""} ${data?.streetName || ""} ${data?.countryCode || ""}`;
+                this[formName].patchValue({ address: address})
+            })
+        }
     }
 
     private onFileToBase64(file: File): Promise<string> {
