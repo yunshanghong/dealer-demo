@@ -62,8 +62,9 @@
                 <div class="v-nbr"><span class="mo_title hide-for-large">Vehicle Number</span>{{ orderItem.vehicleNumber }}</div>
                 <div class="name"><span class="mo_title hide-for-large">Name</span>{{ orderItem.applicantName }}</div>
                 <div class="action"> 
-                    <a class="linelink" (click)="onView(orderItem.id)">View </a>
-                    <a class="linelink show-for-large" (click)="onPrint(orderItem.id)">Print</a>
+                    <a class="linelink" [routerLink]="['create-update', orderItem.id]" *ngIf="['Draft'].indexOf(orderItem.status) !== -1">Edit </a>
+                    <a class="linelink" (click)="onView(orderItem.id)" *ngIf="['Approved', 'Pending Approval', 'Declined', 'Draft', 'Canceled', 'Pending MyInfo'].indexOf(orderItem.status) !== -1">View </a>
+                    <a class="linelink show-for-large" (click)="onPrint(orderItem.id)" *ngIf="['Approved', 'Pending Approval', 'Declined', 'Pending MyInfo'].indexOf(orderItem.status) !== -1">Print</a>
                 </div>
             </li>
 
