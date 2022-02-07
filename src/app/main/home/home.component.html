@@ -26,22 +26,28 @@
         <div class="ct_ctr tabs-panel is-active" id="TableList1">
         <ul class="tablelist blod hide-for-large"> 
             <li class="title">
-                <a class="text-center o-nbr" routerLink="/">
-                Order Number<i class="be-icon be-icon-sequence"></i>
+                <a class="text-center o-nbr" (click)="onChangeSort('OrderNumber')">
+                Order Number<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'OrderNumber' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
                 </a>
-                <a class="text-center date" routerLink="/">
-                Application Date<i class="be-icon be-icon-sequence"></i>
+                <a class="text-center date" (click)="onChangeSort('ApplicationDate')">
+                Application Date<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'ApplicationDate' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
                 </a>
-                <a class="text-center status" routerLink="/">
-                    Status<i class="be-icon be-icon-sequence"></i>
+                <a class="text-center status" (click)="onChangeSort('Status')">
+                    Status<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'Status' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
                 </a>
             </li>
         </ul>
         <ul class="tablelist blod">
-            <li class="title show-for-large"><a class="o-nbr" href="/">
-                Order Number<i class="be-icon be-icon-sequence"></i></a><a class="date" href="/">
-                Application Date<i class="be-icon be-icon-sequence"></i></a><a class="status" href="/">
-                Status<i class="be-icon be-icon-sequence"></i></a>
+            <li class="title show-for-large">
+                <a class="o-nbr" (click)="onChangeSort('OrderNumber')">
+                Order Number<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'OrderNumber' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
+                </a>
+                <a class="date" (click)="onChangeSort('ApplicationDate')">
+                Application Date<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'ApplicationDate' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
+                </a>
+                <a class="status" (click)="onChangeSort('Status')">
+                Status<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'Status' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
+                </a>
             <div class="type">Type</div>
             <div class="v-nbr">Vehicle Number</div>
             <div class="name">Name</div>

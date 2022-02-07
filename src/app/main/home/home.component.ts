@@ -16,7 +16,7 @@ import { SearchService } from 'src/app/services/search.service';
 export class HomeComponent extends BaseComponent implements OnInit{
 
     createBtns: Array<string> = ["New PC", "New CV", "Used PC", "Used CV"]; 
-    searchTabs: Array<string> = ["Approved", "Pending Approval", "Declined", "Draft", "Canceled", "Pending"]
+    searchTabs: Array<string> = ["Approved", "Pending Approval", "Declined", "Draft", "Canceled", "Pending MyInfo"]
     isAnimated: boolean = false;
     orderItems: Array<OrderItem> = [];
     orderInfo: OrderReq = {
@@ -27,7 +27,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
         status: [],
         pageIndex: 0,
         pageSize: 10,
-        sortRequest: null
+        sortRequest: null,
     }
     totalPage: Array<number> = new Array(1);
 
@@ -97,6 +97,16 @@ export class HomeComponent extends BaseComponent implements OnInit{
         status && newStatus.push(status);
         this.orderInfo.status = newStatus;
         this.orderInfo.pageIndex = 0;
+        this.getOrder();
+    }
+
+    onChangeSort(sortKey: string){
+        this.orderInfo.pageIndex = 0;
+        if(this.orderInfo.sortRequest?.key === sortKey){
+            this.orderInfo.sortRequest = { ...this.orderInfo.sortRequest, isAscending: !this.orderInfo.sortRequest?.isAscending };
+        }else{
+            this.orderInfo.sortRequest = { key: sortKey, isAscending: false };
+        }
         this.getOrder();
     }
 
