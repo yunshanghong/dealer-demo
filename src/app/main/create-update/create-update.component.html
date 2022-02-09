@@ -267,7 +267,7 @@
                                     <input class="blod" type="text" formControlName="name" [ngClass]="{'error': customerForm.get('name').touched && customerForm.get('name').invalid}"/>
                                 </div>
                             </div>
-                            <div class="grid-x grid-margin-x" *ngIf="customerForm.get('isMyInfo').value">
+                            <div class="grid-x grid-margin-x">
                                 <div class="cell xxlarge-5">
                                     <p>NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
                                 </div>
@@ -443,7 +443,7 @@
                                         <input class="blod" type="text" formControlName="name" [ngClass]="{'error': guarantorForm.get('name').touched && guarantorForm.get('name').invalid}"/>
                                     </div>
                                 </div>
-                                <div class="grid-x grid-margin-x" *ngIf="guarantorForm.get('isMyInfo').value">
+                                <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
                                         <p>NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
                                     </div>
@@ -584,7 +584,7 @@
 
                     </div>
                 </div>
-                <div class="card shadow fileUploadCard" *ngIf="!(customerForm.get('isMyInfo').value && guarantorForm.get('isMyInfo').value)">
+                <div class="card shadow fileUploadCard" *ngIf="!(customerForm.get('isMyInfo').value && guarantorForm.get('isMyInfo').value && guarantorOn)">
                     <div class="card-divider"> <span>FILE UPLOAD</span></div>
                     <div class="card-section">
                     <div class="grid-x">
@@ -623,6 +623,12 @@
                 <input class="btncont-bgimg" type="button" value="Preview" (click)="onPreview()">
             </div>
         </section>
+    </div>
+    <div class="reveal-overlay" style="display: block" *ngIf="showSavedPopTimer" (click)="onClearSaveTimer()">
+        <div class="popup tiny reveal" id="saveData" data-reveal="2zjlve-reveal" role="dialog" aria-hidden="false" data-yeti-box="saveData" data-resize="saveData" style="display: block; top: 166px;" tabindex="-1" (click)="$event.stopPropagation()">
+            <div class="popup-icon"><i class="be-icon be-icon-check-l"></i></div>
+            <div class="popup-title text-center blod">Saved</div>
+        </div>
     </div>
 </main>
 <!-- [END] Content ==================================================-->

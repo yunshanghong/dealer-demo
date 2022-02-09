@@ -31,6 +31,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
     uploadAttachFile: Array<FileRecord> = [];
     // file has id => delete file
     deleteAttachId: Array<FileRecord> = [];
+    showSavedPopTimer: any = null;
     guarantorOn: boolean = false;
 
     constructor(
@@ -44,7 +45,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         this.updateOrder = this.router.getCurrentNavigation()?.extras?.state?.orderInfo
     }
 
-    conditionRequired = (controlName: string, matchTo: boolean): (AbstractControl) => ValidationErrors | null => {
+    private conditionRequired = (controlName: string, matchTo: boolean): (AbstractControl) => ValidationErrors | null => {
         return (control: AbstractControl): ValidationErrors | null => {
             if(control && control.parent && control.parent.get(controlName).value === matchTo){
                 return control.value ? null : { isMatching: false }
@@ -53,7 +54,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         };
     }
 
-    conditionRequired2 = (controlName: string, matchTo: boolean): (AbstractControl) => ValidationErrors | null => {
+    private conditionRequired2 = (controlName: string, matchTo: boolean): (AbstractControl) => ValidationErrors | null => {
         return (control: AbstractControl): ValidationErrors | null => {
             if(this.guarantorOn && control && control.parent && control.parent.get(controlName).value === matchTo){
                 return control.value ? null : { isMatching: false }
@@ -63,7 +64,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
     }
 
 
-    conditionRequired3 = (): (AbstractControl) => ValidationErrors | null => {
+    private conditionRequired3 = (): (AbstractControl) => ValidationErrors | null => {
         return (control: AbstractControl): ValidationErrors | null => {
             if(this.guarantorOn){
                 return (control.value !== null && control.value !== "" && control.value !== undefined) ? null : { isMatching: false }
@@ -99,6 +100,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         this.customerForm = new FormGroup({
             "isMyInfo": new FormControl(false, [Validators.required]),
             "name": new FormControl(null, [Validators.required]),
+            "nric": new FormControl(null, [Validators.required]),
             "gender": new FormControl(null, [this.conditionRequired("isMyInfo", false)]),
             "nationality": new FormControl("", [this.conditionRequired("isMyInfo", false)]),
             "residentialStatus": new FormControl("", [this.conditionRequired("isMyInfo", false)]),
@@ -111,12 +113,12 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
             "netAnnualIncome": new FormControl(0, [this.conditionRequired("isMyInfo", false)]),
             "employerName": new FormControl(null, [this.conditionRequired("isMyInfo", false)]),
             "assessmentYear": new FormControl("", [this.conditionRequired("isMyInfo", false)]),
-            "nric": new FormControl(null, {validators: [this.conditionRequired("isMyInfo", true)]}),
         })
 
         this.guarantorForm = new FormGroup({
-            "isMyInfo": new FormControl(null, [this.conditionRequired3()]),
+            "isMyInfo": new FormControl(false, [this.conditionRequired3()]),
             "name": new FormControl(null, [this.conditionRequired3()]),
+            "nric": new FormControl(null, [this.conditionRequired3()]),
             "gender": new FormControl(null, [this.conditionRequired2("isMyInfo", false)]),
             "nationality": new FormControl("", [this.conditionRequired2("isMyInfo", false)]),
             "residentialStatus": new FormControl("", [this.conditionRequired2("isMyInfo", false)]),
@@ -129,7 +131,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
             "netAnnualIncome": new FormControl(0, [this.conditionRequired2("isMyInfo", false)]),
             "employerName": new FormControl(null, [this.conditionRequired2("isMyInfo", false)]),
             "assessmentYear": new FormControl("", [this.conditionRequired2("isMyInfo", false)]),
-            "nric": new FormControl(null, [this.conditionRequired2("isMyInfo", true)]),
         })
 
         this.vehicleForm.get("vehicleModelCode").valueChanges
@@ -240,9 +241,16 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         if(this.onCheckPageValid()){
             this.onCreateUpdate()
             .subscribe((resp: string[]) =>{
-                console.log(resp)
+                this.showSavedPopTimer = setTimeout(() => {
+                    this.router.navigate([""]);
+                }, 4000);
             })
         }
+    }
+
+    onClearSaveTimer(){
+        clearTimeout(this.showSavedPopTimer);
+        this.router.navigate([""]);
     }
 
     onPreview(){
@@ -265,11 +273,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
 
     onSwitchGuarantor(){
         this.guarantorOn = !this.guarantorOn;
-        if(this.guarantorOn){
-            this.guarantorForm.patchValue({ isMyInfo: false })
-        }else{
-            this.guarantorForm.patchValue({ isMyInfo: null })
-        }
+        this.guarantorForm.patchValue({ isMyInfo: this.guarantorForm.get('isMyInfo').value })
     }
 
     onFileAttach(file: File, fileType: "LogCard" | "SalesAgreement"){
@@ -343,6 +347,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
     }
 
     private onCheckPageValid(){
+        const needUploadGeneralFile = !(this.customerForm.get('isMyInfo').value && this.guarantorForm.get('isMyInfo').value && this.guarantorOn);
         this.vehicleForm.markAllAsTouched();
         this.additionalForm.markAllAsTouched();
         this.financeForm.markAllAsTouched();
@@ -369,7 +374,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
             this.guarantorForm.valid && 
             numLogCard > 0 && 
             numSalesAgreement > 0 && 
-            numGeneralFile > 0
+            (!needUploadGeneralFile || numGeneralFile > 0)
         )
     }
 
@@ -400,10 +405,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                     .map(item => 
                         from(this.apiService.OrderAttachDelete(item.id))
                         .pipe(
-                            map(() => {
-                                this.deleteAttachId = this.deleteAttachId.filter(file => file && file.id !== item.id)
-                                return `Success delete`
-                            }),
+                            map(() =>  `Success delete`),
                             catchError(err => `Error while deleting ${err.message}`)
                         ).toPromise()
                     )
@@ -411,8 +413,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                 .concat(
                     // upload
                     this.uploadAttachFile
-                    .map(async (item, index) => {
-                        if(!item.id && item.file){
+                    .map(async (item) => {
+                        const needUploadGeneralFile = !(this.customerForm.get('isMyInfo').value && this.guarantorForm.get('isMyInfo').value && this.guarantorOn);
+                        if(!item.id && item.file && ((item.fileType === "GeneralFile" && needUploadGeneralFile) || item.fileType === "LogCard" || item.fileType === "SalesAgreement")){
                             const salesReq: AttachUploadReq = {
                                 attachmentType: item.fileType,
                                 orderId: (orderDetail.id || this.updateOrder.id)?.toString(),
@@ -422,7 +425,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                             return from(this.apiService.OrderAttachUpload(salesReq))
                                 .pipe(
                                     map(() => {
-                                        // filter this.uploadAttached
+                                        this.updateOrder.supportingDocs.push({id: -1, fileName: item.fileName, fileType: item.fileType})
                                         return `Success upload`
                                     }),
                                     catchError(err => `Error while uploading ${err.message}`)
