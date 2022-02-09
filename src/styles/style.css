@@ -11177,12 +11177,12 @@ screen and (min-width: 90em) {
 /* Vendor Style*/
 @font-face {
     font-family: "icon";
-    src: url("../assets/fonts/icons/icon.eot?1644216697441");
-    src: url("../assets/fonts/icons/icon.eot?#iefix-1644216697441") format("embedded-opentype"),
-        url("../assets/fonts/icons/icon.woff2?1644216697441") format("woff2"),
-        url("../assets/fonts/icons/icon.woff?1644216697441") format("woff"),
-        url("../assets/fonts/icons/icon.ttf?1644216697441") format("truetype"),
-        url("../assets/fonts/icons/icon.svg?1644216697441#icon") format("svg");
+    src: url("../assets/fonts/icons/icon.eot?1644398366370");
+    src: url("../assets/fonts/icons/icon.eot?#iefix-1644398366370") format("embedded-opentype"),
+        url("../assets/fonts/icons/icon.woff2?1644398366370") format("woff2"),
+        url("../assets/fonts/icons/icon.woff?1644398366370") format("woff"),
+        url("../assets/fonts/icons/icon.ttf?1644398366370") format("truetype"),
+        url("../assets/fonts/icons/icon.svg?1644398366370#icon") format("svg");
     font-display: block;
     unicode-range: U+EA01-EA15;
 }
