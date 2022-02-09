@@ -110,7 +110,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
             "unitNumber": new FormControl(null, [this.conditionRequired("isMyInfo", false)]),
             "mobile": new FormControl(null, [Validators.required]),
             "email": new FormControl(null, [Validators.required]),
-            "netAnnualIncome": new FormControl(0, [this.conditionRequired("isMyInfo", false)]),
+            "netAnnualIncome": new FormControl(null, [this.conditionRequired("isMyInfo", false)]),
             "employerName": new FormControl(null, [this.conditionRequired("isMyInfo", false)]),
             "assessmentYear": new FormControl("", [this.conditionRequired("isMyInfo", false)]),
         })
@@ -128,7 +128,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
             "unitNumber": new FormControl(null, [this.conditionRequired2("isMyInfo", false)]),
             "mobile": new FormControl(null, [this.conditionRequired3()]),
             "email": new FormControl(null, [this.conditionRequired3()]),
-            "netAnnualIncome": new FormControl(0, [this.conditionRequired2("isMyInfo", false)]),
+            "netAnnualIncome": new FormControl(null, [this.conditionRequired2("isMyInfo", false)]),
             "employerName": new FormControl(null, [this.conditionRequired2("isMyInfo", false)]),
             "assessmentYear": new FormControl("", [this.conditionRequired2("isMyInfo", false)]),
         })
@@ -382,15 +382,37 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         return of(this.updateOrder?.id)
         .pipe(
             mergeMap((id: number) => {
+                const cIsMyInfo = this.customerForm.get('isMyInfo').value
+                const gIsMyInfo = this.guarantorForm.get('isMyInfo').value
                 const req: OrderDetail = {
                     ...this.vehicleForm.value,
                     ...this.additionalForm.value,
                     ...this.financeForm.value,
                     customer:{
                         ...this.customerForm.value,
+                        gender: cIsMyInfo ? null: this.customerForm.get('gender').value,
+                        nationality: cIsMyInfo ? null: this.customerForm.get('nationality').value,
+                        residentialStatus: cIsMyInfo ? null: this.customerForm.get('residentialStatus').value,
+                        dateOfBirth: cIsMyInfo ? null: this.customerForm.get('dateOfBirth').value,
+                        postalCode: cIsMyInfo ? null: this.customerForm.get('postalCode').value,
+                        address: cIsMyInfo ? null: this.customerForm.get('address').value,
+                        unitNumber: cIsMyInfo ? null: this.customerForm.get('unitNumber').value,
+                        netAnnualIncome: cIsMyInfo ? null: this.customerForm.get('netAnnualIncome').value,
+                        employerName: cIsMyInfo ? null: this.customerForm.get('employerName').value,
+                        assessmentYear: cIsMyInfo ? null: this.customerForm.get('assessmentYear').value,
                     },
                     guarantor: this.guarantorOn ? {
                         ...this.guarantorForm.value,
+                        gender: gIsMyInfo ? null: this.guarantorForm.get('gender').value,
+                        nationality: gIsMyInfo ? null: this.guarantorForm.get('nationality').value,
+                        residentialStatus: gIsMyInfo ? null: this.guarantorForm.get('residentialStatus').value,
+                        dateOfBirth: gIsMyInfo ? null: this.guarantorForm.get('dateOfBirth').value,
+                        postalCode: gIsMyInfo ? null: this.guarantorForm.get('postalCode').value,
+                        address: gIsMyInfo ? null: this.guarantorForm.get('address').value,
+                        unitNumber: gIsMyInfo ? null: this.guarantorForm.get('unitNumber').value,
+                        netAnnualIncome: gIsMyInfo ? null: this.guarantorForm.get('netAnnualIncome').value,
+                        employerName: gIsMyInfo ? null: this.guarantorForm.get('employerName').value,
+                        assessmentYear: gIsMyInfo ? null: this.guarantorForm.get('assessmentYear').value,
                     } : null
                 }
                 return id ? this.apiService.OrderUpdate(id, req) : this.apiService.OrderCreate(req)
