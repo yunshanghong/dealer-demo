@@ -179,7 +179,7 @@
                     </form>
                     </div>
                 </div>
-                <span class="error-text" *ngIf="onTouchedNInvalid(additionalForm) || ( 0 === (uploadAttachFile | UploadDocName:'LogCard').length && (deleteAttachId| UploadDocName:'LogCard').length > 0) || ( 0 === (uploadAttachFile | UploadDocName:'SalesAgreement').length && (deleteAttachId| UploadDocName:'SalesAgreement').length > 0)">Fields marked * are required please.</span>
+                <span class="error-text" *ngIf="onTouchedNInvalid(additionalForm) || (additionalForm.touched && ( (uploadAttachFile | UploadDocName:'LogCard').length === 0 ) || ((uploadAttachFile | UploadDocName:'SalesAgreement').length === 0 ))">Fields marked * are required please.</span>
 
                 <div class="card shadow">
                     <div class="card-divider"> <span>B. FINANCING DETAILS (PER UNIT)</span></div>
@@ -614,7 +614,7 @@
                     </ul>
                     </div>
                 </div>
-                <span class="error-text" *ngIf="!(customerForm.get('isMyInfo').value && guarantorForm.get('isMyInfo').value) && (uploadAttachFile | UploadDocName:'GeneralFile').length === 0 && (deleteAttachId| UploadDocName:'GeneralFile').length > 0">Fields marked * are required please.</span>
+                <span class="error-text" *ngIf="!(customerForm.get('isMyInfo').value && guarantorForm.get('isMyInfo').value && guarantorOn) && (uploadAttachFile | UploadDocName:'GeneralFile').length === 0">Fields marked * are required please.</span>
                 </div>
             </div>
             <div class="btncont">
