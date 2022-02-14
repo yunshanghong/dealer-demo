@@ -319,7 +319,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
     onDocsAppend(files: FileList, fileType: "GeneralFile"){
         const fileArr = Array.from(files).map(item => ({
             fileType: fileType,
-            files: item,
+            file: item,
             fileName: item.name
         }));
         const newUploadFiles: FileRecord[] = [...this.uploadAttachFile, ...fileArr]
