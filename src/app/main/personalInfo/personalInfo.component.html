@@ -59,10 +59,5 @@
             </div>
         </div>
     </div>
-    <div class="reveal-overlay" style="display: block;" *ngIf="showSuccessModal" (click)="showSuccessModal = false">
-        <div class="popup tiny reveal" id="Successfully" data-reveal style="display: block;" (click)="$event.stopPropagation()">
-            <div class="popup-icon"><i class="be-icon be-icon-check-l"></i></div>
-            <div class="popup-title text-center blod">Your profile has been saved successfully!</div>
-        </div>
-    </div>
+    <app-msgPopup [showPopInfo]="showPopInfo"></app-msgPopup>
 </main>

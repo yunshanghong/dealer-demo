@@ -63,14 +63,18 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit{
 				email: req.email,
 				mobile: req.mobile,
 			}
-			this.showSuccessModal = true;
-
-			setTimeout(() => {
-				this.showSuccessModal = false;
-			}, 4000);
+			super.showPopInfo = {
+				timer: setTimeout(() => {
+                    this.router.navigate([""]);
+				}, 4000),
+				popmsg: "Your profile has been saved successfully!",
+				successFunc: () => {
+                    this.router.navigate([""]);
+				},
+			}
 		},
 		(err: HttpErrorResponse) =>{
-			this.submitErr = err.error.details || err.message || "Update Personal Information Fail!"
+			super.errorPopup(err);
             this.infoForm.markAsUntouched();
 		})
 	}

@@ -17,7 +17,6 @@ export class LoginComponent extends BaseComponent implements OnInit{
 
     loginForm: FormGroup;
     showPWD: boolean = false;
-    loginErr: string = null;
 
     constructor(
         @Inject(PLATFORM_ID) public platformId: Object,
@@ -65,7 +64,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
             this.router.navigate(["/"]);
         },
         (err: HttpErrorResponse) =>{
-            this.loginErr = err.error.details || err.message || "Login Failed. Your username and/or password do not match.";
+            super.errorPopup(err);
             this.loginForm.markAsUntouched();
         })
     }
