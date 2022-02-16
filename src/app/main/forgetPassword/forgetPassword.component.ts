@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserPasswordForgetReq, UserPasswordForgetResp } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
@@ -13,9 +14,9 @@ import { BaseComponent } from '../base/base.component';
 export class ForgetPasswordComponent extends BaseComponent implements OnInit{
 	
     forgetPwdForm: FormGroup;
-    submitMsg: string = null;
 
 	constructor(
+		private router: Router,
         private apiService: ApiService,
         @Inject(PLATFORM_ID) public platformId: Object,
 	) {
@@ -38,11 +39,18 @@ export class ForgetPasswordComponent extends BaseComponent implements OnInit{
 
         this.apiService.UserPasswordForget(req)
 		.subscribe((resp: UserPasswordForgetResp) => {
-			this.submitMsg = resp.message;
-			this.forgetPwdForm.markAsUntouched();
+			super.showPopInfo = {
+				timer: setTimeout(() => {
+                    this.router.navigate(["login"]);
+				}, 4000),
+				popmsg: resp.message,
+				successFunc: () => {
+                    this.router.navigate(["login"]);
+				},
+			}
 		},
 		(err: HttpErrorResponse) => {
-			this.submitMsg = err.error.details || err.message || "Forget Password Submit Failed.";
+			super.errorPopup(err);
 			this.forgetPwdForm.markAsUntouched();
 		});
 
