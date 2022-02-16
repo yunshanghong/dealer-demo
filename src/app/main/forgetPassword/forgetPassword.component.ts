@@ -53,6 +53,9 @@ export class ForgetPasswordComponent extends BaseComponent implements OnInit{
 			super.errorPopup(err);
 			this.forgetPwdForm.markAsUntouched();
 		});
+	}
 
+	routeLogin(){
+		this.router.navigate(["login"])
 	}
 }
