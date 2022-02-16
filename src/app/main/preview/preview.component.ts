@@ -34,6 +34,7 @@ export class PreviewComponent extends BaseComponent implements OnInit{
         .subscribe((resp: OrderDetail)=>{
             console.log(resp);
             this.orderInfo = resp;
+            super.unactiveLoader();
         },
         (err: HttpErrorResponse)=>{
             console.log(err)

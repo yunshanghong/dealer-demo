@@ -179,6 +179,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                 )
             )
             .subscribe((data: OrderDetail) =>{
+                super.unactiveLoader();
                 console.log(data);
                 this.updateOrder = data;
                 this.uploadAttachFile = [...this.updateOrder?.supportingDocs];
@@ -222,6 +223,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                 vehicleCondition: initVehicleCondition,
                 vehicleType: initVehicleType,
             })
+            super.unactiveLoader();
         }
     }
     
