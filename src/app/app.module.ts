@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './main/home/home.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
+import { LoaderComponent } from './layouts/loader/loader.component';
 import { LoginComponent } from './main/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -56,6 +57,7 @@ const routes: Routes = [
 		//#region Layouts
 		HeaderComponent,
 		FooterComponent,
+		LoaderComponent,
 		//#endregion
 
 		//#region 
