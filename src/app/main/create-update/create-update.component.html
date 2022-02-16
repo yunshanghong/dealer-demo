@@ -625,11 +625,6 @@
             </div>
         </section>
     </div>
-    <div class="reveal-overlay" style="display: block" *ngIf="showSavedPopTimer" (click)="onClearSaveTimer()">
-        <div class="popup tiny reveal" id="saveData" data-reveal="2zjlve-reveal" role="dialog" aria-hidden="false" data-yeti-box="saveData" data-resize="saveData" style="display: block; top: 166px;" tabindex="-1" (click)="$event.stopPropagation()">
-            <div class="popup-icon"><i class="be-icon be-icon-check-l"></i></div>
-            <div class="popup-title text-center blod">Saved</div>
-        </div>
-    </div>
+    <app-msgPopup [showPopInfo]="showPopInfo"></app-msgPopup>
 </main>
 <!-- [END] Content ==================================================-->

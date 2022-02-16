@@ -7,6 +7,7 @@ import { AddressResp, AttachUploadReq, Dropdown, DropdownItem, FileRecord, Order
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -31,7 +32,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
     uploadAttachFile: Array<FileRecord> = [];
     // file has id => delete file
     deleteAttachId: Array<FileRecord> = [];
-    showSavedPopTimer: any = null;
     guarantorOn: boolean = false;
 
     constructor(
@@ -243,16 +243,20 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         if(this.onCheckPageValid()){
             this.onCreateUpdate()
             .subscribe((resp: string[]) =>{
-                this.showSavedPopTimer = setTimeout(() => {
-                    this.router.navigate([""]);
-                }, 4000);
+                super.showPopInfo = {
+                    timer: setTimeout(() => {
+                        this.router.navigate([""]);
+                    }, 4000),
+                    popmsg: "Saved",
+                    successFunc: () => {
+                        this.router.navigate([""])
+                    },
+                }
+            },
+            (error: HttpErrorResponse) => {
+                super.errorPopup(error);
             })
         }
-    }
-
-    onClearSaveTimer(){
-        clearTimeout(this.showSavedPopTimer);
-        this.router.navigate([""]);
     }
 
     onPreview(){
@@ -260,9 +264,20 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
             this.onCreateUpdate()
             .subscribe((resp: string[]) =>{
                 console.log(resp)
-                this.router.navigate(["preview", this.updateOrder.id],{
-                    state: { orderInfo: this.updateOrder }
-                })
+                super.showPopInfo = {
+                    timer: setTimeout(() => {
+                        this.router.navigate([""]);
+                    }, 4000),
+                    popmsg: "Saved",
+                    successFunc: () => {
+                        this.router.navigate(["preview", this.updateOrder.id],{
+                            state: { orderInfo: this.updateOrder }
+                        })
+                    },
+                }
+            },
+            (error: HttpErrorResponse) => {
+                super.errorPopup(error);
             })
         }
     }

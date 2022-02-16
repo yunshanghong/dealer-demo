@@ -60,7 +60,15 @@ export class PreviewComponent extends BaseComponent implements OnInit{
     onSubmit(){
         this.apiService.OrderSubmit(this.id)
         .subscribe(()=>{
-            console.log("OKOK")
+            super.showPopInfo = {
+                timer: setTimeout(() => {
+                    this.router.navigate([""]);
+                }, 4000),
+                popmsg: "Successfully Submitted",
+                successFunc: () => {
+                    this.router.navigate([""])
+                },
+            }
         },
         (error: HttpErrorResponse) => {
             super.errorPopup(error);

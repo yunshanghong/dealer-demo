@@ -7,6 +7,7 @@ import { HomeComponent } from './main/home/home.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { LoaderComponent } from './layouts/loader/loader.component';
+import { MsgPopupComponent } from './layouts/msgpopup/msgpopup.component';
 import { LoginComponent } from './main/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -58,6 +59,7 @@ const routes: Routes = [
 		HeaderComponent,
 		FooterComponent,
 		LoaderComponent,
+		MsgPopupComponent,
 		//#endregion
 
 		//#region 
