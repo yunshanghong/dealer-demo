@@ -266,7 +266,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                 console.log(resp)
                 super.showPopInfo = {
                     timer: setTimeout(() => {
-                        this.router.navigate([""]);
+                        this.router.navigate(["preview", this.updateOrder.id],{
+                            state: { orderInfo: this.updateOrder }
+                        })
                     }, 4000),
                     popmsg: "Saved",
                     successFunc: () => {
