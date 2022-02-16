@@ -85,7 +85,7 @@
       line-height: 1;
       margin-bottom: 0;
       position: relative;
-      top: 10px; }
+      top: 0.625rem; }
 
 .fileUploadCard .grid-x {
   margin-bottom: 0; }
@@ -132,7 +132,7 @@
 @media print, screen and (min-width: 64em) {
   .bgcar {
     position: absolute;
-    left: -300px;
+    left: -18.75rem;
     bottom: 1.875rem; } }
 
 .bgcar .carline {

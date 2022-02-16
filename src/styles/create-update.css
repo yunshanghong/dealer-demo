@@ -102,13 +102,13 @@ screen and (min-width: 64em) {
     font-size: 0.875rem;
     color: #666666;
     padding: 0 0.625rem;
-    border: 1px solid #494949;
+    border: 0.0625rem solid #494949;
 }
 
 .card-section select.error,
 .card-section input[type="text"].error,
 .card-section input[type="file"].error {
-    border: 2px solid #cc0033;
+    border: 0.125rem solid #cc0033;
 }
 
 @media print,
@@ -200,7 +200,7 @@ screen and (min-width: 64em) {
 }
 
 .card .fileInput.error {
-    border: 2px solid #cc0033;
+    border: 0.125rem solid #cc0033;
 }
 
 .card .fileInput.error .fileInputValue {
@@ -211,7 +211,7 @@ screen and (min-width: 64em) {
     display: block;
     content: "";
     height: 1.25rem;
-    border-left: 1px solid #d9d9d9;
+    border-left: 0.0625rem solid #d9d9d9;
     position: absolute;
     top: 0.4375rem;
     right: 2.4375rem;
@@ -300,6 +300,10 @@ input[type="radio"]:checked+label .radioLabel_icon {
     transform: scale(0.8) translate(-0.03125rem, 0.125rem);
 }
 
+.radioLabel_icon.error {
+    border: 0.125rem solid #cc0033;
+}
+
 .align-center {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -339,6 +343,10 @@ input[type="radio"]:checked+label .radioLabel_icon {
 
 .fileUploadCard .star {
     margin-right: 1.875rem;
+}
+
+.popup-icon .be-icon.be-icon-fail {
+    color: #cc0033;
 }
 
 input::-webkit-input-placeholder {
@@ -396,7 +404,7 @@ input::placeholder {
     height: 1.375rem;
     padding: 0.0625rem;
     border-radius: 1.5625rem;
-    border: 1px solid #fff;
+    border: 0.0625rem solid #fff;
     background: #666666;
     -webkit-transition: 0.3s;
     transition: 0.3s;
@@ -414,7 +422,7 @@ input::placeholder {
 
 .switch-container-on {
     background: #fff;
-    border: 1px solid #666666;
+    border: 0.0625rem solid #666666;
 }
 
 .switch-container-on .switch {
@@ -452,7 +460,7 @@ screen and (min-width: 40em) {
 screen and (min-width: 64em) {
     .bgcar {
         position: absolute;
-        left: -300px;
+        left: -18.75rem;
         bottom: 1.875rem;
     }
 }
