@@ -1,6 +1,6 @@
 <app-loader [isActive]="isActive"></app-loader>
 <main class="main-container">
-    <div class="main-wrap" [ngClass]= "{'animate' : !isAnimated }">
+    <div class="main-wrap" [ngClass]= "{'animate' : addAnimate || isActive  }">
     <section class="index-pagetitle">
         <div class="ct_ctr">
         <h1 class="blod pagename">Home </h1>

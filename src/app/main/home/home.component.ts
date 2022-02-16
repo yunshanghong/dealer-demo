@@ -17,7 +17,7 @@ export class HomeComponent extends BaseComponent implements OnInit{
 
     createBtns: Array<string> = ["New PC", "New CV", "Used PC", "Used CV"]; 
     searchTabs: Array<string> = ["Approved", "Pending Approval", "Declined", "Draft", "Canceled", "Pending MyInfo"]
-    isAnimated: boolean = false;
+    addAnimate: boolean = true;
     orderItems: Array<OrderItem> = [];
     orderInfo: OrderReq = {
         orderNumber: null,
@@ -51,9 +51,8 @@ export class HomeComponent extends BaseComponent implements OnInit{
             };
             this.getOrder();
         })
-        this.isAnimated = false;
         setTimeout(() => {
-            this.isAnimated = true;
+            this.addAnimate = false;
         }, 500);
 
         this.getOrder();
