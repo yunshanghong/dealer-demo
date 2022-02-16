@@ -25,7 +25,6 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit{
     pwdForm: FormGroup;
 	changeMsg: string = null;
 	showConfirmModal: boolean = false;
-	showSuccessModal: boolean = false;
 
 	constructor(
         private apiService: ApiService,
@@ -52,14 +51,18 @@ export class ChangePasswordComponent extends BaseComponent implements OnInit{
 		}
 		this.apiService.UpdatePassword(req)
 		.subscribe(() =>{
-			this.showSuccessModal = true;
-
-			setTimeout(() => {
-				this.showSuccessModal = false;
-			}, 4000);
+			super.showPopInfo = {
+				timer: setTimeout(() => {
+                    this.router.navigate(["personalInfo"]);
+				}, 4000),
+				popmsg: "Your password has been saved successfully!",
+				successFunc: () => {
+                    this.router.navigate(["personalInfo"]);
+				},
+			}
 		},
 		(err: HttpErrorResponse) => {
-			this.changeMsg = err.error.details || err.message || "Forget Password Submit Failed.";
+			super.errorPopup(err);
 			this.pwdForm.markAsUntouched();
 		});
 	}

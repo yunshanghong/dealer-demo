@@ -41,7 +41,7 @@ export class BaseComponent implements OnDestroy{
 
     protected errorPopup(error: HttpErrorResponse){
         console.log(error)
-        const msg = error?.error?.errors ? error.error.errors[Object.keys(error.error.errors)[0]][0] : error.message;
+        const msg = error?.error?.errors ? error.error.errors[Object.keys(error.error.errors)[0]][0] : (error.error.details || error.message) ;
         this.showPopInfo = {
             timer: setTimeout(() => {
                 this.showPopInfo = { timer: null, popmsg: null, successFunc: null };
