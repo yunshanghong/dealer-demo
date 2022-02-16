@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserProfileResp } from './interfaces/api.model';
 import { ApiService } from './services/api.service';
 import { UserService } from './services/user.service';
@@ -13,9 +12,7 @@ export class AppComponent implements OnInit{
 	constructor(
 		private userService: UserService,
 		private apiService: ApiService,
-	) {
-		
-	}
+	) { }
 
 	ngOnInit(){
 		if(this.userService.currentUser.accessToken){

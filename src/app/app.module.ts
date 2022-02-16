@@ -82,7 +82,7 @@ const routes: Routes = [
 	providers: [
     	{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, },
 		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    	{provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
+    	{ provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
     	LoginGuard,
 	],
 	bootstrap: [AppComponent]

@@ -1,11 +1,8 @@
 import { Component, OnInit} from '@angular/core';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { SearchBarInfo, User } from 'src/app/interfaces/api.model';
-import { DATE_FORMATS } from 'src/app/interfaces/date.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({

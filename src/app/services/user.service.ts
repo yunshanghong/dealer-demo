@@ -8,8 +8,7 @@ export class UserService {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: Object,
-    ) {
-    }
+    ) { }
 
     /* UserInfo */
     private userName: string;
