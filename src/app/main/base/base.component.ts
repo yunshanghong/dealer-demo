@@ -7,11 +7,11 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class BaseComponent implements OnDestroy{
 
+    isActive: boolean = true;
+
     constructor(
         @Inject(PLATFORM_ID) protected platformId: Object,
-    ) { 
-        
-    }
+    ) { }
         
     ngOnDestroy() {
         isPlatformBrowser(this.platformId) && window.scrollTo({ left: 0, top: 0, behavior: 'auto' });
@@ -25,5 +25,9 @@ export class BaseComponent implements OnDestroy{
         document.body.appendChild(downloadLink);
         downloadLink.click();
         downloadLink.remove();
+    }
+
+    protected unactiveLoader(){
+        this.isActive = false;
     }
 }
