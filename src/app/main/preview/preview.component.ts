@@ -29,16 +29,20 @@ export class PreviewComponent extends BaseComponent implements OnInit{
 
     ngOnInit(){
         this.id = this.route.snapshot.params["id"];
-
-        this.apiService.OrderById(this.id)
-        .subscribe((resp: OrderDetail)=>{
-            console.log(resp);
-            this.orderInfo = resp;
+        if(!this.orderInfo){
+            this.apiService.OrderById(this.id)
+            .subscribe((resp: OrderDetail)=>{
+                console.log(resp);
+                this.orderInfo = resp;
+                super.unactiveLoader();
+            },
+            (err: HttpErrorResponse)=>{
+                console.log(err)
+            })
+        }else{
             super.unactiveLoader();
-        },
-        (err: HttpErrorResponse)=>{
-            console.log(err)
-        })
+        }
+        
     }
 
     onEdit(){

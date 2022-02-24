@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, from, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { AddressResp, AttachUploadReq, Dropdown, DropdownItem, FileRecord, OrderDetail, VehicleBrand } from 'src/app/interfaces/api.model';
+import { AddressResp, AttachUploadReq, Dropdown, DropdownItem, FileRecord, OrderDetail, SupportingDoc, VehicleBrand } from 'src/app/interfaces/api.model';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 import { Location } from '@angular/common';
@@ -446,7 +446,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                     .map(item => 
                         from(this.apiService.OrderAttachDelete(item.id))
                         .pipe(
-                            map(() =>  `Success delete`),
+                            map(() =>  {
+                                this.updateOrder.supportingDocs = this.updateOrder.supportingDocs.filter(doc => doc.id !== item.id )
+                                return `Success delete`}),
                             catchError(err => `Error while deleting ${err.message}`)
                         ).toPromise()
                     )
@@ -465,8 +467,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                             }
                             return from(this.apiService.OrderAttachUpload(salesReq))
                                 .pipe(
-                                    map(() => {
-                                        this.updateOrder.supportingDocs.push({id: -1, fileName: item.fileName, fileType: item.fileType})
+                                    map((resp: SupportingDoc) => {
+                                        this.updateOrder.supportingDocs.push({id: resp.id, fileName: resp.fileName, fileType: resp.fileType})
                                         return `Success upload`
                                     }),
                                     catchError(err => `Error while uploading ${err.message}`)

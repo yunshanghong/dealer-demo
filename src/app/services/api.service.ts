@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEndpoint, ApiModel, OrderReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp, OrderDetail, VehicleBrand, Dropdown, AttachUploadReq, AddressResp } from '../interfaces/api.model';
+import { ApiEndpoint, ApiModel, OrderReq, OrderFilterResp, UpdateProfileReq, UserLoginReq, UserLoginResp, UserPasswordForgetReq, UserPasswordForgetResp, UserPasswordUpdateReq, UserProfileResp, OrderDetail, VehicleBrand, Dropdown, AttachUploadReq, AddressResp, SupportingDoc } from '../interfaces/api.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
@@ -63,9 +63,9 @@ export class ApiService {
         )
     }
 
-    OrderAttachUpload(req: AttachUploadReq): Observable<void>{
-        return this.HttpHandle<void>(
-            this.http.post<ApiModel<void>>(basicUrl + ApiEndpoint.OrderAttachUpload, req)
+    OrderAttachUpload(req: AttachUploadReq): Observable<SupportingDoc>{
+        return this.HttpHandle<SupportingDoc>(
+            this.http.post<ApiModel<SupportingDoc>>(basicUrl + ApiEndpoint.OrderAttachUpload, req)
         )
     }
 
@@ -77,7 +77,7 @@ export class ApiService {
             )
     }
 
-    OrderAttachDelete(fileId: number){
+    OrderAttachDelete(fileId: number): Observable<void>{
         return this.HttpHandle<void>(
             this.http.delete<ApiModel<void>>(basicUrl + ApiEndpoint.OrderAttach.replace(ApiEndpoint.FileId, fileId.toString()))
         )
