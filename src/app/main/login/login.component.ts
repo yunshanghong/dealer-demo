@@ -28,6 +28,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
     }
 
     ngOnInit() {
+        super.unactiveLoader();
         this.loginForm = new FormGroup({
             "account": new FormControl(null, [Validators.required]),
             "password": new FormControl(null, [Validators.required]),
@@ -36,6 +37,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
     }
 
     onLogin(){
+        super.activeLoader();
         const req: UserLoginReq = {
             username: this.loginForm.get('account').value,
             password: this.loginForm.get('password').value,
@@ -64,6 +66,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
             this.router.navigate(["/"]);
         },
         (err: HttpErrorResponse) =>{
+            super.unactiveLoader();
             super.errorPopup(err);
             this.loginForm.markAsUntouched();
         })

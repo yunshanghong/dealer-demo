@@ -39,6 +39,10 @@ export class BaseComponent implements OnDestroy{
         this.isActive = false;
     }
 
+    protected activeLoader(){
+        this.isActive = true;
+    }
+
     protected errorPopup(error: HttpErrorResponse){
         console.log(error)
         const msg = error?.error?.errors ? error.error.errors[Object.keys(error.error.errors)[0]][0] : (error.error.details || error.message) ;
