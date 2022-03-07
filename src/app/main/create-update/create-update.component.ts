@@ -263,7 +263,20 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         if(this.onCheckPageValid()){
             this.onCreateUpdate()
             .subscribe((resp: string[]) =>{
-                console.log(resp)
+                console.log(this.vehicleForm.value)
+                console.log(this.additionalForm.value)
+                console.log(this.financeForm.value)
+                console.log(this.customerForm.value)
+                console.log(this.guarantorForm.value)
+                this.updateOrder = { 
+                    ...this.updateOrder, 
+                    ...this.vehicleForm.value,
+                    ...this.additionalForm.value,
+                    ...this.financeForm.value,
+                    customer: { ...this.customerForm.value },
+                    guarantor: this.guarantorOn ? { ...this.guarantorForm.value } : null,
+                }
+                console.log(this.updateOrder);
                 super.showPopInfo = {
                     timer: setTimeout(() => {
                         this.router.navigate(["preview", this.updateOrder.id],{
