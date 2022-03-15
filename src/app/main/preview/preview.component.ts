@@ -32,7 +32,6 @@ export class PreviewComponent extends BaseComponent implements OnInit{
         if(!this.orderInfo){
             this.apiService.OrderById(this.id)
             .subscribe((resp: OrderDetail)=>{
-                console.log(resp);
                 this.orderInfo = resp;
                 super.unactiveLoader();
             },

@@ -14,7 +14,6 @@ export class ApiService {
     private HttpHandle<T2>(method: Observable<ApiModel<T2>>): Observable<T2>{
         return method.pipe(
             map((apiResp: ApiModel<T2>)=>{
-                console.log(apiResp);
                 const status = apiResp.status;
                 
                 if(!status.isSuccess || status.errorCode !== 0){

@@ -29,7 +29,6 @@ export class UserService {
     }
 
     set currentUser(user: User){
-        console.log(user);
         this.userName = user && user.userName ? user.userName : null;
         this.email = user && user.email ? user.email : null;
         this.name = user && user.name ? user.name : null;
@@ -40,7 +39,6 @@ export class UserService {
             localStorage.removeItem("dealer_token");
             sessionStorage.removeItem("dealer_token");
         }
-        console.log(this.currentUser);
         this.userChange.next(this.currentUser);
     }
 

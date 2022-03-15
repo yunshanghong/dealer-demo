@@ -16,7 +16,6 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		return from([this.userService.currentUser.accessToken])
 		.pipe(switchMap(token => {
-			console.log(token)
 			if (token) {
 				request = request.clone({
 					setHeaders: {
@@ -37,12 +36,10 @@ export class TokenInterceptor implements HttpInterceptor {
 				headers: request.headers.set('Accept', '*/*')
 			});
 
-			console.log(request);
 			return next.handle(request);
 		}),
 
 		catchError((error: HttpErrorResponse) => {
-			console.log(error);
 			if (error.status === 401) {
 				this.userService.currentUser = null;
 	            this.router.navigate(['login']);

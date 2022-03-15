@@ -150,7 +150,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
 
         this.guarantorForm.get("isMyInfo").valueChanges
         .subscribe(() => {
-            console.log("NONO")
             const newData = { ... this.guarantorForm.value };
             delete newData["isMyInfo"]
             this.guarantorForm.patchValue(newData);
@@ -158,7 +157,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
 
         this.apiService.VehicleBrand()
         .subscribe((resp: Array<VehicleBrand>) =>{
-            console.log(resp);
             this.vehicleBrands = resp;
         })
 
@@ -180,7 +178,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
             )
             .subscribe((data: OrderDetail) =>{
                 super.unactiveLoader();
-                console.log(data);
                 this.updateOrder = data;
                 this.uploadAttachFile = [...this.updateOrder?.supportingDocs];
                 this.additionalForm.patchValue({...data});
@@ -263,11 +260,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         if(this.onCheckPageValid()){
             this.onCreateUpdate()
             .subscribe((resp: string[]) =>{
-                console.log(this.vehicleForm.value)
-                console.log(this.additionalForm.value)
-                console.log(this.financeForm.value)
-                console.log(this.customerForm.value)
-                console.log(this.guarantorForm.value)
                 this.updateOrder = { 
                     ...this.updateOrder, 
                     ...this.vehicleForm.value,
@@ -276,7 +268,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
                     customer: { ...this.customerForm.value },
                     guarantor: this.guarantorOn ? { ...this.guarantorForm.value } : null,
                 }
-                console.log(this.updateOrder);
                 super.showPopInfo = {
                     timer: setTimeout(() => {
                         this.router.navigate(["preview", this.updateOrder.id],{
@@ -317,9 +308,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         newUploadArr.push({fileType: fileType, fileName: file.name, file: file});
         this.uploadAttachFile = newUploadArr;
         this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
-
-        console.log(this.uploadAttachFile);
-        console.log(this.deleteAttachId);
     }
 
     onFileDelete(inputIndex: number){
@@ -332,9 +320,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
 
         this.uploadAttachFile = newUploadArr;
         this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
-
-        console.log(this.uploadAttachFile);
-        console.log(this.deleteAttachId);
     }
 
     onDocChange(inputIndex: number, file: File){
@@ -343,9 +328,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         obj.id && obj.fileType && deleteArr.push({id: obj.id, fileType: obj.fileType})
         this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
         this.uploadAttachFile[inputIndex] = {fileType: 'GeneralFile', fileName: file.name, file: file}
-        
-        console.log(this.uploadAttachFile);
-        console.log(this.deleteAttachId);
     }
 
     onDocsAppend(files: FileList, fileType: "GeneralFile"){
@@ -356,16 +338,12 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit{
         }));
         const newUploadFiles: FileRecord[] = [...this.uploadAttachFile, ...fileArr]
         this.uploadAttachFile = newUploadFiles;
-
-        console.log(this.uploadAttachFile);
-        console.log(this.deleteAttachId);
     }
 
     onChangePostal(value: string, formName: "customerForm" | "guarantorForm"){
         if(value.length === 6){
             this.apiService.OrderAddress(value)
             .subscribe((resp: AddressResp[]) =>{
-                console.log(resp)
                 const data = resp[0];
                 const address = `${data?.buildingName || ""} ${data?.buildingNo || ""} ${data?.streetName || ""} ${data?.countryCode || ""}`;
                 this[formName].patchValue({ address: address})
