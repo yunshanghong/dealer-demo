@@ -6,7 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 import { BaseComponent } from '../base/base.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-login',
@@ -23,6 +23,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
         private apiService: ApiService,
         private userService: UserService,
         private router: Router,
+        private route: ActivatedRoute,
     ) { 
         super(platformId);
     }
@@ -34,6 +35,34 @@ export class LoginComponent extends BaseComponent implements OnInit{
             "password": new FormControl(null, [Validators.required]),
             "RmbMe": new FormControl(true, []),
         })
+
+        const token = this.route.snapshot.queryParams.token;
+        if(token){
+            super.activeLoader();
+            this.userService.currentUser = 
+            {
+                ...this.userService.currentUser,
+                rememberMe: this.loginForm.get("RmbMe").value,
+                accessToken: token
+            }
+            this.apiService.UserProfile()
+            .subscribe((profileResp: UserProfileResp) =>{
+                this.userService.currentUser = 
+                {
+                    ...this.userService.currentUser,
+                    userName: profileResp.username,
+                    name: profileResp.name,
+                    email: profileResp.email,
+                    mobile: profileResp.mobile,
+                }
+                this.router.navigate(["/"]);
+            },
+            (err: HttpErrorResponse) =>{
+                super.unactiveLoader();
+                super.errorPopup(err);
+                this.loginForm.markAsUntouched();
+            })
+        }
     }
 
     onLogin(){

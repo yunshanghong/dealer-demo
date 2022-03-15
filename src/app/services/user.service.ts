@@ -34,7 +34,11 @@ export class UserService {
         this.name = user && user.name ? user.name : null;
         this.mobile = user && user.mobile ? user.mobile : null;
         if(user && user.accessToken && isPlatformBrowser(this.platformId)){
-            user.rememberMe ? localStorage.setItem("dealer_token", user.accessToken) : sessionStorage.setItem("dealer_token", user.accessToken);
+
+            if(user.rememberMe){
+                localStorage.setItem("dealer_token", user.accessToken)
+            }
+            sessionStorage.setItem("dealer_token", user.accessToken);
         }else{
             localStorage.removeItem("dealer_token");
             sessionStorage.removeItem("dealer_token");

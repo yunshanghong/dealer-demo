@@ -4,8 +4,8 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { UserService } from '../services/user.service';
 
 const whiteListUrl = {
-    "/login": true,
-    "/forgetPassword": true,
+    "login": true,
+    "forgetPassword": true,
 };
 
 
@@ -19,8 +19,9 @@ export class LoginGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const user = this.userService.currentUser;
-        if( (whiteListUrl[state.url] && !user.accessToken) ||
-            (!whiteListUrl[state.url] && user.accessToken))
+        if( (route.routeConfig.path === "login" && route.queryParams.token) || 
+            (whiteListUrl[route.routeConfig.path] && !user.accessToken) ||
+            (!whiteListUrl[route.routeConfig.path] && user.accessToken))
         {
             return true;
         }
