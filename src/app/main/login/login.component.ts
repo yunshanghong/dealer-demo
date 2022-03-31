@@ -55,7 +55,10 @@ export class LoginComponent extends BaseComponent implements OnInit{
                     email: profileResp.email,
                     mobile: profileResp.mobile,
                 }
-                this.router.navigate(["/"]);
+
+                const orderid = this.route.snapshot.queryParams.orderid;
+
+                orderid ? this.router.navigate(["/create-update", orderid]) : this.router.navigate(["/"]);
             },
             (err: HttpErrorResponse) =>{
                 super.unactiveLoader();
