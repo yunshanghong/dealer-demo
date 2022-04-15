@@ -1,436 +1,70 @@
 <!-- [START] Content ==================================================-->
-    <app-loader [isActive]="isActive"></app-loader>
-    <main class="main-container">
+<app-loader [isActive]="isActive"></app-loader>
+<main class="main-container">
     <div class="main-wrap">
         <section class="ct_ctr blod">
             <div class="h1 h1Txt text-center large-blod">NEW APPLICATION</div>
-            <div class="grid-x grid-margin-x" >
+            <div class="grid-x grid-margin-x">
                 <div class="cell large-4">
-                <div class="card shadow">
-                    <div class="card-divider heightHeader"><span>A. DETAILS OF MOTOR VEHICLE TO BE FINANCED</span></div>
-                    <div class="card-section">
-                    <form [formGroup]="vehicleForm">
-                        <div class="grid-x grid-margin-x">
-                        <div class="cell xxlarge-5">
-                            <p> Customer Type<span class="star">*</span></p>
-                        </div>
-                        <div class="cell xxlarge-7">
-                            <div class="grid-x grid-margin-x">
-                            <div class="cell small-6"> 
-                                <input id="A-Customer Type-Corporate" type="radio" value="Corporate" formControlName="customerType"/>
-                                <label class="radioLabel blod" for="A-Customer Type-Corporate">
-                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Corporate
-                                </label>
-                            </div>
-                            <div class="cell small-6">
-                                <input id="A-Customer Type-Individual" type="radio" value="Individual" formControlName="customerType"/>
-                                <label class="radioLabel blod" for="A-Customer Type-Individual">
-                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Individual
-                                </label>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                        <div class="cell xxlarge-5">
-                            <p> Vehicle Condition<span class="star">*</span>
-                            </p>
-                        </div>
-                        <div class="cell xxlarge-7">
-                            <div class="grid-x grid-margin-x">
-                            <div class="cell small-6"> 
-                                <input id="A-Vehicle Condition-New" type="radio" value="New" formControlName="vehicleCondition"/>
-                                <label class="radioLabel blod" for="A-Vehicle Condition-New">
-                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>New
-                                </label>
-                            </div>
-                            <div class="cell small-6">
-                                <input id="A-Vehicle Condition-Used" type="radio" value="Used" formControlName="vehicleCondition"/>
-                                <label class="radioLabel blod" for="A-Vehicle Condition-Used">
-                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Used
-                                </label>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                        <div class="cell xxlarge-5">
-                            <p> Vehicle Type<span class="star">*</span>
-                            </p>
-                        </div>
-                        <div class="cell xxlarge-7">
-                            <div class="grid-x grid-margin-x">
-                            <div class="cell small-6"> 
-                                <input id="A-Vehicle Type-PC" type="radio" value="PC" formControlName="vehicleType"/>
-                                <label class="radioLabel blod" for="A-Vehicle Type-PC">
-                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>PC
-                                </label>
-                            </div>
-                            <div class="cell small-6">
-                                <input id="A-Vehicle Type-CV" type="radio" value="CV" formControlName="vehicleType"/>
-                                <label class="radioLabel blod" for="A-Vehicle Type-CV">
-                                <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>CV
-                                </label>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                        <div class="cell xxlarge-5">
-                            <p>Make<span class="star">*</span></p>
-                        </div>
-                        <div class="cell xxlarge-7">
-                            <select class="blod" id="Make" formControlName="brand" (change)="onBrandChange()" [ngClass]="{'error': vehicleForm.get('brand').touched && vehicleForm.get('brand').invalid}">
-                                <option class="blod" value="">default</option>
-                                <option *ngFor="let brand of vehicleBrands" class="blod" [value]="brand.brandName" > {{ brand.brandName }}</option>
-                            </select>
-                        </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                        <div class="cell xxlarge-5">
-                            <p>Model<span class="star">*</span></p>
-                        </div>
-                        <div class="cell xxlarge-7">
-                            <select class="blod" id="Model" formControlName="vehicleModelCode" [ngClass]="{'error': vehicleForm.get('vehicleModelCode').touched && vehicleForm.get('vehicleModelCode').invalid}">
-                                <option class="blod" value="">default</option>
-                                <option *ngFor="let vehicle of vehicleBrands | modelFilter: vehicleForm.get('brand').value" class="blod" [value]="vehicle.code">{{ vehicle.name }}</option>
-                            </select>
-                        </div>
-                        </div>
-                    </form>
-                    </div>
-                </div><span class="note">NOTE: Select "default" if make or model does not exist</span>
-                <span class="error-text" *ngIf="onTouchedNInvalid(vehicleForm)">Fields marked * are required please.</span>
-                
-                <div class="card shadow">
-                    <div class="card-divider"> <span>ADDITIONAL INFORMATION</span></div>
-                    <div class="card-section">
-                    <form [formGroup]="additionalForm">
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell xxlarge-5">
-                                <p>Vehicle Number<span class="star">*</span></p>
-                            </div>
-                        <div class="cell xxlarge-7">
-                            <input class="blod" type="text" formControlName="vehicleNumber" [ngClass]="{'error': additionalForm.get('vehicleNumber').touched && additionalForm.get('vehicleNumber').invalid}"/>
-                        </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell small-5">
-                                <p> Log Card  Attachment<span class="star">*</span></p>
-                            </div>
-                            <label class="cell small-7" for="logCard"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
-                            <input type="file" id="logCard" style="display: none;" (change)="onFileAttach($event.target.files[0], 'LogCard')" (click)="$event.target.value=null">
-                            <div class="cell" *ngIf="(uploadAttachFile | UploadDocName:'LogCard').length === 0">
-                                <div class="fileInput" [ngClass]="{'error': (deleteAttachId| UploadDocName:'LogCard').length > 0}">
-                                <input type="file" (change)="onFileAttach($event.target.files[0], 'LogCard')"/>
-                                <span class="fileInputValue"></span>
-                                <a > <i class="be-icon be-icon-trash-can" ></i></a>
-                                </div>
-                            </div>
-                            <div class="cell" *ngFor="let logCard of uploadAttachFile | UploadDocName:'LogCard'">
-                                <div class="fileInput">
-                                <input type="file" (change)="onFileAttach($event.target.files[0], 'LogCard')"/>
-                                <span class="fileInputValue">{{ logCard?.fileName }}</span>
-                                <a (click)="onFileDelete(logCard.index)"> <i class="be-icon be-icon-trash-can icon-red" ></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell small-5">
-                                <p>  Sales Agreement<span class="star">*</span></p>
-                            </div>
-                            <label class="cell small-7" for="sales"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
-                            <input type="file" id="sales" style="display: none;" (change)="onFileAttach($event.target.files[0], 'SalesAgreement')" (click)="$event.target.value=null">
-                            <div class="cell" *ngIf="(uploadAttachFile | UploadDocName:'SalesAgreement').length === 0">
-                                <div class="fileInput" [ngClass]="{'error': (deleteAttachId| UploadDocName:'SalesAgreement').length > 0}">
-                                <input type="file" (change)="onFileAttach($event.target.files[0], 'SalesAgreement')"/>
-                                <span class="fileInputValue"></span>
-                                <a> <i class="be-icon be-icon-trash-can" ></i></a>
-                                </div>
-                            </div>
-                            <div class="cell" *ngFor="let saleAgreement of uploadAttachFile | UploadDocName:'SalesAgreement'">
-                                <div class="fileInput">
-                                <input type="file" (change)="onFileAttach($event.target.files[0], 'SalesAgreement')"/>
-                                <span class="fileInputValue">{{ saleAgreement?.fileName }}</span>
-                                <a (click)="onFileDelete(saleAgreement.index)"> <i class="be-icon be-icon-trash-can icon-red" ></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                        <div class="cell xxlarge-5">
-                            <p> Additional  Structure<span class="star">*</span></p>
-                        </div>
-                        <div class="cell xxlarge-7">
-                            <div class="grid-x grid-margin-x">
-                                <div class="cell small-6"> 
-                                    <input id="Additional-Additional  Structure-Yes" type="radio" [value]=true formControlName="hasAdditionalStructure"/>
-                                    <label class="radioLabel blod" for="Additional-Additional  Structure-Yes">
-                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Yes
-                                    </label>
-                                </div>
-                                <div class="cell small-6">
-                                    <input id="Additional-Additional  Structure-No" type="radio" [value]=false formControlName="hasAdditionalStructure"/>
-                                    <label class="radioLabel blod" for="Additional-Additional  Structure-No">
-                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>No
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </form>
-                    </div>
-                </div>
-                <span class="error-text" *ngIf="onTouchedNInvalid(additionalForm) || (additionalForm.touched && ( (uploadAttachFile | UploadDocName:'LogCard').length === 0 ) || ((uploadAttachFile | UploadDocName:'SalesAgreement').length === 0 ))">Fields marked * are required please.</span>
-
-                <div class="card shadow">
-                    <div class="card-divider"> <span>B. FINANCING DETAILS (PER UNIT)</span></div>
-                    <div class="card-section">
-                    <form [formGroup]="financeForm">
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell xxlarge-5">
-                                <p>Price inclusive  GST<span class="star">*</span></p>
-                            </div>
-                            <div class="cell xxlarge-7">
-                                <input class="blod" type="text" formControlName="priceWithGst" [ngClass]="{'error': financeForm.get('priceWithGst').touched && financeForm.get('priceWithGst').invalid}"/>
-                            </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell xxlarge-5">
-                                <p>Amount Financed<span class="star">*</span></p>
-                            </div>
-                            <div class="cell xxlarge-7">
-                                <input class="blod" type="text" formControlName="financedAmount" [ngClass]="{'error': financeForm.get('financedAmount').touched && financeForm.get('financedAmount').invalid}"/>
-                            </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell xxlarge-5">
-                                <p>Financing Period (Months)<span class="star">*</span></p>
-                            </div>
-                            <div class="cell xxlarge-7">
-                                <input class="blod" type="text" formControlName="tenure" [ngClass]="{'error': financeForm.get('tenure').touched && financeForm.get('tenure').invalid}"/>
-                            </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell xxlarge-5">
-                                <p>Interest Rate (X% per annum)<span class="star">*</span></p>
-                            </div>
-                            <div class="cell xxlarge-7">
-                                <input class="blod" type="text" formControlName="interest" [ngClass]="{'error': financeForm.get('interest').touched && financeForm.get('interest').invalid}"/>
-                            </div>
-                        </div>
-                        <div class="grid-x grid-margin-x">
-                            <div class="cell xxlarge-5">
-                                <p>Monthly  Instalments<span class="star">*</span></p>
-                            </div>
-                            <div class="cell xxlarge-7">
-                                <input class="blod" type="text" formControlName="monthlyInstallment" [ngClass]="{'error': financeForm.get('monthlyInstallment').touched && financeForm.get('monthlyInstallment').invalid}"/>
-                            </div>
-                        </div>
-                    </form>
-                    </div>
-                </div>
-                <span class="error-text" *ngIf="onTouchedNInvalid(financeForm)">Fields marked * are required please.</span>
-
-                </div>
-                <div class="cell large-8 grid-y">
-                <div class="grid-x grid-margin-x">
-                    <div class="cell large-6 grid-x">
                     <div class="card shadow">
-                        <div class="card-divider"> <span>C. PERSONAL PARTICULARS OF APPLICANT</span></div>
+                        <div class="card-divider heightHeader">
+                            <span
+                                >A. DETAILS OF MOTOR VEHICLE TO BE
+                                FINANCED</span
+                            >
+                        </div>
                         <div class="card-section">
-                        <form [formGroup]="customerForm">
-                            <div class="grid-x grid-margin-x">
-                                <div class="cell xxlarge-5">
-                                    <p> MyInfo<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <div class="grid-x grid-margin-x">
-                                    <div class="cell small-6"> 
-                                        <input id="C-MyInfo-Yes" type="radio" [value]=true formControlName="isMyInfo"/>
-                                        <label class="radioLabel blod" for="C-MyInfo-Yes">
-                                        <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Yes
-                                        </label>
-                                    </div>
-                                    <div class="cell small-6">
-                                        <input id="C-MyInfo-No" type="radio" [value]=false formControlName="isMyInfo"/>
-                                        <label class="radioLabel blod" for="C-MyInfo-No">
-                                        <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>No
-                                        </label>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x">
-                                <div class="cell xxlarge-5">
-                                    <p>Applicant Name<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="name" [ngClass]="{'error': customerForm.get('name').touched && customerForm.get('name').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x">
-                                <div class="cell xxlarge-5">
-                                    <p>NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="nric" [ngClass]="{'error': customerForm.get('nric').touched && customerForm.get('nric').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p> Gender<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <div class="grid-x grid-margin-x">
-                                        <div class="cell small-6"> 
-                                            <input id="C-Gender-Male" type="radio" value="Male" formControlName="gender"/>
-                                            <label class="radioLabel blod" for="C-Gender-Male">
-                                            <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Male
-                                            </label>
-                                        </div>
-                                        <div class="cell small-6">
-                                            <input id="C-Gender-Female" type="radio" value="Female" formControlName="gender"/>
-                                            <label class="radioLabel blod" for="C-Gender-Female">
-                                            <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Female
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Nationality<span class="star">*</span>
-                                    </p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <select class="blod" id="Nationality" formControlName="nationality" [ngClass]="{'error': customerForm.get('nationality').touched && customerForm.get('nationality').invalid}">
-                                        <option class="blod" value="">default</option>
-                                        <option class="blod" [value]="nation.name" *ngFor="let nation of nations">{{ nation.name }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Residential Status<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <select class="blod" id="Residential Status" formControlName="residentialStatus" [ngClass]="{'error': customerForm.get('residentialStatus').touched && customerForm.get('residentialStatus').invalid}">
-                                        <option class="blod" value="" > default </option>
-                                        <option class="blod" [value]="status.name" *ngFor="let status of residentStatus">{{ status.name }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Date of Birth<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input id="datepicker" type="text" placeholder="DD/MM/YY" matInput [matDatepicker]="picker1" (click)="picker1.open()" formControlName="dateOfBirth" [ngClass]="{'error': customerForm.get('dateOfBirth').touched && customerForm.get('dateOfBirth').invalid}"/>
-                                    <mat-datepicker #picker1></mat-datepicker>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Postal Code<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="postalCode" (keyup)="onChangePostal($event.target.value, 'customerForm')" [ngClass]="{'error': customerForm.get('postalCode').touched && customerForm.get('postalCode').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Address<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="address" [ngClass]="{'error': customerForm.get('address').touched && customerForm.get('address').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Unit Number<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="unitNumber" [ngClass]="{'error': customerForm.get('unitNumber').touched && customerForm.get('unitNumber').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x">
-                                <div class="cell xxlarge-5">
-                                    <p>Mobile Number<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="mobile" [ngClass]="{'error': customerForm.get('mobile').touched && customerForm.get('mobile').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x">
-                                <div class="cell xxlarge-5">
-                                    <p>Email Address<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="email" [ngClass]="{'error': customerForm.get('email').touched && customerForm.get('email').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Net Annual Income<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="netAnnualIncome" [ngClass]="{'error': customerForm.get('netAnnualIncome').touched && customerForm.get('netAnnualIncome').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Name of Employer/Self Employed<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <input class="blod" type="text" formControlName="employerName" [ngClass]="{'error': customerForm.get('employerName').touched && customerForm.get('employerName').invalid}"/>
-                                </div>
-                            </div>
-                            <div class="grid-x grid-margin-x" *ngIf="!customerForm.get('isMyInfo').value">
-                                <div class="cell xxlarge-5">
-                                    <p>Assessment Year<span class="star">*</span></p>
-                                </div>
-                                <div class="cell xxlarge-7">
-                                    <select class="blod" id="Assessment Year" formControlName="assessmentYear" [ngClass]="{'error': customerForm.get('assessmentYear').touched && customerForm.get('assessmentYear').invalid}">
-                                        <option class="blod" value="">default</option>
-                                        <option class="blod" value="2022">2022</option>
-                                        <option class="blod" value="2">2</option>
-                                        <option class="blod" value="3">3</option>
-                                        <option class="blod" value="4">4</option>
-                                        <option class="blod" value="5">5</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                    <span class="error-text" *ngIf="onTouchedNInvalid(customerForm)">Fields marked * are required please.</span>
-
-                    </div>
-                    <div class="cell large-6 grid-x">
-                    <div class="card shadow">
-                        <div class="card-divider"> <span>D. DETAILS OF GUARANTOR</span>
-                        <div class="switch-container " [ngClass]="{'switch-container-on': guarantorOn}" (click)="onSwitchGuarantor()"> 
-                            <div class="switch"> </div>
-                        </div>
-                        </div>
-                        <div class="card-section" *ngIf="guarantorOn">
-                            <form [formGroup]="guarantorForm">
+                            <form [formGroup]="vehicleForm">
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p> MyInfo<span class="star">*</span></p>
+                                        <p>
+                                            Customer Type<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
                                     </div>
                                     <div class="cell xxlarge-7">
                                         <div class="grid-x grid-margin-x">
-                                            <div class="cell small-6"> 
-                                                <input id="D-MyInfo-Yes" type="radio" [value]=true formControlName="isMyInfo"/>
-                                                <label class="radioLabel blod" for="D-MyInfo-Yes">
-                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Yes
+                                            <div class="cell small-6">
+                                                <input
+                                                    id="A-Customer Type-Corporate"
+                                                    type="radio"
+                                                    value="Corporate"
+                                                    formControlName="customerType"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Customer Type-Corporate"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    Corporate
                                                 </label>
                                             </div>
                                             <div class="cell small-6">
-                                                <input id="D-MyInfo-No" type="radio" [value]=false formControlName="isMyInfo"/>
-                                                <label class="radioLabel blod" for="D-MyInfo-No">
-                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>No
+                                                <input
+                                                    id="A-Customer Type-Individual"
+                                                    type="radio"
+                                                    value="Individual"
+                                                    formControlName="customerType"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Customer Type-Individual"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    Individual
                                                 </label>
                                             </div>
                                         </div>
@@ -438,190 +72,2041 @@
                                 </div>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>Applicant Name<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="name" [ngClass]="{'error': guarantorForm.get('name').touched && guarantorForm.get('name').invalid}"/>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x">
-                                    <div class="cell xxlarge-5">
-                                        <p>NRIC/Passport/ Company Reg. No*<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="nric" [ngClass]="{'error': guarantorForm.get('nric').touched && guarantorForm.get('nric').invalid}"/>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p> Gender<span class="star">*</span></p>
+                                        <p>
+                                            Vehicle Condition<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
                                     </div>
                                     <div class="cell xxlarge-7">
                                         <div class="grid-x grid-margin-x">
-                                            <div class="cell small-6"> 
-                                                <input id="D-Gender-Male" type="radio" value="Male" formControlName="gender"/>
-                                                <label class="radioLabel blod" for="D-Gender-Male">
-                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Male
+                                            <div class="cell small-6">
+                                                <input
+                                                    id="A-Vehicle Condition-New"
+                                                    type="radio"
+                                                    value="New"
+                                                    formControlName="vehicleCondition"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Vehicle Condition-New"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    New
                                                 </label>
                                             </div>
                                             <div class="cell small-6">
-                                                <input id="D-Gender-Female" type="radio" value="Female" formControlName="gender"/>
-                                                <label class="radioLabel blod" for="D-Gender-Female">
-                                                    <div class="radioLabel_icon"><i class="be-icon be-icon-check"></i></div>Female
+                                                <input
+                                                    id="A-Vehicle Condition-Used"
+                                                    type="radio"
+                                                    value="Used"
+                                                    formControlName="vehicleCondition"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Vehicle Condition-Used"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    Used
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
+                                <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>Nationality<span class="star">*</span></p>
+                                        <p>
+                                            Vehicle Type<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
                                     </div>
                                     <div class="cell xxlarge-7">
-                                        <select class="blod" id="Nationality" formControlName="nationality" [ngClass]="{'error': guarantorForm.get('nationality').touched && guarantorForm.get('nationality').invalid}">
-                                            <option class="blod" value="">default</option>
-                                            <option class="blod" [value]="nation.name" *ngFor="let nation of nations">{{ nation.name }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Residential Status<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <select class="blod" id="Residential Status" formControlName="residentialStatus" [ngClass]="{'error': guarantorForm.get('residentialStatus').touched && guarantorForm.get('residentialStatus').invalid}">
-                                            <option class="blod" value="" > default </option>
-                                            <option class="blod" [value]="status.name" *ngFor="let status of residentStatus">{{ status.name }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Date of Birth<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input id="datepicker" type="text" placeholder="DD/MM/YY" matInput [matDatepicker]="picker2" (click)="picker2.open()" formControlName="dateOfBirth" [ngClass]="{'error': guarantorForm.get('dateOfBirth').touched && guarantorForm.get('dateOfBirth').invalid}"/>
-                                        <mat-datepicker #picker2></mat-datepicker>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Postal Code<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="postalCode" (keyup)="onChangePostal($event.target.value, 'guarantorForm')" [ngClass]="{'error': guarantorForm.get('postalCode').touched && guarantorForm.get('postalCode').invalid}"/>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Address<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="address" [ngClass]="{'error': guarantorForm.get('address').touched && guarantorForm.get('address').invalid}"/>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Unit Number<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="unitNumber" [ngClass]="{'error': guarantorForm.get('unitNumber').touched && guarantorForm.get('unitNumber').invalid}"/>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell small-6">
+                                                <input
+                                                    id="A-Vehicle Type-PC"
+                                                    type="radio"
+                                                    value="PC"
+                                                    formControlName="vehicleType"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Vehicle Type-PC"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    PC
+                                                </label>
+                                            </div>
+                                            <div class="cell small-6">
+                                                <input
+                                                    id="A-Vehicle Type-CV"
+                                                    type="radio"
+                                                    value="CV"
+                                                    formControlName="vehicleType"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Vehicle Type-CV"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    CV
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>Mobile Number<span class="star">*</span></p>
+                                        <p>Make<span class="star">*</span></p>
                                     </div>
                                     <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="mobile" [ngClass]="{'error': guarantorForm.get('mobile').touched && guarantorForm.get('mobile').invalid}"/>
+                                        <select
+                                            class="blod"
+                                            id="Make"
+                                            formControlName="brand"
+                                            (change)="onBrandChange()"
+                                            [ngClass]="{
+                                                error:
+                                                    vehicleForm.get('brand')
+                                                        .touched &&
+                                                    vehicleForm.get('brand')
+                                                        .invalid
+                                            }"
+                                        >
+                                            <option class="blod" value="">
+                                                default
+                                            </option>
+                                            <option
+                                                *ngFor="
+                                                    let brand of vehicleBrands
+                                                "
+                                                class="blod"
+                                                [value]="brand.brandName"
+                                            >
+                                                {{ brand.brandName }}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>Email Address<span class="star">*</span></p>
+                                        <p>Model<span class="star">*</span></p>
                                     </div>
                                     <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="email" [ngClass]="{'error': guarantorForm.get('email').touched && guarantorForm.get('email').invalid}"/>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Net Annual Income<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="netAnnualIncome" [ngClass]="{'error': guarantorForm.get('netAnnualIncome').touched && guarantorForm.get('netAnnualIncome').invalid}"/>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Name of Employer/Self Employed<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <input class="blod" type="text" formControlName="employerName" [ngClass]="{'error': guarantorForm.get('employerName').touched && guarantorForm.get('employerName').invalid}"/>
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x" *ngIf="!guarantorForm.get('isMyInfo').value">
-                                    <div class="cell xxlarge-5">
-                                        <p>Assessment Year<span class="star">*</span></p>
-                                    </div>
-                                    <div class="cell xxlarge-7">
-                                        <select class="blod" name="Assessment Year" id="Assessment Year" formControlName="assessmentYear" [ngClass]="{'error': guarantorForm.get('assessmentYear').touched && guarantorForm.get('assessmentYear').invalid}">
-                                            <option class="blod" value="">default</option>
-                                            <option class="blod" value="2022">2022</option>
-                                            <option class="blod" value="2">2</option>
-                                            <option class="blod" value="3">3</option>
-                                            <option class="blod" value="4">4</option>
-                                            <option class="blod" value="5">5</option>
+                                        <select
+                                            class="blod"
+                                            id="Model"
+                                            formControlName="vehicleModelCode"
+                                            [ngClass]="{
+                                                error:
+                                                    vehicleForm.get(
+                                                        'vehicleModelCode'
+                                                    ).touched &&
+                                                    vehicleForm.get(
+                                                        'vehicleModelCode'
+                                                    ).invalid
+                                            }"
+                                        >
+                                            <option class="blod" value="">
+                                                default
+                                            </option>
+                                            <option
+                                                *ngFor="
+                                                    let vehicle of vehicleBrands
+                                                        | modelFilter
+                                                            : vehicleForm.get(
+                                                                  'brand'
+                                                              ).value
+                                                "
+                                                class="blod"
+                                                [value]="vehicle.code"
+                                            >
+                                                {{ vehicle.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="card-section text-center align-center" *ngIf="!guarantorOn">
-                            If the application has any guarantor,<br>please switch the button 
-                        </div>
                     </div>
-                    <span class="error-text" *ngIf="onTouchedNInvalid(guarantorForm)">Fields marked * are required please.</span>
+                    <span class="note"
+                        >NOTE: Select "default" if make or model does not
+                        exist</span
+                    >
+                    <span
+                        class="error-text"
+                        *ngIf="onTouchedNInvalid(vehicleForm)"
+                        >Fields marked * are required please.</span
+                    >
 
+                    <div class="card shadow">
+                        <div class="card-divider">
+                            <span>ADDITIONAL INFORMATION</span>
+                        </div>
+                        <div class="card-section">
+                            <form [formGroup]="additionalForm">
+                                <div
+                                    class="grid-x grid-margin-x"
+                                    *ngIf="
+                                        vehicleForm.value.vehicleCondition ===
+                                        'Used'
+                                    "
+                                >
+                                    <div class="cell xxlarge-5">
+                                        <p>
+                                            Vehicle Number<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input
+                                            class="blod"
+                                            type="text"
+                                            formControlName="vehicleNumber"
+                                            [ngClass]="{
+                                                error:
+                                                    additionalForm.get(
+                                                        'vehicleNumber'
+                                                    ).touched &&
+                                                    additionalForm.get(
+                                                        'vehicleNumber'
+                                                    ).invalid
+                                            }"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell small-5">
+                                        <p>
+                                            Log Card Attachment<span
+                                                class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <label class="cell small-7" for="logCard"
+                                        ><i class="be-icon be-icon-upload"></i
+                                        ><a
+                                            class="weblink-pagelink blod linelink text-red"
+                                            >Upload</a
+                                        ></label
+                                    >
+                                    <input
+                                        type="file"
+                                        id="logCard"
+                                        style="display: none"
+                                        (change)="
+                                            onFileAttach(
+                                                $event.target.files[0],
+                                                'LogCard'
+                                            )
+                                        "
+                                        (click)="$event.target.value = null"
+                                    />
+                                    <div
+                                        class="cell"
+                                        *ngIf="
+                                            (
+                                                uploadAttachFile
+                                                | UploadDocName: 'LogCard'
+                                            ).length === 0
+                                        "
+                                    >
+                                        <div
+                                            class="fileInput"
+                                            [ngClass]="{
+                                                error:
+                                                    (
+                                                        deleteAttachId
+                                                        | UploadDocName
+                                                            : 'LogCard'
+                                                    ).length > 0
+                                            }"
+                                        >
+                                            <input
+                                                type="file"
+                                                (change)="
+                                                    onFileAttach(
+                                                        $event.target.files[0],
+                                                        'LogCard'
+                                                    )
+                                                "
+                                            />
+                                            <span class="fileInputValue"></span>
+                                            <a>
+                                                <i
+                                                    class="be-icon be-icon-trash-can"
+                                                ></i
+                                            ></a>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="cell"
+                                        *ngFor="
+                                            let logCard of uploadAttachFile
+                                                | UploadDocName: 'LogCard'
+                                        "
+                                    >
+                                        <div class="fileInput">
+                                            <input
+                                                type="file"
+                                                (change)="
+                                                    onFileAttach(
+                                                        $event.target.files[0],
+                                                        'LogCard'
+                                                    )
+                                                "
+                                            />
+                                            <span class="fileInputValue">{{
+                                                logCard?.fileName
+                                            }}</span>
+                                            <a
+                                                (click)="
+                                                    onFileDelete(logCard.index)
+                                                "
+                                            >
+                                                <i
+                                                    class="be-icon be-icon-trash-can icon-red"
+                                                ></i
+                                            ></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell small-5">
+                                        <p>
+                                            Sales Agreement<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <label class="cell small-7" for="sales"
+                                        ><i class="be-icon be-icon-upload"></i
+                                        ><a
+                                            class="weblink-pagelink blod linelink text-red"
+                                            >Upload</a
+                                        ></label
+                                    >
+                                    <input
+                                        type="file"
+                                        id="sales"
+                                        style="display: none"
+                                        (change)="
+                                            onFileAttach(
+                                                $event.target.files[0],
+                                                'SalesAgreement'
+                                            )
+                                        "
+                                        (click)="$event.target.value = null"
+                                    />
+                                    <div
+                                        class="cell"
+                                        *ngIf="
+                                            (
+                                                uploadAttachFile
+                                                | UploadDocName
+                                                    : 'SalesAgreement'
+                                            ).length === 0
+                                        "
+                                    >
+                                        <div
+                                            class="fileInput"
+                                            [ngClass]="{
+                                                error:
+                                                    (
+                                                        deleteAttachId
+                                                        | UploadDocName
+                                                            : 'SalesAgreement'
+                                                    ).length > 0
+                                            }"
+                                        >
+                                            <input
+                                                type="file"
+                                                (change)="
+                                                    onFileAttach(
+                                                        $event.target.files[0],
+                                                        'SalesAgreement'
+                                                    )
+                                                "
+                                            />
+                                            <span class="fileInputValue"></span>
+                                            <a>
+                                                <i
+                                                    class="be-icon be-icon-trash-can"
+                                                ></i
+                                            ></a>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="cell"
+                                        *ngFor="
+                                            let saleAgreement of uploadAttachFile
+                                                | UploadDocName
+                                                    : 'SalesAgreement'
+                                        "
+                                    >
+                                        <div class="fileInput">
+                                            <input
+                                                type="file"
+                                                (change)="
+                                                    onFileAttach(
+                                                        $event.target.files[0],
+                                                        'SalesAgreement'
+                                                    )
+                                                "
+                                            />
+                                            <span class="fileInputValue">{{
+                                                saleAgreement?.fileName
+                                            }}</span>
+                                            <a
+                                                (click)="
+                                                    onFileDelete(
+                                                        saleAgreement.index
+                                                    )
+                                                "
+                                            >
+                                                <i
+                                                    class="be-icon be-icon-trash-can icon-red"
+                                                ></i
+                                            ></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>
+                                            Additional Structure<span
+                                                class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell small-6">
+                                                <input
+                                                    id="Additional-Additional  Structure-Yes"
+                                                    type="radio"
+                                                    [value]="true"
+                                                    formControlName="hasAdditionalStructure"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="Additional-Additional  Structure-Yes"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                            <div class="cell small-6">
+                                                <input
+                                                    id="Additional-Additional  Structure-No"
+                                                    type="radio"
+                                                    [value]="false"
+                                                    formControlName="hasAdditionalStructure"
+                                                />
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="Additional-Additional  Structure-No"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
+                                                    </div>
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                    <span
+                        class="error-text"
+                        *ngIf="
+                            onTouchedNInvalid(additionalForm) ||
+                            (additionalForm.touched &&
+                                (uploadAttachFile | UploadDocName: 'LogCard')
+                                    .length === 0) ||
+                                (
+                                    uploadAttachFile
+                                    | UploadDocName: 'SalesAgreement'
+                                ).length === 0
+                        "
+                        >Fields marked * are required please.</span
+                    >
+
+                    <div class="card shadow">
+                        <div class="card-divider">
+                            <span>B. FINANCING DETAILS (PER UNIT)</span>
+                        </div>
+                        <div class="card-section">
+                            <form [formGroup]="financeForm">
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>
+                                            Price inclusive GST<span
+                                                class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input
+                                            class="blod"
+                                            type="text"
+                                            formControlName="priceWithGst"
+                                            [ngClass]="{
+                                                error:
+                                                    financeForm.get(
+                                                        'priceWithGst'
+                                                    ).touched &&
+                                                    financeForm.get(
+                                                        'priceWithGst'
+                                                    ).invalid
+                                            }"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>
+                                            Amount Financed<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input
+                                            class="blod"
+                                            type="text"
+                                            formControlName="financedAmount"
+                                            [ngClass]="{
+                                                error:
+                                                    financeForm.get(
+                                                        'financedAmount'
+                                                    ).touched &&
+                                                    financeForm.get(
+                                                        'financedAmount'
+                                                    ).invalid
+                                            }"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>
+                                            Financing Period (Months)<span
+                                                class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input
+                                            class="blod"
+                                            type="text"
+                                            formControlName="tenure"
+                                            [ngClass]="{
+                                                error:
+                                                    financeForm.get('tenure')
+                                                        .touched &&
+                                                    financeForm.get('tenure')
+                                                        .invalid
+                                            }"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>
+                                            Interest Rate (X% per annum)<span
+                                                class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input
+                                            class="blod"
+                                            type="text"
+                                            formControlName="interest"
+                                            [ngClass]="{
+                                                error:
+                                                    financeForm.get('interest')
+                                                        .touched &&
+                                                    financeForm.get('interest')
+                                                        .invalid
+                                            }"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell xxlarge-5">
+                                        <p>
+                                            Monthly Instalments<span
+                                                class="star"
+                                                >*</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cell xxlarge-7">
+                                        <input
+                                            class="blod"
+                                            type="text"
+                                            formControlName="monthlyInstallment"
+                                            [ngClass]="{
+                                                error:
+                                                    financeForm.get(
+                                                        'monthlyInstallment'
+                                                    ).touched &&
+                                                    financeForm.get(
+                                                        'monthlyInstallment'
+                                                    ).invalid
+                                            }"
+                                        />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <span
+                        class="error-text"
+                        *ngIf="onTouchedNInvalid(financeForm)"
+                        >Fields marked * are required please.</span
+                    >
                 </div>
-                <div class="card shadow fileUploadCard" *ngIf="!(customerForm.get('isMyInfo').value && guarantorForm.get('isMyInfo').value && guarantorOn)">
-                    <div class="card-divider"> <span>FILE UPLOAD</span></div>
-                    <div class="card-section">
-                    <div class="grid-x">
-                        <p>NRIC and Income Documents<span class="star">*</span> </p>
-                        <label for="doc1"><i class="be-icon be-icon-upload"></i><a class="weblink-pagelink blod linelink text-red">Upload</a></label>
-                        <input type="file" id="doc1" style="display: none;" multiple (change)="onDocsAppend($event.target.files, 'GeneralFile')" (click)="$event.target.value=null">
-                    </div>
+                <div class="cell large-8 grid-y">
                     <div class="grid-x grid-margin-x">
-                        <div class="cell small-12 medium-4" *ngIf="(uploadAttachFile | UploadDocName:'GeneralFile').length === 0">
-                            <div class="fileInput" [ngClass]="{'error': (deleteAttachId| UploadDocName:'GeneralFile').length > 0}">
-                                <input type="file" (change)="onDocsAppend($event.target.files, 'GeneralFile')"/>
-                                <span class="fileInputValue"></span>
-                                <a> <i class="be-icon be-icon-trash-can"></i></a>
+                        <div class="cell large-6 grid-x">
+                            <div class="card shadow">
+                                <div class="card-divider">
+                                    <span
+                                        >C. PERSONAL PARTICULARS OF
+                                        APPLICANT</span
+                                    >
+                                </div>
+                                <div class="card-section">
+                                    <form [formGroup]="customerForm">
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    MyInfo<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <div
+                                                    class="grid-x grid-margin-x"
+                                                >
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="C-MyInfo-Yes"
+                                                            type="radio"
+                                                            [value]="true"
+                                                            formControlName="isMyInfo"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="C-MyInfo-Yes"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            Yes
+                                                        </label>
+                                                    </div>
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="C-MyInfo-No"
+                                                            type="radio"
+                                                            [value]="false"
+                                                            formControlName="isMyInfo"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="C-MyInfo-No"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            No
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Applicant Name<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="name"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'name'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'name'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    NRIC/Passport/ Company Reg.
+                                                    No*<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="nric"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'nric'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'nric'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Gender<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <div
+                                                    class="grid-x grid-margin-x"
+                                                >
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="C-Gender-Male"
+                                                            type="radio"
+                                                            value="Male"
+                                                            formControlName="gender"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="C-Gender-Male"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            Male
+                                                        </label>
+                                                    </div>
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="C-Gender-Female"
+                                                            type="radio"
+                                                            value="Female"
+                                                            formControlName="gender"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="C-Gender-Female"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            Female
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Nationality<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <select
+                                                    class="blod"
+                                                    id="Nationality"
+                                                    formControlName="nationality"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'nationality'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'nationality'
+                                                            ).invalid
+                                                    }"
+                                                >
+                                                    <option
+                                                        class="blod"
+                                                        value=""
+                                                    >
+                                                        default
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        [value]="nation.name"
+                                                        *ngFor="
+                                                            let nation of nations
+                                                        "
+                                                    >
+                                                        {{ nation.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Residential Status<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <select
+                                                    class="blod"
+                                                    id="Residential Status"
+                                                    formControlName="residentialStatus"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'residentialStatus'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'residentialStatus'
+                                                            ).invalid
+                                                    }"
+                                                >
+                                                    <option
+                                                        class="blod"
+                                                        value=""
+                                                    >
+                                                        default
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        [value]="status.name"
+                                                        *ngFor="
+                                                            let status of residentStatus
+                                                        "
+                                                    >
+                                                        {{ status.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Date of Birth<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    id="datepicker"
+                                                    type="text"
+                                                    placeholder="DD/MM/YY"
+                                                    matInput
+                                                    [matDatepicker]="picker1"
+                                                    (click)="picker1.open()"
+                                                    formControlName="dateOfBirth"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'dateOfBirth'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'dateOfBirth'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                                <mat-datepicker
+                                                    #picker1
+                                                ></mat-datepicker>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Postal Code<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="postalCode"
+                                                    (keyup)="
+                                                        onChangePostal(
+                                                            $event.target.value,
+                                                            'customerForm'
+                                                        )
+                                                    "
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'postalCode'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'postalCode'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Address<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="address"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'address'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'address'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Unit Number<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="unitNumber"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'unitNumber'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'unitNumber'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Mobile Number<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="mobile"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'mobile'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'mobile'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Email Address<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="email"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'email'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'email'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Net Annual Income<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="netAnnualIncome"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'netAnnualIncome'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'netAnnualIncome'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Name of Employer/Self
+                                                    Employed<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="employerName"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'employerName'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'employerName'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !customerForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Assessment Year<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <select
+                                                    class="blod"
+                                                    id="Assessment Year"
+                                                    formControlName="assessmentYear"
+                                                    [ngClass]="{
+                                                        error:
+                                                            customerForm.get(
+                                                                'assessmentYear'
+                                                            ).touched &&
+                                                            customerForm.get(
+                                                                'assessmentYear'
+                                                            ).invalid
+                                                    }"
+                                                >
+                                                    <option
+                                                        class="blod"
+                                                        value=""
+                                                    >
+                                                        default
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="2022"
+                                                    >
+                                                        2022
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="2"
+                                                    >
+                                                        2
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="3"
+                                                    >
+                                                        3
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="4"
+                                                    >
+                                                        4
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="5"
+                                                    >
+                                                        5
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
+                            <span
+                                class="error-text"
+                                *ngIf="onTouchedNInvalid(customerForm)"
+                                >Fields marked * are required please.</span
+                            >
                         </div>
-                        <div class="cell small-12 medium-4" *ngFor="let generalFile of uploadAttachFile | UploadDocName:'GeneralFile'">
-                            <div class="fileInput">
-                                <input type="file" (change)="onDocChange(generalFile.index, $event.target.files[0])"/>
-                                <span class="fileInputValue">{{ generalFile.fileName }}</span>
-                                <a (click)="onFileDelete(generalFile.index)"> <i class="be-icon be-icon-trash-can icon-red"></i></a>
+                        <div class="cell large-6 grid-x">
+                            <div class="card shadow">
+                                <div class="card-divider">
+                                    <span>D. DETAILS OF GUARANTOR</span>
+                                    <div
+                                        class="switch-container"
+                                        [ngClass]="{
+                                            'switch-container-on': guarantorOn
+                                        }"
+                                        (click)="onSwitchGuarantor()"
+                                    >
+                                        <div class="switch"></div>
+                                    </div>
+                                </div>
+                                <div class="card-section" *ngIf="guarantorOn">
+                                    <form [formGroup]="guarantorForm">
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    MyInfo<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <div
+                                                    class="grid-x grid-margin-x"
+                                                >
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="D-MyInfo-Yes"
+                                                            type="radio"
+                                                            [value]="true"
+                                                            formControlName="isMyInfo"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="D-MyInfo-Yes"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            Yes
+                                                        </label>
+                                                    </div>
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="D-MyInfo-No"
+                                                            type="radio"
+                                                            [value]="false"
+                                                            formControlName="isMyInfo"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="D-MyInfo-No"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            No
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Applicant Name<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="name"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'name'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'name'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    NRIC/Passport/ Company Reg.
+                                                    No*<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="nric"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'nric'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'nric'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Gender<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <div
+                                                    class="grid-x grid-margin-x"
+                                                >
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="D-Gender-Male"
+                                                            type="radio"
+                                                            value="Male"
+                                                            formControlName="gender"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="D-Gender-Male"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            Male
+                                                        </label>
+                                                    </div>
+                                                    <div class="cell small-6">
+                                                        <input
+                                                            id="D-Gender-Female"
+                                                            type="radio"
+                                                            value="Female"
+                                                            formControlName="gender"
+                                                        />
+                                                        <label
+                                                            class="radioLabel blod"
+                                                            for="D-Gender-Female"
+                                                        >
+                                                            <div
+                                                                class="radioLabel_icon"
+                                                            >
+                                                                <i
+                                                                    class="be-icon be-icon-check"
+                                                                ></i>
+                                                            </div>
+                                                            Female
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Nationality<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <select
+                                                    class="blod"
+                                                    id="Nationality"
+                                                    formControlName="nationality"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'nationality'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'nationality'
+                                                            ).invalid
+                                                    }"
+                                                >
+                                                    <option
+                                                        class="blod"
+                                                        value=""
+                                                    >
+                                                        default
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        [value]="nation.name"
+                                                        *ngFor="
+                                                            let nation of nations
+                                                        "
+                                                    >
+                                                        {{ nation.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Residential Status<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <select
+                                                    class="blod"
+                                                    id="Residential Status"
+                                                    formControlName="residentialStatus"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'residentialStatus'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'residentialStatus'
+                                                            ).invalid
+                                                    }"
+                                                >
+                                                    <option
+                                                        class="blod"
+                                                        value=""
+                                                    >
+                                                        default
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        [value]="status.name"
+                                                        *ngFor="
+                                                            let status of residentStatus
+                                                        "
+                                                    >
+                                                        {{ status.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Date of Birth<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    id="datepicker"
+                                                    type="text"
+                                                    placeholder="DD/MM/YY"
+                                                    matInput
+                                                    [matDatepicker]="picker2"
+                                                    (click)="picker2.open()"
+                                                    formControlName="dateOfBirth"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'dateOfBirth'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'dateOfBirth'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                                <mat-datepicker
+                                                    #picker2
+                                                ></mat-datepicker>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Postal Code<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="postalCode"
+                                                    (keyup)="
+                                                        onChangePostal(
+                                                            $event.target.value,
+                                                            'guarantorForm'
+                                                        )
+                                                    "
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'postalCode'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'postalCode'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Address<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="address"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'address'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'address'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Unit Number<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="unitNumber"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'unitNumber'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'unitNumber'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Mobile Number<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="mobile"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'mobile'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'mobile'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="grid-x grid-margin-x">
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Email Address<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="email"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'email'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'email'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Net Annual Income<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="netAnnualIncome"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'netAnnualIncome'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'netAnnualIncome'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Name of Employer/Self
+                                                    Employed<span class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <input
+                                                    class="blod"
+                                                    type="text"
+                                                    formControlName="employerName"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'employerName'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'employerName'
+                                                            ).invalid
+                                                    }"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="grid-x grid-margin-x"
+                                            *ngIf="
+                                                !guarantorForm.get('isMyInfo')
+                                                    .value
+                                            "
+                                        >
+                                            <div class="cell xxlarge-5">
+                                                <p>
+                                                    Assessment Year<span
+                                                        class="star"
+                                                        >*</span
+                                                    >
+                                                </p>
+                                            </div>
+                                            <div class="cell xxlarge-7">
+                                                <select
+                                                    class="blod"
+                                                    name="Assessment Year"
+                                                    id="Assessment Year"
+                                                    formControlName="assessmentYear"
+                                                    [ngClass]="{
+                                                        error:
+                                                            guarantorForm.get(
+                                                                'assessmentYear'
+                                                            ).touched &&
+                                                            guarantorForm.get(
+                                                                'assessmentYear'
+                                                            ).invalid
+                                                    }"
+                                                >
+                                                    <option
+                                                        class="blod"
+                                                        value=""
+                                                    >
+                                                        default
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="2022"
+                                                    >
+                                                        2022
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="2"
+                                                    >
+                                                        2
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="3"
+                                                    >
+                                                        3
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="4"
+                                                    >
+                                                        4
+                                                    </option>
+                                                    <option
+                                                        class="blod"
+                                                        value="5"
+                                                    >
+                                                        5
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div
+                                    class="card-section text-center align-center"
+                                    *ngIf="!guarantorOn"
+                                >
+                                    If the application has any guarantor,<br />please
+                                    switch the button
+                                </div>
                             </div>
+                            <span
+                                class="error-text"
+                                *ngIf="onTouchedNInvalid(guarantorForm)"
+                                >Fields marked * are required please.</span
+                            >
                         </div>
                     </div>
-                    <ul class="fileUploadNote">
-                        <li>NOTE: Allowed format .pdf, .docx, .xlsx, .zip, .rar, .7Z, .jpg, .png</li>
-                        <li>File Amount: allow 10 files. File Size:50MB</li>
-                    </ul>
+                    <div
+                        class="card shadow fileUploadCard"
+                        *ngIf="
+                            !(
+                                customerForm.get('isMyInfo').value &&
+                                guarantorForm.get('isMyInfo').value &&
+                                guarantorOn
+                            )
+                        "
+                    >
+                        <div class="card-divider"><span>FILE UPLOAD</span></div>
+                        <div class="card-section">
+                            <div class="grid-x">
+                                <p>
+                                    NRIC and Income Documents<span class="star"
+                                        >*</span
+                                    >
+                                </p>
+                                <label for="doc1"
+                                    ><i class="be-icon be-icon-upload"></i
+                                    ><a
+                                        class="weblink-pagelink blod linelink text-red"
+                                        >Upload</a
+                                    ></label
+                                >
+                                <input
+                                    type="file"
+                                    id="doc1"
+                                    style="display: none"
+                                    multiple
+                                    (change)="
+                                        onDocsAppend(
+                                            $event.target.files,
+                                            'GeneralFile'
+                                        )
+                                    "
+                                    (click)="$event.target.value = null"
+                                />
+                            </div>
+                            <div class="grid-x grid-margin-x">
+                                <div
+                                    class="cell small-12 medium-4"
+                                    *ngIf="
+                                        (
+                                            uploadAttachFile
+                                            | UploadDocName: 'GeneralFile'
+                                        ).length === 0
+                                    "
+                                >
+                                    <div
+                                        class="fileInput"
+                                        [ngClass]="{
+                                            error:
+                                                (
+                                                    deleteAttachId
+                                                    | UploadDocName
+                                                        : 'GeneralFile'
+                                                ).length > 0
+                                        }"
+                                    >
+                                        <input
+                                            type="file"
+                                            (change)="
+                                                onDocsAppend(
+                                                    $event.target.files,
+                                                    'GeneralFile'
+                                                )
+                                            "
+                                        />
+                                        <span class="fileInputValue"></span>
+                                        <a>
+                                            <i
+                                                class="be-icon be-icon-trash-can"
+                                            ></i
+                                        ></a>
+                                    </div>
+                                </div>
+                                <div
+                                    class="cell small-12 medium-4"
+                                    *ngFor="
+                                        let generalFile of uploadAttachFile
+                                            | UploadDocName: 'GeneralFile'
+                                    "
+                                >
+                                    <div class="fileInput">
+                                        <input
+                                            type="file"
+                                            (change)="
+                                                onDocChange(
+                                                    generalFile.index,
+                                                    $event.target.files[0]
+                                                )
+                                            "
+                                        />
+                                        <span class="fileInputValue">{{
+                                            generalFile.fileName
+                                        }}</span>
+                                        <a
+                                            (click)="
+                                                onFileDelete(generalFile.index)
+                                            "
+                                        >
+                                            <i
+                                                class="be-icon be-icon-trash-can icon-red"
+                                            ></i
+                                        ></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="fileUploadNote">
+                                <li>
+                                    NOTE: Allowed format .pdf, .docx, .xlsx,
+                                    .zip, .rar, .7Z, .jpg, .png
+                                </li>
+                                <li>
+                                    File Amount: allow 10 files. File Size:50MB
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <span class="error-text" *ngIf="!(customerForm.get('isMyInfo').value && guarantorForm.get('isMyInfo').value && guarantorOn) && (uploadAttachFile | UploadDocName:'GeneralFile').length === 0">Fields marked * are required please.</span>
+                    <span
+                        class="error-text"
+                        *ngIf="
+                            !(
+                                customerForm.get('isMyInfo').value &&
+                                guarantorForm.get('isMyInfo').value &&
+                                guarantorOn
+                            ) &&
+                            (uploadAttachFile | UploadDocName: 'GeneralFile')
+                                .length === 0
+                        "
+                        >Fields marked * are required please.</span
+                    >
                 </div>
             </div>
             <div class="btncont">
-                <input class="btncont-line" type="button" value="Discard" (click)="onDiscard()">
-                <input class="btncont-line" type="button" value="Save as Draft" (click)="onSave()">
-                <input class="btncont-bgimg" type="button" value="Preview" (click)="onPreview()">
+                <input
+                    class="btncont-line"
+                    type="button"
+                    value="Discard"
+                    (click)="onDiscard()"
+                />
+                <input
+                    class="btncont-line"
+                    type="button"
+                    value="Save as Draft"
+                    (click)="onSave()"
+                />
+                <input
+                    class="btncont-bgimg"
+                    type="button"
+                    value="Preview"
+                    (click)="onPreview()"
+                />
             </div>
         </section>
     </div>
