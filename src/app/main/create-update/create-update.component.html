@@ -301,7 +301,13 @@
                                         />
                                     </div>
                                 </div>
-                                <div class="grid-x grid-margin-x">
+                                <div
+                                    class="grid-x grid-margin-x"
+                                    *ngIf="
+                                        vehicleForm.value.vehicleCondition ===
+                                        'Used'
+                                    "
+                                >
                                     <div class="cell small-5">
                                         <p>
                                             Log Card Attachment<span
@@ -498,7 +504,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid-x grid-margin-x">
+                                <div
+                                    class="grid-x grid-margin-x"
+                                    *ngIf="
+                                        vehicleForm.value.vehicleType === 'CV'
+                                    "
+                                >
                                     <div class="cell xxlarge-5">
                                         <p>
                                             Additional Structure<span
@@ -564,10 +575,8 @@
                             (additionalForm.touched &&
                                 (uploadAttachFile | UploadDocName: 'LogCard')
                                     .length === 0) ||
-                                (
-                                    uploadAttachFile
-                                    | UploadDocName: 'SalesAgreement'
-                                ).length === 0
+                            (uploadAttachFile | UploadDocName: 'SalesAgreement')
+                                .length === 0
                         "
                         >Fields marked * are required please.</span
                     >

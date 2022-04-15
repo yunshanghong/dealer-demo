@@ -106,6 +106,32 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         };
     };
 
+    private vehicleNumberRequired = (): ((
+        AbstractControl
+    ) => ValidationErrors | null) => {
+        return (control: AbstractControl): ValidationErrors | null => {
+            return this.vehicleForm &&
+                this.vehicleForm.value.vehicleCondition === 'Used' &&
+                control &&
+                control.value
+                ? null
+                : { isMatching: false };
+        };
+    };
+
+    private additionalStructureRequired = (): ((
+        AbstractControl
+    ) => ValidationErrors | null) => {
+        return (control: AbstractControl): ValidationErrors | null => {
+            return this.vehicleForm &&
+                this.vehicleForm.value.vehicleType === 'CV' &&
+                control &&
+                (control.value !== undefined || control.value !== null)
+                ? null
+                : { isMatching: false };
+        };
+    };
+
     ngOnInit() {
         this.vehicleForm = new FormGroup({
             customerType: new FormControl(null, [Validators.required]),
@@ -117,9 +143,11 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         });
 
         this.additionalForm = new FormGroup({
-            vehicleNumber: new FormControl(null, [Validators.required]),
+            vehicleNumber: new FormControl(null, [
+                this.vehicleNumberRequired(),
+            ]),
             hasAdditionalStructure: new FormControl(null, [
-                Validators.required,
+                this.additionalStructureRequired(),
             ]),
         });
 
@@ -310,6 +338,39 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             });
             super.unactiveLoader();
         }
+
+        this.vehicleForm
+            .get('vehicleCondition')
+            .valueChanges.subscribe((value) => {
+                if (value === 'New') {
+                    this.additionalForm.patchValue({
+                        vehicleNumber: null,
+                    });
+
+                    const deleteArr: Array<FileRecord> = [];
+                    const newUploadArr: Array<FileRecord> = [];
+
+                    this.uploadAttachFile.forEach((item) => {
+                        item.fileType === 'LogCard'
+                            ? deleteArr.push({
+                                  id: item.id,
+                                  fileType: item.fileType,
+                              })
+                            : newUploadArr.push(item);
+                    });
+
+                    this.uploadAttachFile = newUploadArr;
+                    this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
+                }
+            });
+
+        this.vehicleForm.get('vehicleType').valueChanges.subscribe((value) => {
+            if (value === 'PC') {
+                this.additionalForm.patchValue({
+                    hasAdditionalStructure: null,
+                });
+            }
+        });
     }
 
     onDiscard() {
@@ -348,44 +409,45 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     }
 
     onPreview() {
-        if (this.onCheckPageValid()) {
-            this.onCreateUpdate().subscribe(
-                (resp: string[]) => {
-                    this.updateOrder = {
-                        ...this.updateOrder,
-                        ...this.vehicleForm.value,
-                        ...this.additionalForm.value,
-                        ...this.financeForm.value,
-                        customer: { ...this.customerForm.value },
-                        guarantor: this.guarantorOn
-                            ? { ...this.guarantorForm.value }
-                            : null,
-                    };
-                    super.showPopInfo = {
-                        timer: setTimeout(() => {
-                            this.router.navigate(
-                                ['preview', this.updateOrder.id],
-                                {
-                                    state: { orderInfo: this.updateOrder },
-                                }
-                            );
-                        }, 4000),
-                        popmsg: 'Saved',
-                        successFunc: () => {
-                            this.router.navigate(
-                                ['preview', this.updateOrder.id],
-                                {
-                                    state: { orderInfo: this.updateOrder },
-                                }
-                            );
-                        },
-                    };
-                },
-                (error: HttpErrorResponse) => {
-                    super.errorPopup(error);
-                }
-            );
-        }
+        console.log(this.additionalForm);
+        // if (this.onCheckPageValid()) {
+        //     this.onCreateUpdate().subscribe(
+        //         (resp: string[]) => {
+        //             this.updateOrder = {
+        //                 ...this.updateOrder,
+        //                 ...this.vehicleForm.value,
+        //                 ...this.additionalForm.value,
+        //                 ...this.financeForm.value,
+        //                 customer: { ...this.customerForm.value },
+        //                 guarantor: this.guarantorOn
+        //                     ? { ...this.guarantorForm.value }
+        //                     : null,
+        //             };
+        //             super.showPopInfo = {
+        //                 timer: setTimeout(() => {
+        //                     this.router.navigate(
+        //                         ['preview', this.updateOrder.id],
+        //                         {
+        //                             state: { orderInfo: this.updateOrder },
+        //                         }
+        //                     );
+        //                 }, 4000),
+        //                 popmsg: 'Saved',
+        //                 successFunc: () => {
+        //                     this.router.navigate(
+        //                         ['preview', this.updateOrder.id],
+        //                         {
+        //                             state: { orderInfo: this.updateOrder },
+        //                         }
+        //                     );
+        //                 },
+        //             };
+        //         },
+        //         (error: HttpErrorResponse) => {
+        //             super.errorPopup(error);
+        //         }
+        //     );
+        // }
     }
 
     onBrandChange() {
@@ -483,6 +545,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     }
 
     private onCheckPageValid() {
+        const needLogCardFile =
+            this.vehicleForm.value.vehicleCondition === 'Used';
         const needUploadGeneralFile = !(
             this.customerForm.get('isMyInfo').value &&
             this.guarantorForm.get('isMyInfo').value &&
@@ -510,7 +574,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             this.financeForm.valid &&
             this.customerForm.valid &&
             this.guarantorForm.valid &&
-            numLogCard > 0 &&
+            (!needLogCardFile || numLogCard > 0) &&
             numSalesAgreement > 0 &&
             (!needUploadGeneralFile || numGeneralFile > 0)
         );
@@ -634,6 +698,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                     .concat(
                         // upload
                         this.uploadAttachFile.map(async (item) => {
+                            const needLogCardFile =
+                                this.vehicleForm.value.vehicleCondition ===
+                                'Used';
                             const needUploadGeneralFile = !(
                                 this.customerForm.get('isMyInfo').value &&
                                 this.guarantorForm.get('isMyInfo').value &&
@@ -644,7 +711,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                                 item.file &&
                                 ((item.fileType === 'GeneralFile' &&
                                     needUploadGeneralFile) ||
-                                    item.fileType === 'LogCard' ||
+                                    (item.fileType === 'LogCard' &&
+                                        needLogCardFile) ||
                                     item.fileType === 'SalesAgreement')
                             ) {
                                 const salesReq: AttachUploadReq = {
