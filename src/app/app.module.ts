@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMATS } from './interfaces/date.model';
+import { NumberComaFilterPipe } from './pipes/number.pipe';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -68,6 +69,7 @@ const routes: Routes = [
 		ModelFilterPipe,
 		PreviewDocNamePipe,
 		UploadDocNamePipe,
+		NumberComaFilterPipe,
 		//#endregion
 	],
 	imports: [
