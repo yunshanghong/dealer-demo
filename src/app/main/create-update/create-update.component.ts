@@ -409,45 +409,44 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     }
 
     onPreview() {
-        console.log(this.additionalForm);
-        // if (this.onCheckPageValid()) {
-        //     this.onCreateUpdate().subscribe(
-        //         (resp: string[]) => {
-        //             this.updateOrder = {
-        //                 ...this.updateOrder,
-        //                 ...this.vehicleForm.value,
-        //                 ...this.additionalForm.value,
-        //                 ...this.financeForm.value,
-        //                 customer: { ...this.customerForm.value },
-        //                 guarantor: this.guarantorOn
-        //                     ? { ...this.guarantorForm.value }
-        //                     : null,
-        //             };
-        //             super.showPopInfo = {
-        //                 timer: setTimeout(() => {
-        //                     this.router.navigate(
-        //                         ['preview', this.updateOrder.id],
-        //                         {
-        //                             state: { orderInfo: this.updateOrder },
-        //                         }
-        //                     );
-        //                 }, 4000),
-        //                 popmsg: 'Saved',
-        //                 successFunc: () => {
-        //                     this.router.navigate(
-        //                         ['preview', this.updateOrder.id],
-        //                         {
-        //                             state: { orderInfo: this.updateOrder },
-        //                         }
-        //                     );
-        //                 },
-        //             };
-        //         },
-        //         (error: HttpErrorResponse) => {
-        //             super.errorPopup(error);
-        //         }
-        //     );
-        // }
+        if (this.onCheckPageValid()) {
+            this.onCreateUpdate().subscribe(
+                (resp: string[]) => {
+                    this.updateOrder = {
+                        ...this.updateOrder,
+                        ...this.vehicleForm.value,
+                        ...this.additionalForm.value,
+                        ...this.financeForm.value,
+                        customer: { ...this.customerForm.value },
+                        guarantor: this.guarantorOn
+                            ? { ...this.guarantorForm.value }
+                            : null,
+                    };
+                    super.showPopInfo = {
+                        timer: setTimeout(() => {
+                            this.router.navigate(
+                                ['preview', this.updateOrder.id],
+                                {
+                                    state: { orderInfo: this.updateOrder },
+                                }
+                            );
+                        }, 4000),
+                        popmsg: 'Saved',
+                        successFunc: () => {
+                            this.router.navigate(
+                                ['preview', this.updateOrder.id],
+                                {
+                                    state: { orderInfo: this.updateOrder },
+                                }
+                            );
+                        },
+                    };
+                },
+                (error: HttpErrorResponse) => {
+                    super.errorPopup(error);
+                }
+            );
+        }
     }
 
     onBrandChange() {
