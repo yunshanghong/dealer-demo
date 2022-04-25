@@ -106,27 +106,26 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         };
     };
 
-    private vehicleNumberRequired = (): ((
-        AbstractControl
-    ) => ValidationErrors | null) => {
+    private vehicleNumberRequired = (): ((AbstractControl) => ValidationErrors | null) => {
         return (control: AbstractControl): ValidationErrors | null => {
             return this.vehicleForm &&
-                this.vehicleForm.value.vehicleCondition === 'Used' &&
-                control &&
-                control.value
+                (
+                    this.vehicleForm.get('vehicleCondition').value !== 'Used' || 
+                    (this.vehicleForm.get('vehicleCondition').value === 'Used' && control && control.value)
+                )
                 ? null
                 : { isMatching: false };
         };
     };
 
-    private additionalStructureRequired = (): ((
-        AbstractControl
-    ) => ValidationErrors | null) => {
+    private additionalStructureRequired = (): ((AbstractControl) => ValidationErrors | null) => {
         return (control: AbstractControl): ValidationErrors | null => {
             return this.vehicleForm &&
-                this.vehicleForm.value.vehicleType === 'CV' &&
-                control &&
-                (control.value !== undefined || control.value !== null)
+                (
+                    this.vehicleForm.value.vehicleType !== 'CV' || 
+                    (this.vehicleForm.value.vehicleType === 'CV' && control &&
+                    (control.value !== undefined || control.value !== null))
+                ) 
                 ? null
                 : { isMatching: false };
         };
@@ -143,12 +142,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         });
 
         this.additionalForm = new FormGroup({
-            vehicleNumber: new FormControl(null, [
-                this.vehicleNumberRequired(),
-            ]),
-            hasAdditionalStructure: new FormControl(null, [
-                this.additionalStructureRequired(),
-            ]),
+            vehicleNumber: new FormControl(null, [this.vehicleNumberRequired()]),
+            hasAdditionalStructure: new FormControl(null, [this.additionalStructureRequired()]),
         });
 
         this.financeForm = new FormGroup({
@@ -239,14 +234,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             .get('vehicleModelCode')
             .valueChanges.subscribe((code) => {
                 this.vehicleForm.patchValue({
-                    vehicleModelName: this.vehicleBrands
-                        ?.find(
-                            (item) =>
-                                item.brandName ===
-                                this.vehicleForm.get('brand').value
-                        )
-                        ?.vehicleModels?.find((item) => item.code === code)
-                        ?.name,
+                    vehicleModelName: this.vehicleBrands?.find((item) => item.brandName === this.vehicleForm.get('brand').value)?.vehicleModels?.find((item) => item.code === code)?.name,
                 });
             });
 
@@ -544,8 +532,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     }
 
     private onCheckPageValid() {
-        const needLogCardFile =
-            this.vehicleForm.value.vehicleCondition === 'Used';
+        const needLogCardFile = this.vehicleForm.value.vehicleCondition === 'Used';
         const needUploadGeneralFile = !(
             this.customerForm.get('isMyInfo').value &&
             this.guarantorForm.get('isMyInfo').value &&
@@ -632,8 +619,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                                   : this.guarantorForm.get('nationality').value,
                               residentialStatus: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('residentialStatus')
-                                        .value,
+                                  : this.guarantorForm.get('residentialStatus').value,
                               dateOfBirth: gIsMyInfo
                                   ? null
                                   : this.guarantorForm.get('dateOfBirth').value,
@@ -648,16 +634,13 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                                   : this.guarantorForm.get('unitNumber').value,
                               netAnnualIncome: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('netAnnualIncome')
-                                        .value,
+                                  : this.guarantorForm.get('netAnnualIncome').value,
                               employerName: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('employerName')
-                                        .value,
+                                  : this.guarantorForm.get('employerName').value,
                               assessmentYear: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('assessmentYear')
-                                        .value,
+                                  : this.guarantorForm.get('assessmentYear').value,
                           }
                         : null,
                 };
@@ -697,9 +680,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                     .concat(
                         // upload
                         this.uploadAttachFile.map(async (item) => {
-                            const needLogCardFile =
-                                this.vehicleForm.value.vehicleCondition ===
-                                'Used';
+                            const needLogCardFile = this.vehicleForm.value.vehicleCondition === 'Used';
                             const needUploadGeneralFile = !(
                                 this.customerForm.get('isMyInfo').value &&
                                 this.guarantorForm.get('isMyInfo').value &&

@@ -17,11 +17,7 @@
                             <form [formGroup]="vehicleForm">
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>
-                                            Customer Type<span class="star"
-                                                >*</span
-                                            >
-                                        </p>
+                                        <p>Customer Type<span class="star">*</span></p>
                                     </div>
                                     <div class="cell xxlarge-7">
                                         <div class="grid-x grid-margin-x">
@@ -87,16 +83,9 @@
                                                     value="New"
                                                     formControlName="vehicleCondition"
                                                 />
-                                                <label
-                                                    class="radioLabel blod"
-                                                    for="A-Vehicle Condition-New"
-                                                >
-                                                    <div
-                                                        class="radioLabel_icon"
-                                                    >
-                                                        <i
-                                                            class="be-icon be-icon-check"
-                                                        ></i>
+                                                <label class="radioLabel blod" for="A-Vehicle Condition-New">
+                                                    <div class="radioLabel_icon" >
+                                                        <i class="be-icon be-icon-check"></i>
                                                     </div>
                                                     New
                                                 </label>
@@ -108,16 +97,9 @@
                                                     value="Used"
                                                     formControlName="vehicleCondition"
                                                 />
-                                                <label
-                                                    class="radioLabel blod"
-                                                    for="A-Vehicle Condition-Used"
-                                                >
-                                                    <div
-                                                        class="radioLabel_icon"
-                                                    >
-                                                        <i
-                                                            class="be-icon be-icon-check"
-                                                        ></i>
+                                                <label class="radioLabel blod" for="A-Vehicle Condition-Used">
+                                                    <div class="radioLabel_icon">
+                                                        <i class="be-icon be-icon-check"></i>
                                                     </div>
                                                     Used
                                                 </label>
@@ -127,11 +109,7 @@
                                 </div>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>
-                                            Vehicle Type<span class="star"
-                                                >*</span
-                                            >
-                                        </p>
+                                        <p>Vehicle Type<span class="star">*</span></p>
                                     </div>
                                     <div class="cell xxlarge-7">
                                         <div class="grid-x grid-margin-x">
@@ -272,10 +250,7 @@
                             <form [formGroup]="additionalForm">
                                 <div
                                     class="grid-x grid-margin-x"
-                                    *ngIf="
-                                        vehicleForm.value.vehicleCondition ===
-                                        'Used'
-                                    "
+                                    *ngIf="vehicleForm.value.vehicleCondition === 'Used'"
                                 >
                                     <div class="cell xxlarge-5">
                                         <p>
@@ -303,10 +278,7 @@
                                 </div>
                                 <div
                                     class="grid-x grid-margin-x"
-                                    *ngIf="
-                                        vehicleForm.value.vehicleCondition ===
-                                        'Used'
-                                    "
+                                    *ngIf="vehicleForm.value.vehicleCondition === 'Used'"
                                 >
                                     <div class="cell small-5">
                                         <p>
