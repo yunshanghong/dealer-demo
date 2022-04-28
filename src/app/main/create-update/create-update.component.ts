@@ -359,6 +359,30 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                 });
             }
         });
+
+        this.financeForm.valueChanges.subscribe(form => {
+            this.financeForm.patchValue({
+                priceWithGst: this.onConvertToMoney(form?.priceWithGst),
+                financedAmount: this.onConvertToMoney(form?.financedAmount),
+                tenure: this.onConvertWithComma(form?.tenure),
+                interest: this.onConvertWithComma(form?.interest),
+                monthlyInstallment: this.onConvertToMoney(form?.monthlyInstallment),
+            }, {emitEvent: false})
+        })
+
+        this.customerForm.get("netAnnualIncome").valueChanges.subscribe(value => {
+            console.log(value)
+            this.customerForm.patchValue({
+                netAnnualIncome: this.onConvertToMoney(value)
+            }, {emitEvent: false})
+        })
+
+        this.guarantorForm.get("netAnnualIncome").valueChanges.subscribe(value => {
+            console.log(value)
+            this.guarantorForm.patchValue({
+                netAnnualIncome: this.onConvertToMoney(value)
+            }, {emitEvent: false})
+        })
     }
 
     onDiscard() {
@@ -574,7 +598,11 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                 const req: OrderDetail = {
                     ...this.vehicleForm.value,
                     ...this.additionalForm.value,
-                    ...this.financeForm.value,
+                    priceWithGst: parseFloat(this.financeForm.value.priceWithGst.split("$").join("").split(",").join("")),
+                    financedAmount: parseFloat(this.financeForm.value.financedAmount.split("$").join("").split(",").join("")),
+                    tenure: parseFloat(this.financeForm.value.tenure.split("$").join("").split(",").join("")),
+                    interest: parseFloat(this.financeForm.value.interest.split("$").join("").split(",").join("")),
+                    monthlyInstallment: parseFloat(this.financeForm.value.monthlyInstallment.split("$").join("").split(",").join("")),
                     customer: {
                         ...this.customerForm.value,
                         gender: cIsMyInfo
@@ -600,7 +628,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                             : this.customerForm.get('unitNumber').value,
                         netAnnualIncome: cIsMyInfo
                             ? null
-                            : this.customerForm.get('netAnnualIncome').value,
+                            : parseFloat(this.customerForm.get('netAnnualIncome').value.split("$").join("").split(",").join("")),
                         employerName: cIsMyInfo
                             ? null
                             : this.customerForm.get('employerName').value,
@@ -634,7 +662,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                                   : this.guarantorForm.get('unitNumber').value,
                               netAnnualIncome: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('netAnnualIncome').value,
+                                  : parseFloat(this.guarantorForm.get('netAnnualIncome').value.split("$").join("").split(",").join("")),
                               employerName: gIsMyInfo
                                   ? null
                                   : this.guarantorForm.get('employerName').value,
@@ -746,5 +774,31 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         });
 
         return result_base64;
+    }
+
+    private onConvertToMoney(inputStr: string){
+        if(inputStr === null || inputStr === undefined || !inputStr.toString().match(/^[\d,.$]*$/))
+            return inputStr;
+        
+        const value = parseFloat(inputStr.toString().split(",").join("").split("$").join(""))
+        if(value > Number.MAX_SAFE_INTEGER){
+            return `$${Number.MAX_SAFE_INTEGER.toLocaleString()}`
+        }
+        const result = value.toLocaleString()
+
+        return `$${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ;  
+    }
+
+    private onConvertWithComma(inputStr: string){
+        if(inputStr === null || inputStr === undefined || !inputStr.toString().match(/^[\d,.]*$/))
+            return inputStr;
+        
+        const value = parseFloat(inputStr.toString().split(",").join("").split("$").join(""))
+        if(value > Number.MAX_SAFE_INTEGER){
+            return Number.MAX_SAFE_INTEGER.toLocaleString()
+        }
+        const result = value.toLocaleString()
+        
+        return `${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ; 
     }
 }
