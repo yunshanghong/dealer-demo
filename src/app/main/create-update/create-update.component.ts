@@ -147,11 +147,11 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         });
 
         this.financeForm = new FormGroup({
-            priceWithGst: new FormControl(null, [Validators.required]),
-            financedAmount: new FormControl(null, [Validators.required]),
-            tenure: new FormControl(null, [Validators.required]),
-            interest: new FormControl(null, [Validators.required]),
-            monthlyInstallment: new FormControl(null, [Validators.required]),
+            priceWithGst: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/)]),
+            financedAmount: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/)]),
+            tenure: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.]*$/)]),
+            interest: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.]*$/)]),
+            monthlyInstallment: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/)]),
         });
 
         this.customerForm = new FormGroup({
@@ -183,9 +183,11 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             email: new FormControl(null, [Validators.required]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
+                Validators.pattern(/^[\d,.$]*$/)
             ]),
             employerName: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
+                Validators.pattern(/^[\d,.$]*$/)
             ]),
             assessmentYear: new FormControl('', [
                 this.conditionRequired('isMyInfo', false),
@@ -371,14 +373,12 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         })
 
         this.customerForm.get("netAnnualIncome").valueChanges.subscribe(value => {
-            console.log(value)
             this.customerForm.patchValue({
                 netAnnualIncome: this.onConvertToMoney(value)
             }, {emitEvent: false})
         })
 
         this.guarantorForm.get("netAnnualIncome").valueChanges.subscribe(value => {
-            console.log(value)
             this.guarantorForm.patchValue({
                 netAnnualIncome: this.onConvertToMoney(value)
             }, {emitEvent: false})
@@ -784,7 +784,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         if(value > Number.MAX_SAFE_INTEGER){
             return `$${Number.MAX_SAFE_INTEGER.toLocaleString()}`
         }
-        const result = value.toLocaleString()
+        const result = value.toLocaleString().replace(/NaN/g, "")
 
         return `$${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ;  
     }
@@ -797,7 +797,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         if(value > Number.MAX_SAFE_INTEGER){
             return Number.MAX_SAFE_INTEGER.toLocaleString()
         }
-        const result = value.toLocaleString()
+        const result = value.toLocaleString().replace(/NaN/g, "")
         
         return `${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ; 
     }
