@@ -779,12 +779,16 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     private onConvertToMoney(inputStr: string){
         if(inputStr === null || inputStr === undefined || !inputStr.toString().match(/^[\d,.$]*$/))
             return inputStr;
+
+        const wipeDollarSymbol = inputStr.toString().split("$").join("");
+        if(!wipeDollarSymbol) return "$"
         
-        const value = parseFloat(inputStr.toString().split(",").join("").split("$").join(""))
+        const value = parseFloat(wipeDollarSymbol.split(",").join(""))
+
         if(value > Number.MAX_SAFE_INTEGER){
             return `$${Number.MAX_SAFE_INTEGER.toLocaleString()}`
         }
-        const result = value.toLocaleString().replace(/NaN/g, "")
+        const result = value.toLocaleString()
 
         return `$${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ;  
     }
@@ -792,12 +796,15 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     private onConvertWithComma(inputStr: string){
         if(inputStr === null || inputStr === undefined || !inputStr.toString().match(/^[\d,.]*$/))
             return inputStr;
+
+        const splitValue = inputStr.toString().split(",").join("");
+        if(!splitValue) return ""
         
-        const value = parseFloat(inputStr.toString().split(",").join("").split("$").join(""))
+        const value = parseFloat(splitValue)
         if(value > Number.MAX_SAFE_INTEGER){
             return Number.MAX_SAFE_INTEGER.toLocaleString()
         }
-        const result = value.toLocaleString().replace(/NaN/g, "")
+        const result = value.toLocaleString()
         
         return `${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ; 
     }
