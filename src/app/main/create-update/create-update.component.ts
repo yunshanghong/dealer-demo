@@ -131,6 +131,17 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         };
     };
 
+    private onlyDollarSign = (): ((AbstractControl) => ValidationErrors | null) => {
+        return (control: AbstractControl): ValidationErrors | null => {
+            return this.vehicleForm &&
+                ( 
+                    control && control.value !== "$"
+                )
+                ? null
+                : { isMatching: false };
+        };
+    };
+
     ngOnInit() {
         this.vehicleForm = new FormGroup({
             customerType: new FormControl(null, [Validators.required]),
@@ -147,11 +158,11 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         });
 
         this.financeForm = new FormGroup({
-            priceWithGst: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/)]),
-            financedAmount: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/)]),
+            priceWithGst: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/), this.onlyDollarSign()]),
+            financedAmount: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/), this.onlyDollarSign()]),
             tenure: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.]*$/)]),
             interest: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.]*$/)]),
-            monthlyInstallment: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/)]),
+            monthlyInstallment: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/), this.onlyDollarSign()]),
         });
 
         this.customerForm = new FormGroup({
@@ -183,11 +194,11 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             email: new FormControl(null, [Validators.required]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
-                Validators.pattern(/^[\d,.$]*$/)
+                Validators.pattern(/^[\d,.$]*$/), 
+                this.onlyDollarSign(),
             ]),
             employerName: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
-                Validators.pattern(/^[\d,.$]*$/)
             ]),
             assessmentYear: new FormControl('', [
                 this.conditionRequired('isMyInfo', false),
@@ -223,6 +234,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             email: new FormControl(null, [this.conditionRequired3()]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
+                Validators.pattern(/^[\d,.$]*$/), 
+                this.onlyDollarSign(),
             ]),
             employerName: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
