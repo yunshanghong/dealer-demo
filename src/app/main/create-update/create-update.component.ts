@@ -165,6 +165,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             monthlyInstallment: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/), this.onlyDollarSign()]),
         });
 
+        const mobileRule = /^[0-9]{8}$/
+
         this.customerForm = new FormGroup({
             isMyInfo: new FormControl(false, [Validators.required]),
             name: new FormControl(null, [Validators.required]),
@@ -190,7 +192,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             unitNumber: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
             ]),
-            mobile: new FormControl(null, [Validators.required]),
+            mobile: new FormControl(null, [Validators.required, Validators.pattern(mobileRule)]),
             email: new FormControl(null, [Validators.required]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
@@ -230,7 +232,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             unitNumber: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
             ]),
-            mobile: new FormControl(null, [this.conditionRequired3()]),
+            mobile: new FormControl(null, [this.conditionRequired3(), Validators.pattern(mobileRule)]),
             email: new FormControl(null, [this.conditionRequired3()]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
