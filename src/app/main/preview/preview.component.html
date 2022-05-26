@@ -83,7 +83,7 @@
                             <p>{{ doc.fileName }}</p>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="grid-x grid-margin-x">
                     <div class="cell small-6 medium-4 large-12 xlarge-5">
@@ -302,7 +302,7 @@
                     </div>
                     <div class="grid-x grid-margin-x">
                         <div class="cell small-6 medium-4 large-12 xlarge-5">
-                            <p class="listName">Applicant Name<span class="star">*</span></p>
+                            <p class="listName">Guarantor Name<span class="star">*</span></p>
                         </div>
                         <div class="cell small-6 medium-8 large-12 xlarge-7">
                             <p class="listValue">{{ orderInfo?.guarantor?.name }}</p>
@@ -424,7 +424,7 @@
                 <div class="card-divider"> <span>FILE UPLOAD</span></div>
                 <div class="card-section">
                     <p>
-                        NRIC and Income Documents<span class="star">*</span> 
+                        NRIC and Income Documents<span class="star">*</span>
                         <a class="weblink-pagelink blod linelink text-red" (click)="generalDocsLimit = Infinity" *ngIf="(orderInfo?.supportingDocs | PreviewDocName: 'GeneralFile')?.length > 6">Show All</a>
                     </p>
                     <div class="grid-x grid-margin-x">

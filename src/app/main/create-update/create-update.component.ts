@@ -45,6 +45,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     // file has id => delete file
     deleteAttachId: Array<FileRecord> = [];
     guarantorOn: boolean = false;
+    showConfirmModal: boolean = false;
 
     constructor(
         @Inject(PLATFORM_ID) protected platformId: Object,
@@ -106,37 +107,41 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         };
     };
 
-    private vehicleNumberRequired = (): ((AbstractControl) => ValidationErrors | null) => {
+    private vehicleNumberRequired = (): ((
+        AbstractControl
+    ) => ValidationErrors | null) => {
         return (control: AbstractControl): ValidationErrors | null => {
             return this.vehicleForm &&
-                (
-                    this.vehicleForm.get('vehicleCondition').value !== 'Used' || 
-                    (this.vehicleForm.get('vehicleCondition').value === 'Used' && control && control.value)
-                )
+                (this.vehicleForm.get('vehicleCondition').value !== 'Used' ||
+                    (this.vehicleForm.get('vehicleCondition').value ===
+                        'Used' &&
+                        control &&
+                        control.value))
                 ? null
                 : { isMatching: false };
         };
     };
 
-    private additionalStructureRequired = (): ((AbstractControl) => ValidationErrors | null) => {
+    private additionalStructureRequired = (): ((
+        AbstractControl
+    ) => ValidationErrors | null) => {
         return (control: AbstractControl): ValidationErrors | null => {
             return this.vehicleForm &&
-                (
-                    this.vehicleForm.value.vehicleType !== 'CV' || 
-                    (this.vehicleForm.value.vehicleType === 'CV' && control &&
-                    (control.value !== undefined || control.value !== null))
-                ) 
+                (this.vehicleForm.value.vehicleType !== 'CV' ||
+                    (this.vehicleForm.value.vehicleType === 'CV' &&
+                        control &&
+                        (control.value !== undefined ||
+                            control.value !== null)))
                 ? null
                 : { isMatching: false };
         };
     };
 
-    private onlyDollarSign = (): ((AbstractControl) => ValidationErrors | null) => {
+    private onlyDollarSign = (): ((
+        AbstractControl
+    ) => ValidationErrors | null) => {
         return (control: AbstractControl): ValidationErrors | null => {
-            return this.vehicleForm &&
-                ( 
-                    control && control.value !== "$"
-                )
+            return this.vehicleForm && control && control.value !== '$'
                 ? null
                 : { isMatching: false };
         };
@@ -147,25 +152,47 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             customerType: new FormControl(null, [Validators.required]),
             vehicleCondition: new FormControl(null, [Validators.required]),
             vehicleType: new FormControl(null, [Validators.required]),
-            brand: new FormControl('', [Validators.required]),
-            vehicleModelCode: new FormControl('', [Validators.required]),
-            vehicleModelName: new FormControl('', [Validators.required]),
+            brand: new FormControl('', []),
+            vehicleModelCode: new FormControl('', []),
+            vehicleModelName: new FormControl('', []),
         });
 
         this.additionalForm = new FormGroup({
-            vehicleNumber: new FormControl(null, [this.vehicleNumberRequired()]),
-            hasAdditionalStructure: new FormControl(null, [this.additionalStructureRequired()]),
+            vehicleNumber: new FormControl(null, [
+                this.vehicleNumberRequired(),
+            ]),
+            hasAdditionalStructure: new FormControl(null, [
+                this.additionalStructureRequired(),
+            ]),
         });
 
         this.financeForm = new FormGroup({
-            priceWithGst: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/), this.onlyDollarSign()]),
-            financedAmount: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/), this.onlyDollarSign()]),
-            tenure: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.]*$/)]),
-            interest: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.]*$/)]),
-            monthlyInstallment: new FormControl(null, [Validators.required, Validators.pattern(/^[\d,.$]*$/), this.onlyDollarSign()]),
+            priceWithGst: new FormControl(null, [
+                Validators.required,
+                Validators.pattern(/^[\d,.$]*$/),
+                this.onlyDollarSign(),
+            ]),
+            financedAmount: new FormControl(null, [
+                Validators.required,
+                Validators.pattern(/^[\d,.$]*$/),
+                this.onlyDollarSign(),
+            ]),
+            tenure: new FormControl(null, [
+                Validators.required,
+                Validators.pattern(/^[\d,.]*$/),
+            ]),
+            interest: new FormControl(null, [
+                Validators.required,
+                Validators.pattern(/^[\d,.]*$/),
+            ]),
+            monthlyInstallment: new FormControl(null, [
+                Validators.required,
+                Validators.pattern(/^[\d,.$]*$/),
+                this.onlyDollarSign(),
+            ]),
         });
 
-        const mobileRule = /^[0-9]{8}$/
+        const mobileRule = /^[0-9]{8}$/;
 
         this.customerForm = new FormGroup({
             isMyInfo: new FormControl(false, [Validators.required]),
@@ -192,11 +219,17 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             unitNumber: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
             ]),
-            mobile: new FormControl(null, [Validators.required, Validators.pattern(mobileRule)]),
-            email: new FormControl(null, [Validators.required]),
+            mobile: new FormControl(null, [
+                Validators.required,
+                Validators.pattern(mobileRule),
+            ]),
+            email: new FormControl(null, [
+                Validators.required,
+                Validators.email,
+            ]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
-                Validators.pattern(/^[\d,.$]*$/), 
+                Validators.pattern(/^[\d,.$]*$/),
                 this.onlyDollarSign(),
             ]),
             employerName: new FormControl(null, [
@@ -232,11 +265,14 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             unitNumber: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
             ]),
-            mobile: new FormControl(null, [this.conditionRequired3(), Validators.pattern(mobileRule)]),
+            mobile: new FormControl(null, [
+                this.conditionRequired3(),
+                Validators.pattern(mobileRule),
+            ]),
             email: new FormControl(null, [this.conditionRequired3()]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
-                Validators.pattern(/^[\d,.$]*$/), 
+                Validators.pattern(/^[\d,.$]*$/),
                 this.onlyDollarSign(),
             ]),
             employerName: new FormControl(null, [
@@ -251,7 +287,14 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             .get('vehicleModelCode')
             .valueChanges.subscribe((code) => {
                 this.vehicleForm.patchValue({
-                    vehicleModelName: this.vehicleBrands?.find((item) => item.brandName === this.vehicleForm.get('brand').value)?.vehicleModels?.find((item) => item.code === code)?.name,
+                    vehicleModelName: this.vehicleBrands
+                        ?.find(
+                            (item) =>
+                                item.brandName ===
+                                this.vehicleForm.get('brand').value
+                        )
+                        ?.vehicleModels?.find((item) => item.code === code)
+                        ?.name,
                 });
             });
 
@@ -266,6 +309,76 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             delete newData['isMyInfo'];
             this.guarantorForm.patchValue(newData);
         });
+
+        this.vehicleForm
+            .get('vehicleCondition')
+            .valueChanges.subscribe((value) => {
+                if (value === 'New') {
+                    this.additionalForm.patchValue({
+                        vehicleNumber: null,
+                    });
+
+                    const deleteArr: Array<FileRecord> = [];
+                    const newUploadArr: Array<FileRecord> = [];
+
+                    this.uploadAttachFile.forEach((item) => {
+                        item.fileType === 'LogCard'
+                            ? deleteArr.push({
+                                  id: item.id,
+                                  fileType: item.fileType,
+                              })
+                            : newUploadArr.push(item);
+                    });
+
+                    this.uploadAttachFile = newUploadArr;
+                    this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
+                }
+            });
+
+        this.vehicleForm.get('vehicleType').valueChanges.subscribe((value) => {
+            if (value === 'PC') {
+                this.additionalForm.patchValue({
+                    hasAdditionalStructure: null,
+                });
+            }
+        });
+
+        this.financeForm.valueChanges.subscribe((form) => {
+            this.financeForm.patchValue(
+                {
+                    priceWithGst: this.onConvertToMoney(form?.priceWithGst),
+                    financedAmount: this.onConvertToMoney(form?.financedAmount),
+                    tenure: this.onConvertWithComma(form?.tenure),
+                    interest: this.onConvertWithComma(form?.interest),
+                    monthlyInstallment: this.onConvertToMoney(
+                        form?.monthlyInstallment
+                    ),
+                },
+                { emitEvent: false }
+            );
+        });
+
+        this.customerForm
+            .get('netAnnualIncome')
+            .valueChanges.subscribe((value) => {
+                this.customerForm.patchValue(
+                    {
+                        netAnnualIncome: this.onConvertToMoney(value),
+                    },
+                    { emitEvent: false }
+                );
+            });
+
+        this.guarantorForm
+            .get('netAnnualIncome')
+            .valueChanges.subscribe((value) => {
+                this.guarantorForm.patchValue(
+                    {
+                        netAnnualIncome: this.onConvertToMoney(value),
+                    },
+                    { emitEvent: false }
+                );
+            });
 
         this.apiService
             .VehicleBrand()
@@ -343,61 +456,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             });
             super.unactiveLoader();
         }
-
-        this.vehicleForm
-            .get('vehicleCondition')
-            .valueChanges.subscribe((value) => {
-                if (value === 'New') {
-                    this.additionalForm.patchValue({
-                        vehicleNumber: null,
-                    });
-
-                    const deleteArr: Array<FileRecord> = [];
-                    const newUploadArr: Array<FileRecord> = [];
-
-                    this.uploadAttachFile.forEach((item) => {
-                        item.fileType === 'LogCard'
-                            ? deleteArr.push({
-                                  id: item.id,
-                                  fileType: item.fileType,
-                              })
-                            : newUploadArr.push(item);
-                    });
-
-                    this.uploadAttachFile = newUploadArr;
-                    this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
-                }
-            });
-
-        this.vehicleForm.get('vehicleType').valueChanges.subscribe((value) => {
-            if (value === 'PC') {
-                this.additionalForm.patchValue({
-                    hasAdditionalStructure: null,
-                });
-            }
-        });
-
-        this.financeForm.valueChanges.subscribe(form => {
-            this.financeForm.patchValue({
-                priceWithGst: this.onConvertToMoney(form?.priceWithGst),
-                financedAmount: this.onConvertToMoney(form?.financedAmount),
-                tenure: this.onConvertWithComma(form?.tenure),
-                interest: this.onConvertWithComma(form?.interest),
-                monthlyInstallment: this.onConvertToMoney(form?.monthlyInstallment),
-            }, {emitEvent: false})
-        })
-
-        this.customerForm.get("netAnnualIncome").valueChanges.subscribe(value => {
-            this.customerForm.patchValue({
-                netAnnualIncome: this.onConvertToMoney(value)
-            }, {emitEvent: false})
-        })
-
-        this.guarantorForm.get("netAnnualIncome").valueChanges.subscribe(value => {
-            this.guarantorForm.patchValue({
-                netAnnualIncome: this.onConvertToMoney(value)
-            }, {emitEvent: false})
-        })
     }
 
     onDiscard() {
@@ -443,31 +501,39 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                         ...this.updateOrder,
                         ...this.vehicleForm.value,
                         ...this.additionalForm.value,
-                        ...this.financeForm.value,
-                        customer: { ...this.customerForm.value },
+                        priceWithGst: this.eliminateSymbol(
+                            this.financeForm.value.priceWithGst
+                        ),
+                        financedAmount: this.eliminateSymbol(
+                            this.financeForm.value.financedAmount
+                        ),
+                        tenure: this.eliminateSymbol(
+                            this.financeForm.value.tenure
+                        ),
+                        interest: this.eliminateSymbol(
+                            this.financeForm.value.interest
+                        ),
+                        monthlyInstallment: this.eliminateSymbol(
+                            this.financeForm.value.monthlyInstallment
+                        ),
+                        customer: {
+                            ...this.customerForm.value,
+                            netAnnualIncome: this.eliminateSymbol(
+                                this.customerForm.value.netAnnualIncome
+                            ),
+                        },
                         guarantor: this.guarantorOn
-                            ? { ...this.guarantorForm.value }
+                            ? {
+                                  ...this.guarantorForm.value,
+                                  netAnnualIncome: this.eliminateSymbol(
+                                      this.customerForm.value.netAnnualIncome
+                                  ),
+                              }
                             : null,
                     };
-                    super.showPopInfo = {
-                        timer: setTimeout(() => {
-                            this.router.navigate(
-                                ['preview', this.updateOrder.id],
-                                {
-                                    state: { orderInfo: this.updateOrder },
-                                }
-                            );
-                        }, 4000),
-                        popmsg: 'Saved',
-                        successFunc: () => {
-                            this.router.navigate(
-                                ['preview', this.updateOrder.id],
-                                {
-                                    state: { orderInfo: this.updateOrder },
-                                }
-                            );
-                        },
-                    };
+                    this.router.navigate(['preview', this.updateOrder.id], {
+                        state: { orderInfo: this.updateOrder },
+                    });
                 },
                 (error: HttpErrorResponse) => {
                     super.errorPopup(error);
@@ -565,18 +631,46 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
 
     onTouchedNInvalid(form: FormGroup) {
         const result = Object.keys(form.value).filter(
-            (item) => form.get(item).touched && form.get(item).invalid
+            (item) =>
+                (form.get(item).touched || form.get(item).dirty) &&
+                form.get(item).invalid
         );
         return result.length > 0;
     }
 
+    onCustomerTouchedNInvalid(form: FormGroup) {
+        const formMapping = Object.keys(form.value)
+            .filter(
+                (item) =>
+                    (form.get(item).touched || form.get(item).dirty) &&
+                    form.get(item).invalid
+            )
+            .map((item) => form.get(item).errors);
+
+        if (formMapping.length === 0) {
+            return null;
+        }
+
+        if (formMapping[0]?.email) {
+            return 'Please enter a valid email address';
+        }
+
+        if (formMapping[0]?.pattern?.requiredPattern === '/^[0-9]{8}$/') {
+            return 'Please enter valid 8 digit number';
+        }
+
+        return 'Fields marked * are required please.';
+    }
+
     private onCheckPageValid() {
-        const needLogCardFile = this.vehicleForm.value.vehicleCondition === 'Used';
-        const needUploadGeneralFile = !(
-            this.customerForm.get('isMyInfo').value &&
-            this.guarantorForm.get('isMyInfo').value &&
-            this.guarantorOn
-        );
+        const needLogCardFile =
+            this.vehicleForm.value.vehicleCondition === 'Used';
+        const needUploadGeneralFile =
+            !(
+                this.customerForm.get('isMyInfo').value &&
+                this.guarantorForm.get('isMyInfo').value &&
+                this.guarantorOn
+            ) && !this.customerForm.get('isMyInfo').value;
         this.vehicleForm.markAllAsTouched();
         this.additionalForm.markAllAsTouched();
         this.financeForm.markAllAsTouched();
@@ -613,11 +707,41 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                 const req: OrderDetail = {
                     ...this.vehicleForm.value,
                     ...this.additionalForm.value,
-                    priceWithGst: parseFloat(this.financeForm.value.priceWithGst.split("$").join("").split(",").join("")),
-                    financedAmount: parseFloat(this.financeForm.value.financedAmount.split("$").join("").split(",").join("")),
-                    tenure: parseFloat(this.financeForm.value.tenure.split("$").join("").split(",").join("")),
-                    interest: parseFloat(this.financeForm.value.interest.split("$").join("").split(",").join("")),
-                    monthlyInstallment: parseFloat(this.financeForm.value.monthlyInstallment.split("$").join("").split(",").join("")),
+                    priceWithGst: parseFloat(
+                        this.financeForm.value.priceWithGst
+                            .split('$')
+                            .join('')
+                            .split(',')
+                            .join('')
+                    ),
+                    financedAmount: parseFloat(
+                        this.financeForm.value.financedAmount
+                            .split('$')
+                            .join('')
+                            .split(',')
+                            .join('')
+                    ),
+                    tenure: parseFloat(
+                        this.financeForm.value.tenure
+                            .split('$')
+                            .join('')
+                            .split(',')
+                            .join('')
+                    ),
+                    interest: parseFloat(
+                        this.financeForm.value.interest
+                            .split('$')
+                            .join('')
+                            .split(',')
+                            .join('')
+                    ),
+                    monthlyInstallment: parseFloat(
+                        this.financeForm.value.monthlyInstallment
+                            .split('$')
+                            .join('')
+                            .split(',')
+                            .join('')
+                    ),
                     customer: {
                         ...this.customerForm.value,
                         gender: cIsMyInfo
@@ -643,7 +767,14 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                             : this.customerForm.get('unitNumber').value,
                         netAnnualIncome: cIsMyInfo
                             ? null
-                            : parseFloat(this.customerForm.get('netAnnualIncome').value.split("$").join("").split(",").join("")),
+                            : parseFloat(
+                                  this.customerForm
+                                      .get('netAnnualIncome')
+                                      .value.split('$')
+                                      .join('')
+                                      .split(',')
+                                      .join('')
+                              ),
                         employerName: cIsMyInfo
                             ? null
                             : this.customerForm.get('employerName').value,
@@ -662,7 +793,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                                   : this.guarantorForm.get('nationality').value,
                               residentialStatus: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('residentialStatus').value,
+                                  : this.guarantorForm.get('residentialStatus')
+                                        .value,
                               dateOfBirth: gIsMyInfo
                                   ? null
                                   : this.guarantorForm.get('dateOfBirth').value,
@@ -677,13 +809,22 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                                   : this.guarantorForm.get('unitNumber').value,
                               netAnnualIncome: gIsMyInfo
                                   ? null
-                                  : parseFloat(this.guarantorForm.get('netAnnualIncome').value.split("$").join("").split(",").join("")),
+                                  : parseFloat(
+                                        this.guarantorForm
+                                            .get('netAnnualIncome')
+                                            .value.split('$')
+                                            .join('')
+                                            .split(',')
+                                            .join('')
+                                    ),
                               employerName: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('employerName').value,
+                                  : this.guarantorForm.get('employerName')
+                                        .value,
                               assessmentYear: gIsMyInfo
                                   ? null
-                                  : this.guarantorForm.get('assessmentYear').value,
+                                  : this.guarantorForm.get('assessmentYear')
+                                        .value,
                           }
                         : null,
                 };
@@ -723,12 +864,15 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                     .concat(
                         // upload
                         this.uploadAttachFile.map(async (item) => {
-                            const needLogCardFile = this.vehicleForm.value.vehicleCondition === 'Used';
-                            const needUploadGeneralFile = !(
-                                this.customerForm.get('isMyInfo').value &&
-                                this.guarantorForm.get('isMyInfo').value &&
-                                this.guarantorOn
-                            );
+                            const needLogCardFile =
+                                this.vehicleForm.value.vehicleCondition ===
+                                'Used';
+                            const needUploadGeneralFile =
+                                !(
+                                    this.customerForm.get('isMyInfo').value &&
+                                    this.guarantorForm.get('isMyInfo').value &&
+                                    this.guarantorOn
+                                ) && !this.customerForm.get('isMyInfo').value;
                             if (
                                 !item.id &&
                                 item.file &&
@@ -791,36 +935,48 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         return result_base64;
     }
 
-    private onConvertToMoney(inputStr: string){
-        if(inputStr === null || inputStr === undefined || !inputStr.toString().match(/^[\d,.$]*$/))
+    private onConvertToMoney(inputStr: string) {
+        if (
+            inputStr === null ||
+            inputStr === undefined ||
+            !inputStr.toString().match(/^[\d,.$]*$/)
+        )
             return inputStr;
 
-        const wipeDollarSymbol = inputStr.toString().split("$").join("");
-        if(!wipeDollarSymbol) return "$"
-        
-        const value = parseFloat(wipeDollarSymbol.split(",").join(""))
+        const wipeDollarSymbol = inputStr.toString().split('$').join('');
+        if (!wipeDollarSymbol) return '$';
 
-        if(value > Number.MAX_SAFE_INTEGER){
-            return `$${Number.MAX_SAFE_INTEGER.toLocaleString()}`
+        const value = parseFloat(wipeDollarSymbol.split(',').join(''));
+
+        if (value > Number.MAX_SAFE_INTEGER) {
+            return `$${Number.MAX_SAFE_INTEGER.toLocaleString()}`;
         }
-        const result = value.toLocaleString()
+        const result = value.toLocaleString();
 
-        return `$${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ;  
+        return `$${result}${inputStr[inputStr.length - 1] === '.' ? '.' : ''}`;
     }
 
-    private onConvertWithComma(inputStr: string){
-        if(inputStr === null || inputStr === undefined || !inputStr.toString().match(/^[\d,.]*$/))
+    private onConvertWithComma(inputStr: string) {
+        if (
+            inputStr === null ||
+            inputStr === undefined ||
+            !inputStr.toString().match(/^[\d,.]*$/)
+        )
             return inputStr;
 
-        const splitValue = inputStr.toString().split(",").join("");
-        if(!splitValue) return ""
-        
-        const value = parseFloat(splitValue)
-        if(value > Number.MAX_SAFE_INTEGER){
-            return Number.MAX_SAFE_INTEGER.toLocaleString()
+        const splitValue = inputStr.toString().split(',').join('');
+        if (!splitValue) return '';
+
+        const value = parseFloat(splitValue);
+        if (value > Number.MAX_SAFE_INTEGER) {
+            return Number.MAX_SAFE_INTEGER.toLocaleString();
         }
-        const result = value.toLocaleString()
-        
-        return `${result}${inputStr[inputStr.length -1] === "." ? "." : ""}` ; 
+        const result = value.toLocaleString();
+
+        return `${result}${inputStr[inputStr.length - 1] === '.' ? '.' : ''}`;
+    }
+
+    private eliminateSymbol(inputStr: string) {
+        return parseFloat(inputStr.split(',').join('').split('$').join(''));
     }
 }

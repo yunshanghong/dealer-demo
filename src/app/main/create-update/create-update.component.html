@@ -17,7 +17,11 @@
                             <form [formGroup]="vehicleForm">
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>Customer Type<span class="star">*</span></p>
+                                        <p>
+                                            Customer Type<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
                                     </div>
                                     <div class="cell xxlarge-7">
                                         <div class="grid-x grid-margin-x">
@@ -83,9 +87,16 @@
                                                     value="New"
                                                     formControlName="vehicleCondition"
                                                 />
-                                                <label class="radioLabel blod" for="A-Vehicle Condition-New">
-                                                    <div class="radioLabel_icon" >
-                                                        <i class="be-icon be-icon-check"></i>
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Vehicle Condition-New"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
                                                     </div>
                                                     New
                                                 </label>
@@ -97,9 +108,16 @@
                                                     value="Used"
                                                     formControlName="vehicleCondition"
                                                 />
-                                                <label class="radioLabel blod" for="A-Vehicle Condition-Used">
-                                                    <div class="radioLabel_icon">
-                                                        <i class="be-icon be-icon-check"></i>
+                                                <label
+                                                    class="radioLabel blod"
+                                                    for="A-Vehicle Condition-Used"
+                                                >
+                                                    <div
+                                                        class="radioLabel_icon"
+                                                    >
+                                                        <i
+                                                            class="be-icon be-icon-check"
+                                                        ></i>
                                                     </div>
                                                     Used
                                                 </label>
@@ -109,7 +127,11 @@
                                 </div>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell xxlarge-5">
-                                        <p>Vehicle Type<span class="star">*</span></p>
+                                        <p>
+                                            Vehicle Type<span class="star"
+                                                >*</span
+                                            >
+                                        </p>
                                     </div>
                                     <div class="cell xxlarge-7">
                                         <div class="grid-x grid-margin-x">
@@ -250,7 +272,10 @@
                             <form [formGroup]="additionalForm">
                                 <div
                                     class="grid-x grid-margin-x"
-                                    *ngIf="vehicleForm.value.vehicleCondition === 'Used'"
+                                    *ngIf="
+                                        vehicleForm.value.vehicleCondition ===
+                                        'Used'
+                                    "
                                 >
                                     <div class="cell xxlarge-5">
                                         <p>
@@ -278,7 +303,10 @@
                                 </div>
                                 <div
                                     class="grid-x grid-margin-x"
-                                    *ngIf="vehicleForm.value.vehicleCondition === 'Used'"
+                                    *ngIf="
+                                        vehicleForm.value.vehicleCondition ===
+                                        'Used'
+                                    "
                                 >
                                     <div class="cell small-5">
                                         <p>
@@ -544,9 +572,12 @@
                         class="error-text"
                         *ngIf="
                             onTouchedNInvalid(additionalForm) ||
-                            (additionalForm.touched && 
-                                (vehicleForm.value.vehicleCondition === 'Used' && (uploadAttachFile | UploadDocName: 'LogCard').length === 0) ||
-                                (uploadAttachFile | UploadDocName: 'SalesAgreement').length === 0)
+                            (additionalForm.touched &&
+                                vehicleForm.value.vehicleCondition === 'Used' &&
+                                (uploadAttachFile | UploadDocName: 'LogCard')
+                                    .length === 0) ||
+                            (uploadAttachFile | UploadDocName: 'SalesAgreement')
+                                .length === 0
                         "
                         >Fields marked * are required please.</span
                     >
@@ -1299,11 +1330,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <span
-                                class="error-text"
-                                *ngIf="onTouchedNInvalid(customerForm)"
-                                >Fields marked * are required please.</span
-                            >
+                            <span class="error-text">
+                                {{ onCustomerTouchedNInvalid(customerForm) }}
+                            </span>
+
+                            <!-- Fields marked * are required please. -->
                         </div>
                         <div class="cell large-6 grid-x">
                             <div class="card shadow">
@@ -1381,7 +1412,7 @@
                                         <div class="grid-x grid-margin-x">
                                             <div class="cell xxlarge-5">
                                                 <p>
-                                                    Applicant Name<span
+                                                    Guarantor Name<span
                                                         class="star"
                                                         >*</span
                                                     >
@@ -1925,11 +1956,9 @@
                                     switch the button
                                 </div>
                             </div>
-                            <span
-                                class="error-text"
-                                *ngIf="onTouchedNInvalid(guarantorForm)"
-                                >Fields marked * are required please.</span
-                            >
+                            <span class="error-text">
+                                {{ onCustomerTouchedNInvalid(guarantorForm) }}
+                            </span>
                         </div>
                     </div>
                     <div
@@ -1939,7 +1968,7 @@
                                 customerForm.get('isMyInfo').value &&
                                 guarantorForm.get('isMyInfo').value &&
                                 guarantorOn
-                            )
+                            ) && !customerForm.get('isMyInfo').value
                         "
                     >
                         <div class="card-divider"><span>FILE UPLOAD</span></div>
@@ -2060,6 +2089,7 @@
                                 guarantorForm.get('isMyInfo').value &&
                                 guarantorOn
                             ) &&
+                            !customerForm.get('isMyInfo').value &&
                             (uploadAttachFile | UploadDocName: 'GeneralFile')
                                 .length === 0
                         "
@@ -2072,7 +2102,7 @@
                     class="btncont-line"
                     type="button"
                     value="Discard"
-                    (click)="onDiscard()"
+                    (click)="showConfirmModal = true"
                 />
                 <input
                     class="btncont-line"
@@ -2088,6 +2118,41 @@
                 />
             </div>
         </section>
+    </div>
+
+    <div
+        class="reveal-overlay"
+        style="display: block"
+        *ngIf="showConfirmModal"
+        (click)="showConfirmModal = false"
+    >
+        <div
+            class="popup tiny reveal"
+            id="ConfirmChange"
+            data-reveal
+            style="display: block"
+            (click)="$event.stopPropagation()"
+        >
+            <div class="popup-title text-center blod">
+                Do you want to close without saving the changes?
+            </div>
+            <div class="popup-btn btncont small">
+                <input
+                    class="btncont-line"
+                    type="button"
+                    value="No"
+                    data-close
+                    (click)="showConfirmModal = false"
+                />
+                <input
+                    class="btncont-line"
+                    type="button"
+                    value="Yes"
+                    data-close
+                    (click)="onDiscard()"
+                />
+            </div>
+        </div>
     </div>
     <app-msgPopup [showPopInfo]="showPopInfo"></app-msgPopup>
 </main>
