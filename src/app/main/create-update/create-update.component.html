@@ -1289,40 +1289,13 @@
                                                     }"
                                                 >
                                                     <option
+                                                        *ngFor="
+                                                            let year of assessmentYearDrop
+                                                        "
                                                         class="blod"
-                                                        value=""
+                                                        [value]="year"
                                                     >
-                                                        default
-                                                    </option>
-                                                    <option
-                                                        class="blod"
-                                                        value="2022"
-                                                    >
-                                                        2022
-                                                    </option>
-                                                    <option
-                                                        class="blod"
-                                                        value="2"
-                                                    >
-                                                        2
-                                                    </option>
-                                                    <option
-                                                        class="blod"
-                                                        value="3"
-                                                    >
-                                                        3
-                                                    </option>
-                                                    <option
-                                                        class="blod"
-                                                        value="4"
-                                                    >
-                                                        4
-                                                    </option>
-                                                    <option
-                                                        class="blod"
-                                                        value="5"
-                                                    >
-                                                        5
+                                                        {{ year }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -2133,9 +2106,7 @@
             style="display: block"
             (click)="$event.stopPropagation()"
         >
-            <div class="popup-title text-center blod">
-                Do you want to close without saving the changes?
-            </div>
+            <div class="popup-title text-center blod">Discard Changes?</div>
             <div class="popup-btn btncont small">
                 <input
                     class="btncont-line"

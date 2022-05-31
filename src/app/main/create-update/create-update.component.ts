@@ -23,6 +23,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-create-update',
@@ -46,6 +47,12 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     deleteAttachId: Array<FileRecord> = [];
     guarantorOn: boolean = false;
     showConfirmModal: boolean = false;
+    assessmentYearDrop: number[] = [
+        moment().year(),
+        moment().add(-1, 'y').year(),
+        moment().add(-2, 'y').year(),
+        moment().add(-3, 'y').year(),
+    ];
 
     constructor(
         @Inject(PLATFORM_ID) protected platformId: Object,
@@ -235,7 +242,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             employerName: new FormControl(null, [
                 this.conditionRequired('isMyInfo', false),
             ]),
-            assessmentYear: new FormControl('', [
+            assessmentYear: new FormControl(this.assessmentYearDrop[0], [
                 this.conditionRequired('isMyInfo', false),
             ]),
         });
@@ -269,7 +276,10 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                 this.conditionRequired3(),
                 Validators.pattern(mobileRule),
             ]),
-            email: new FormControl(null, [this.conditionRequired3()]),
+            email: new FormControl(null, [
+                this.conditionRequired3(),
+                Validators.email,
+            ]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
                 Validators.pattern(/^[\d,.$]*$/),
@@ -278,7 +288,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             employerName: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
             ]),
-            assessmentYear: new FormControl('', [
+            assessmentYear: new FormControl(this.assessmentYearDrop[0], [
                 this.conditionRequired2('isMyInfo', false),
             ]),
         });

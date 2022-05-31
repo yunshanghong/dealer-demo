@@ -7,74 +7,78 @@ import { ApiService } from 'src/app/services/api.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
-	selector: 'app-preview',
-	templateUrl: './preview.component.html',
-	styleUrls: ["../../../styles/preview.css"]
+    selector: 'app-preview',
+    templateUrl: './preview.component.html',
+    styleUrls: ['../../../styles/preview.css'],
 })
-export class PreviewComponent extends BaseComponent implements OnInit{
-
+export class PreviewComponent extends BaseComponent implements OnInit {
     id: number;
     orderInfo: OrderDetail;
     generalDocsLimit: number = 6;
+    showConfirmModal: boolean = false;
 
     constructor(
         @Inject(PLATFORM_ID) protected platformId: Object,
         private apiService: ApiService,
         private route: ActivatedRoute,
-        private router: Router,
-    ) { 
+        private router: Router
+    ) {
         super(platformId);
-        this.orderInfo = this.router.getCurrentNavigation()?.extras?.state?.orderInfo;
+        this.orderInfo =
+            this.router.getCurrentNavigation()?.extras?.state?.orderInfo;
     }
 
-    ngOnInit(){
-        this.id = this.route.snapshot.params["id"];
-        if(!this.orderInfo){
-            this.apiService.OrderById(this.id)
-            .subscribe((resp: OrderDetail)=>{
-                this.orderInfo = resp;
-                super.unactiveLoader();
-            },
-            (err: HttpErrorResponse)=>{
-                console.log(err)
-            })
-        }else{
+    ngOnInit() {
+        this.id = this.route.snapshot.params['id'];
+        if (!this.orderInfo) {
+            this.apiService.OrderById(this.id).subscribe(
+                (resp: OrderDetail) => {
+                    this.orderInfo = resp;
+                    super.unactiveLoader();
+                },
+                (err: HttpErrorResponse) => {
+                    console.log(err);
+                }
+            );
+        } else {
             super.unactiveLoader();
         }
-        
     }
 
-    onEdit(){
+    onEdit() {
         this.router.navigate(['create-update', this.id], {
-            state: { orderInfo: this.orderInfo }
-        })
+            state: { orderInfo: this.orderInfo },
+        });
     }
 
-    onDownload(){
-        this.apiService.OrderPdf(this.id)
-        .subscribe((resp: Blob) =>{
-            isPlatformBrowser(this.platformId) && super.downloadFile(resp, `OrderId_${this.id}`);
-        },
-        (err: HttpErrorResponse)=>{
-            console.log(err);
-        })
-    }
-
-    onSubmit(){
-        this.apiService.OrderSubmit(this.id)
-        .subscribe(()=>{
-            super.showPopInfo = {
-                timer: setTimeout(() => {
-                    this.router.navigate([""]);
-                }, 4000),
-                popmsg: "Successfully Submitted",
-                successFunc: () => {
-                    this.router.navigate([""])
-                },
+    onDownload() {
+        this.apiService.OrderPdf(this.id).subscribe(
+            (resp: Blob) => {
+                isPlatformBrowser(this.platformId) &&
+                    super.downloadFile(resp, `OrderId_${this.id}`);
+            },
+            (err: HttpErrorResponse) => {
+                console.log(err);
             }
-        },
-        (error: HttpErrorResponse) => {
-            super.errorPopup(error);
-        })
+        );
+    }
+
+    onSubmit() {
+        this.apiService.OrderSubmit(this.id).subscribe(
+            () => {
+                super.showPopInfo = {
+                    timer: setTimeout(() => {
+                        this.router.navigate(['']);
+                    }, 4000),
+                    popmsg: 'Successfully Submitted',
+                    successFunc: () => {
+                        this.router.navigate(['']);
+                    },
+                };
+            },
+            (error: HttpErrorResponse) => {
+                super.errorPopup(error);
+            }
+        );
     }
 }

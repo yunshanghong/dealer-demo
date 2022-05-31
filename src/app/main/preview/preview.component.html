@@ -1036,10 +1036,43 @@
                     class="btncont-bgimg"
                     type="button"
                     value="Submit"
-                    (click)="onSubmit()"
+                    (click)="showConfirmModal = true"
                 />
             </div>
         </section>
+    </div>
+
+    <div
+        class="reveal-overlay"
+        style="display: block"
+        *ngIf="showConfirmModal"
+        (click)="showConfirmModal = false"
+    >
+        <div
+            class="popup tiny reveal"
+            id="ConfirmChange"
+            data-reveal
+            style="display: block"
+            (click)="$event.stopPropagation()"
+        >
+            <div class="popup-title text-center blod">Submit Changes?</div>
+            <div class="popup-btn btncont small">
+                <input
+                    class="btncont-line"
+                    type="button"
+                    value="No"
+                    data-close
+                    (click)="showConfirmModal = false"
+                />
+                <input
+                    class="btncont-line"
+                    type="button"
+                    value="Yes"
+                    data-close
+                    (click)="onSubmit()"
+                />
+            </div>
+        </div>
     </div>
     <app-msgPopup [showPopInfo]="showPopInfo"></app-msgPopup>
 </main>
