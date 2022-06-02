@@ -144,6 +144,22 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         };
     };
 
+    private emailPatternCheck = (): ((
+        AbstractControl
+    ) => ValidationErrors | null) => {
+        return (control: AbstractControl): ValidationErrors | null => {
+            if (this.guarantorOn) {
+                const emailRule =
+                    /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+                return control?.value?.match(emailRule)
+                    ? null
+                    : { email: true };
+            }
+            return null;
+        };
+    };
+
     private onlyDollarSign = (): ((
         AbstractControl
     ) => ValidationErrors | null) => {
@@ -278,7 +294,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             ]),
             email: new FormControl(null, [
                 this.conditionRequired3(),
-                Validators.email,
+                this.emailPatternCheck(),
             ]),
             netAnnualIncome: new FormControl(null, [
                 this.conditionRequired2('isMyInfo', false),
@@ -987,6 +1003,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     }
 
     private eliminateSymbol(inputStr: string) {
-        return parseFloat(inputStr.split(',').join('').split('$').join(''));
+        return parseFloat(inputStr?.split(',').join('').split('$').join(''));
     }
 }
