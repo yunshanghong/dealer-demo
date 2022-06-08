@@ -25,7 +25,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
         'Pending Approval',
         'Declined',
         'Draft',
-        'Cancelled”',
+        'Cancelled',
         'Pending MyInfo',
     ];
     addAnimate: boolean = true;
