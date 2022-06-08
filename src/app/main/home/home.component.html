@@ -1,103 +1,315 @@
 <app-loader [isActive]="isActive"></app-loader>
 <main class="main-container">
-    <div class="main-wrap" [ngClass]= "{'animate' : addAnimate || isActive  }">
-    <section class="index-pagetitle">
-        <div class="ct_ctr">
-        <h1 class="blod pagename">Home </h1>
-        <div class="pagelink"> 
-            <a *ngFor="let btnName of createBtns" class="pagelink-box" [routerLink]="['/create-update']" [queryParams]="{type: btnName}"> 
-               <p class="text-center"><i class="be-icon be-icon-add"> </i>{{ btnName }}</p>
-            </a>
-        </div>
-        </div>
-    </section>
-    <section class="index-tabbox"> 
-        <div class="ct_ctr">
-        <ul class="tabbox tabs" id="SortBtn" data-tabs>
-            <li class="tabs-title" [ngClass]="{'is-active': orderInfo.status.length === 0}"><a aria-selected="true" (click)="onChangeStatus(null)">All</a></li>
-            <li *ngFor= "let tabName of searchTabs" class="tabs-title" [ngClass]="{'is-active': orderInfo.status.indexOf(tabName) !== -1}"><a (click)="onChangeStatus(tabName)"> {{ tabName }}</a></li>
-        </ul>
-        <a class="downloadlist show-for-large" (click)="onExport()"> 
-            <i class="be-icon be-icon-download"> </i>
-            <div class="linelink blod">Export</div>
-        </a>
-        </div>
-    </section>
-    <section class="index-tablelist" data-tabs-content="SortBtn"> 
-        <div class="ct_ctr tabs-panel is-active" id="TableList1">
-        <ul class="tablelist blod hide-for-large"> 
-            <li class="title">
-                <a class="text-center o-nbr" (click)="onChangeSort('OrderNumber')">
-                Order Number<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'OrderNumber' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
-                </a>
-                <a class="text-center date" (click)="onChangeSort('ApplicationDate')">
-                Application Date<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'ApplicationDate' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
-                </a>
-                <a class="text-center status" (click)="onChangeSort('Status')">
-                    Status<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'Status' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
-                </a>
-            </li>
-        </ul>
-        <ul class="tablelist blod">
-            <li class="title show-for-large">
-                <a class="o-nbr" (click)="onChangeSort('OrderNumber')">
-                Order Number<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'OrderNumber' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
-                </a>
-                <a class="date" (click)="onChangeSort('ApplicationDate')">
-                Application Date<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'ApplicationDate' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
-                </a>
-                <a class="status" (click)="onChangeSort('Status')">
-                Status<i class="be-icon" [ngClass]="orderInfo?.sortRequest?.key !== 'Status' ? 'be-icon-sequence': (orderInfo?.sortRequest?.isAscending ? 'be-icon-sequence-top': 'be-icon-sequence-down')"></i>
-                </a>
-            <div class="type">Type</div>
-            <div class="v-nbr">Vehicle Number</div>
-            <div class="name">Name</div>
-            <div class="action">Action</div>
-            </li>
-
-            <li *ngFor="let orderItem of orderItems; let i = index"> 
-                <div class="o-nbr"> <span class="mo_title hide-for-large">Order Number</span>{{ orderItem.orderNumber }}</div>
-                <div class="date"><span class="mo_title hide-for-large">Application Date</span>{{ orderItem.applicationDate | date:'dd/MM/yyyy' }}</div>
-                <div class="status"> <span class="mo_title hide-for-large">Status</span><span class="status-tag">{{ orderItem.status }}</span></div>
-                <div class="type"><span class="mo_title hide-for-large">Type</span>{{ orderItem.vehicleType }}</div>
-                <div class="v-nbr"><span class="mo_title hide-for-large">Vehicle Number</span>{{ orderItem.vehicleNumber }}</div>
-                <div class="name"><span class="mo_title hide-for-large">Name</span>{{ orderItem.applicantName }}</div>
-                <div class="action"> 
-                    <a class="linelink" [routerLink]="['create-update', orderItem.id]" *ngIf="['Draft'].indexOf(orderItem.status) !== -1">Edit </a>
-                    <a class="linelink" (click)="onView(orderItem.id)" *ngIf="['Approved', 'Pending Approval', 'Declined', 'Draft', 'Canceled', 'Pending MyInfo'].indexOf(orderItem.status) !== -1">View </a>
-                    <a class="linelink show-for-large" (click)="onPrint(orderItem.id)" *ngIf="['Approved', 'Pending Approval', 'Declined', 'Pending MyInfo'].indexOf(orderItem.status) !== -1">Print</a>
+    <div class="main-wrap" [ngClass]="{ animate: addAnimate || isActive }">
+        <section class="index-pagetitle">
+            <div class="ct_ctr">
+                <h1 class="blod pagename">Home</h1>
+                <div class="pagelink">
+                    <a
+                        *ngFor="let btnName of createBtns"
+                        class="pagelink-box"
+                        [routerLink]="['/create-update']"
+                        [queryParams]="{ type: btnName }"
+                    >
+                        <p class="text-center">
+                            <i class="be-icon be-icon-add"> </i>{{ btnName }}
+                        </p>
+                    </a>
                 </div>
-            </li>
-
-        </ul>
-        <nav aria-label="Pagination" *ngIf="orderItems.length > 0">
-            <ul class="pagination text-center">
-            <li class="pagination-previous" *ngIf="totalPage.length !== 1" [ngClass]="{'disabled': orderInfo.pageIndex === 0}" (click)="onChangePage(orderInfo.pageIndex-1)"> 
-                <a aria-label="Prev page" pagination-arrows="false">
-                    <i class="be-icon be-icon-arrow-toleft"></i>&nbsp; Prev
+            </div>
+        </section>
+        <section class="index-tabbox">
+            <div class="ct_ctr">
+                <ul class="tabbox tabs" id="SortBtn" data-tabs>
+                    <li
+                        class="tabs-title"
+                        [ngClass]="{
+                            'is-active': orderInfo.status.length === 0
+                        }"
+                    >
+                        <a aria-selected="true" (click)="onChangeStatus(null)"
+                            >All</a
+                        >
+                    </li>
+                    <li
+                        *ngFor="let tabName of searchTabs"
+                        class="tabs-title"
+                        [ngClass]="{
+                            'is-active':
+                                orderInfo.status.indexOf(tabName) !== -1
+                        }"
+                    >
+                        <a (click)="onChangeStatus(tabName)"> {{ tabName }}</a>
+                    </li>
+                </ul>
+                <a class="downloadlist show-for-large" (click)="onExport()">
+                    <i class="be-icon be-icon-download"> </i>
+                    <div class="linelink blod">Export</div>
                 </a>
-            </li>
+            </div>
+        </section>
+        <section class="index-tablelist" data-tabs-content="SortBtn">
+            <div class="ct_ctr tabs-panel is-active" id="TableList1">
+                <ul class="tablelist blod hide-for-large">
+                    <li class="title">
+                        <a
+                            class="text-center o-nbr"
+                            (click)="onChangeSort('OrderNumber')"
+                        >
+                            Order Number<i
+                                class="be-icon"
+                                [ngClass]="
+                                    orderInfo?.sortRequest?.key !==
+                                    'OrderNumber'
+                                        ? 'be-icon-sequence'
+                                        : orderInfo?.sortRequest?.isAscending
+                                        ? 'be-icon-sequence-top'
+                                        : 'be-icon-sequence-down'
+                                "
+                            ></i>
+                        </a>
+                        <a
+                            class="text-center date"
+                            (click)="onChangeSort('ApplicationDate')"
+                        >
+                            Application Date<i
+                                class="be-icon"
+                                [ngClass]="
+                                    orderInfo?.sortRequest?.key !==
+                                    'ApplicationDate'
+                                        ? 'be-icon-sequence'
+                                        : orderInfo?.sortRequest?.isAscending
+                                        ? 'be-icon-sequence-top'
+                                        : 'be-icon-sequence-down'
+                                "
+                            ></i>
+                        </a>
+                        <a
+                            class="text-center status"
+                            (click)="onChangeSort('Status')"
+                        >
+                            Status<i
+                                class="be-icon"
+                                [ngClass]="
+                                    orderInfo?.sortRequest?.key !== 'Status'
+                                        ? 'be-icon-sequence'
+                                        : orderInfo?.sortRequest?.isAscending
+                                        ? 'be-icon-sequence-top'
+                                        : 'be-icon-sequence-down'
+                                "
+                            ></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="tablelist blod">
+                    <li class="title show-for-large">
+                        <a class="o-nbr" (click)="onChangeSort('OrderNumber')">
+                            Order Number<i
+                                class="be-icon"
+                                [ngClass]="
+                                    orderInfo?.sortRequest?.key !==
+                                    'OrderNumber'
+                                        ? 'be-icon-sequence'
+                                        : orderInfo?.sortRequest?.isAscending
+                                        ? 'be-icon-sequence-top'
+                                        : 'be-icon-sequence-down'
+                                "
+                            ></i>
+                        </a>
+                        <a
+                            class="date"
+                            (click)="onChangeSort('ApplicationDate')"
+                        >
+                            Application Date<i
+                                class="be-icon"
+                                [ngClass]="
+                                    orderInfo?.sortRequest?.key !==
+                                    'ApplicationDate'
+                                        ? 'be-icon-sequence'
+                                        : orderInfo?.sortRequest?.isAscending
+                                        ? 'be-icon-sequence-top'
+                                        : 'be-icon-sequence-down'
+                                "
+                            ></i>
+                        </a>
+                        <a class="status" (click)="onChangeSort('Status')">
+                            Status<i
+                                class="be-icon"
+                                [ngClass]="
+                                    orderInfo?.sortRequest?.key !== 'Status'
+                                        ? 'be-icon-sequence'
+                                        : orderInfo?.sortRequest?.isAscending
+                                        ? 'be-icon-sequence-top'
+                                        : 'be-icon-sequence-down'
+                                "
+                            ></i>
+                        </a>
+                        <div class="type">Type</div>
+                        <div class="v-nbr">Vehicle Number</div>
+                        <div class="name">Name</div>
+                        <div class="action">Action</div>
+                    </li>
 
-            <li *ngFor="let page of totalPage | First:4" [ngClass]="{'current': page.originIndex === orderInfo.pageIndex}" (click)="onChangePage(page.originIndex)">
-                <a [ngClass]="{'show-for-large': page.originIndex !== 0 && page.originIndex !== 1}">{{ page.originIndex + 1 }}</a>
-            </li>
-            
-            <li class="ellipsis" *ngIf="totalPage.length > 7"></li>
-            <li class="current" *ngIf="orderInfo.pageIndex > 3 && totalPage.length > 7 && totalPage.length -3 > orderInfo.pageIndex"><a>{{ orderInfo.pageIndex + 1 }}</a></li>
-            <li class="ellipsis" *ngIf="orderInfo.pageIndex > 3 && totalPage.length > 7 && totalPage.length -3 > orderInfo.pageIndex"></li>
+                    <li *ngFor="let orderItem of orderItems; let i = index">
+                        <div class="o-nbr">
+                            <span class="mo_title hide-for-large"
+                                >Order Number</span
+                            >{{ orderItem.orderNumber }}
+                        </div>
+                        <div class="date">
+                            <span class="mo_title hide-for-large"
+                                >Application Date</span
+                            >{{
+                                orderItem.applicationDate | date: "dd/MM/yyyy"
+                            }}
+                        </div>
+                        <div class="status">
+                            <span class="mo_title hide-for-large">Status</span
+                            ><span class="status-tag">{{
+                                orderItem.status
+                            }}</span>
+                        </div>
+                        <div class="type">
+                            <span class="mo_title hide-for-large">Type</span
+                            >{{ orderItem.vehicleType }}
+                        </div>
+                        <div class="v-nbr">
+                            <span class="mo_title hide-for-large"
+                                >Vehicle Number</span
+                            >{{ orderItem.vehicleNumber }}
+                        </div>
+                        <div class="name">
+                            <span class="mo_title hide-for-large">Name</span
+                            >{{ orderItem.applicantName }}
+                        </div>
+                        <div class="action">
+                            <a
+                                class="linelink"
+                                [routerLink]="['create-update', orderItem.id]"
+                                *ngIf="
+                                    ['Draft'].indexOf(orderItem.status) !== -1
+                                "
+                                >Edit
+                            </a>
+                            <a
+                                class="linelink"
+                                (click)="onView(orderItem.id)"
+                                *ngIf="
+                                    [
+                                        'Approved',
+                                        'Pending Approval',
+                                        'Declined',
+                                        'Draft',
+                                        'Cancelled”',
+                                        'Pending MyInfo'
+                                    ].indexOf(orderItem.status) !== -1
+                                "
+                                >View
+                            </a>
+                            <a
+                                class="linelink show-for-large"
+                                (click)="onPrint(orderItem.id)"
+                                *ngIf="
+                                    [
+                                        'Approved',
+                                        'Pending Approval',
+                                        'Declined',
+                                        'Pending MyInfo'
+                                    ].indexOf(orderItem.status) !== -1
+                                "
+                                >Print</a
+                            >
+                        </div>
+                    </li>
+                </ul>
+                <nav aria-label="Pagination" *ngIf="orderItems.length > 0">
+                    <ul class="pagination text-center">
+                        <li
+                            class="pagination-previous"
+                            *ngIf="totalPage.length !== 1"
+                            [ngClass]="{ disabled: orderInfo.pageIndex === 0 }"
+                            (click)="onChangePage(orderInfo.pageIndex - 1)"
+                        >
+                            <a aria-label="Prev page" pagination-arrows="false">
+                                <i class="be-icon be-icon-arrow-toleft"></i
+                                >&nbsp; Prev
+                            </a>
+                        </li>
 
-            <li *ngFor="let page of totalPage | Last: 3; let isLast = last;" [ngClass]="{'current': page.originIndex === orderInfo.pageIndex}" (click)="onChangePage(page.originIndex)">
-                <a [ngClass]="{'show-for-large': !isLast}" aria-label="Page 12">{{ page.originIndex + 1 }}</a>
-            </li>
+                        <li
+                            *ngFor="let page of totalPage | First: 4"
+                            [ngClass]="{
+                                current:
+                                    page.originIndex === orderInfo.pageIndex
+                            }"
+                            (click)="onChangePage(page.originIndex)"
+                        >
+                            <a
+                                [ngClass]="{
+                                    'show-for-large':
+                                        page.originIndex !== 0 &&
+                                        page.originIndex !== 1
+                                }"
+                                >{{ page.originIndex + 1 }}</a
+                            >
+                        </li>
 
-            <li class="pagination-next" *ngIf="totalPage.length !== 1" [ngClass]="{'disabled': orderInfo.pageIndex === totalPage.length-1}" (click)="onChangePage(orderInfo.pageIndex+1)">
-                <a aria-label="Next page" pagination-arrows="false">
-                    Next &nbsp;<i class="be-icon be-icon-arrow-toright"></i>
-                </a>
-            </li>
-            </ul>
-        </nav>
-        </div>
-    </section>
+                        <li class="ellipsis" *ngIf="totalPage.length > 7"></li>
+                        <li
+                            class="current"
+                            *ngIf="
+                                orderInfo.pageIndex > 3 &&
+                                totalPage.length > 7 &&
+                                totalPage.length - 3 > orderInfo.pageIndex
+                            "
+                        >
+                            <a>{{ orderInfo.pageIndex + 1 }}</a>
+                        </li>
+                        <li
+                            class="ellipsis"
+                            *ngIf="
+                                orderInfo.pageIndex > 3 &&
+                                totalPage.length > 7 &&
+                                totalPage.length - 3 > orderInfo.pageIndex
+                            "
+                        ></li>
+
+                        <li
+                            *ngFor="
+                                let page of totalPage | Last: 3;
+                                let isLast = last
+                            "
+                            [ngClass]="{
+                                current:
+                                    page.originIndex === orderInfo.pageIndex
+                            }"
+                            (click)="onChangePage(page.originIndex)"
+                        >
+                            <a
+                                [ngClass]="{ 'show-for-large': !isLast }"
+                                aria-label="Page 12"
+                                >{{ page.originIndex + 1 }}</a
+                            >
+                        </li>
+
+                        <li
+                            class="pagination-next"
+                            *ngIf="totalPage.length !== 1"
+                            [ngClass]="{
+                                disabled:
+                                    orderInfo.pageIndex === totalPage.length - 1
+                            }"
+                            (click)="onChangePage(orderInfo.pageIndex + 1)"
+                        >
+                            <a aria-label="Next page" pagination-arrows="false">
+                                Next &nbsp;<i
+                                    class="be-icon be-icon-arrow-toright"
+                                ></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
     </div>
 </main>
