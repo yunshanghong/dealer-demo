@@ -141,7 +141,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
     private getOrder() {
         this.apiService.OrderFilter(this.orderInfo).subscribe(
             (resp: OrderFilterResp) => {
-                console.log(resp);
                 this.orderItems = resp.items;
                 this.totalPage = new Array(resp.totalPages).fill(0);
                 super.unactiveLoader();

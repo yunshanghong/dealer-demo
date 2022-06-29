@@ -24,67 +24,103 @@ import { ModelFilterPipe } from './pipes/dropdownList.pipe';
 import { PreviewDocNamePipe, UploadDocNamePipe } from './pipes/docs.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import {
+    DateAdapter,
+    MAT_DATE_FORMATS,
+    MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import {
+    MomentDateAdapter,
+    MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
 import { DATE_FORMATS } from './interfaces/date.model';
+import { HideCharPipe } from './pipes/hideChar.pipe';
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent, canActivate: [LoginGuard] },
-	{ path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
-	{ path: 'forgetPassword', component: ForgetPasswordComponent, canActivate: [LoginGuard] },
-	{ path: 'personalInfo', component: PersonalInfoComponent, canActivate: [LoginGuard] },
-	{ path: 'changePassword', component: ChangePasswordComponent, canActivate: [LoginGuard] },
-	{ path: 'preview/:id', component: PreviewComponent, canActivate: [LoginGuard] },
-	{ path: 'create-update', component: CreateUpdateComponent, canActivate: [LoginGuard] },
-	{ path: 'create-update/:id', component: CreateUpdateComponent, canActivate: [LoginGuard] },
-	{ path: '**', redirectTo: "/", canActivate: [LoginGuard] },
+    { path: '', component: HomeComponent, canActivate: [LoginGuard] },
+    { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+    {
+        path: 'forgetPassword',
+        component: ForgetPasswordComponent,
+        canActivate: [LoginGuard],
+    },
+    {
+        path: 'personalInfo',
+        component: PersonalInfoComponent,
+        canActivate: [LoginGuard],
+    },
+    {
+        path: 'changePassword',
+        component: ChangePasswordComponent,
+        canActivate: [LoginGuard],
+    },
+    {
+        path: 'preview/:id',
+        component: PreviewComponent,
+        canActivate: [LoginGuard],
+    },
+    {
+        path: 'create-update',
+        component: CreateUpdateComponent,
+        canActivate: [LoginGuard],
+    },
+    {
+        path: 'create-update/:id',
+        component: CreateUpdateComponent,
+        canActivate: [LoginGuard],
+    },
+    { path: '**', redirectTo: '/', canActivate: [LoginGuard] },
 ];
 
 @NgModule({
-	declarations: [
+    declarations: [
+        //#region Main page
+        AppComponent,
+        BaseComponent,
+        HomeComponent,
+        LoginComponent,
+        ChangePasswordComponent,
+        ForgetPasswordComponent,
+        PersonalInfoComponent,
+        PreviewComponent,
+        CreateUpdateComponent,
+        //#endregion
 
-		//#region Main page
-		AppComponent,
-		BaseComponent,
-		HomeComponent,
-		LoginComponent,
-		ChangePasswordComponent,
-		ForgetPasswordComponent,
-		PersonalInfoComponent,
-		PreviewComponent,
-		CreateUpdateComponent,
-		//#endregion
+        //#region Layouts
+        HeaderComponent,
+        FooterComponent,
+        LoaderComponent,
+        MsgPopupComponent,
+        //#endregion
 
-		//#region Layouts
-		HeaderComponent,
-		FooterComponent,
-		LoaderComponent,
-		MsgPopupComponent,
-		//#endregion
-
-		//#region 
-		FirstPipe,
-		LastPipe,
-		ModelFilterPipe,
-		PreviewDocNamePipe,
-		UploadDocNamePipe,
-		//#endregion
-	],
-	imports: [
-		RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
-		BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    	HttpClientModule,
-    	FormsModule,
-		ReactiveFormsModule,
-	    MatDatepickerModule,
-		BrowserAnimationsModule,
-	],
-	providers: [
-    	{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, },
-		{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    	{ provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
-    	LoginGuard,
-	],
-	bootstrap: [AppComponent]
+        //#region
+        FirstPipe,
+        LastPipe,
+        ModelFilterPipe,
+        PreviewDocNamePipe,
+        UploadDocNamePipe,
+		HideCharPipe,
+        //#endregion
+    ],
+    imports: [
+        RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        BrowserAnimationsModule,
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+        LoginGuard,
+    ],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

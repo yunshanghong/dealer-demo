@@ -382,7 +382,10 @@
                                             class="cell small-6 medium-8 large-12 xlarge-7"
                                         >
                                             <p class="listValue">
-                                                {{ orderInfo?.customer?.nric }}
+                                                {{
+                                                    orderInfo?.customer?.nric
+                                                        | hideChar
+                                                }}
                                             </p>
                                         </div>
                                     </div>

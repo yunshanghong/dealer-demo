@@ -45,8 +45,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     uploadAttachFile: Array<FileRecord> = [];
     // file has id => delete file
     deleteAttachId: Array<FileRecord> = [];
-    guarantorOn: boolean = false;
-    showConfirmModal: boolean = false;
+    guarantorOn = false;
+    showConfirmModal = false;
     assessmentYearDrop: number[] = [
         moment().year(),
         moment().add(-1, 'y').year(),
@@ -55,7 +55,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     ];
 
     constructor(
-        @Inject(PLATFORM_ID) protected platformId: Object,
+        @Inject(PLATFORM_ID) protected platformId: object,
         private apiService: ApiService,
         private route: ActivatedRoute,
         private router: Router,
@@ -558,7 +558,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                             : null,
                     };
 
-                    console.log(this.updateOrder);
                     this.router.navigate(['preview', this.updateOrder.id]);
                 },
                 (error: HttpErrorResponse) => {
@@ -628,9 +627,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         };
     }
 
-    onDocsAppend(files: FileList, fileType: 'GeneralFile') {
+    onDocsAppend(files: FileList, fileType: 'GeneralFile'): void {
         const fileArr = Array.from(files).map((item) => ({
-            fileType: fileType,
+            fileType,
             file: item,
             fileName: item.name,
         }));
@@ -641,7 +640,10 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         this.uploadAttachFile = newUploadFiles;
     }
 
-    onChangePostal(value: string, formName: 'customerForm' | 'guarantorForm') {
+    onChangePostal(
+        value: string,
+        formName: 'customerForm' | 'guarantorForm'
+    ): void {
         if (value.length === 6) {
             this.apiService
                 .OrderAddress(value)
@@ -650,12 +652,12 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                     const address = `${data?.buildingName || ''} ${
                         data?.buildingNo || ''
                     } ${data?.streetName || ''} ${data?.countryCode || ''}`;
-                    this[formName].patchValue({ address: address });
+                    this[formName].patchValue({ address });
                 });
         }
     }
 
-    onTouchedNInvalid(form: FormGroup) {
+    onTouchedNInvalid(form: FormGroup): boolean {
         const result = Object.keys(form.value).filter(
             (item) =>
                 (form.get(item).touched || form.get(item).dirty) &&
@@ -664,7 +666,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         return result.length > 0;
     }
 
-    onCustomerTouchedNInvalid(form: FormGroup) {
+    onCustomerTouchedNInvalid(form: FormGroup): string {
         const formMapping = Object.keys(form.value)
             .filter(
                 (item) =>
@@ -688,7 +690,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         return 'Fields marked * are required please.';
     }
 
-    private onCheckPageValid() {
+    private onCheckPageValid(): boolean {
         const needLogCardFile =
             this.vehicleForm.value.vehicleCondition === 'Used';
         const needUploadGeneralFile =
@@ -701,16 +703,24 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         this.additionalForm.markAllAsTouched();
         this.financeForm.markAllAsTouched();
         this.customerForm.markAllAsTouched();
-        this.guarantorOn && this.guarantorForm.markAllAsTouched();
+        if (this.guarantorOn) {
+            this.guarantorForm.markAllAsTouched();
+        }
 
         let numLogCard = 0;
         let numSalesAgreement = 0;
         let numGeneralFile = 0;
 
         this.uploadAttachFile.forEach((item) => {
-            if (item.fileType === 'LogCard') return numLogCard++;
-            if (item.fileType === 'SalesAgreement') return numSalesAgreement++;
-            if (item.fileType === 'GeneralFile') return numGeneralFile++;
+            if (item.fileType === 'LogCard') {
+                return numLogCard++;
+            }
+            if (item.fileType === 'SalesAgreement') {
+                return numSalesAgreement++;
+            }
+            if (item.fileType === 'GeneralFile') {
+                return numGeneralFile++;
+            }
         });
 
         return (
@@ -725,7 +735,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         );
     }
 
-    private onCreateUpdate() {
+    private onCreateUpdate(): Observable<string[]> {
         return of(this.updateOrder?.id).pipe(
             mergeMap((id: number) => {
                 const cIsMyInfo = this.customerForm.get('isMyInfo').value;
@@ -862,7 +872,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             }),
             mergeMap((orderDetail: OrderDetail) => {
                 // if update orderDetail = {}
-                orderDetail?.id && (this.updateOrder = orderDetail);
+                if (orderDetail?.id) {
+                    this.updateOrder = orderDetail;
+                }
                 const allRequests: Promise<string>[] = []
                     .concat(
                         // delete
@@ -950,8 +962,8 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
     }
 
     private onFileToBase64(file: File): Promise<string> {
-        const result_base64 = new Promise<string>((resolve) => {
-            let fileReader = new FileReader();
+        const resultBase64 = new Promise<string>((resolve) => {
+            const fileReader = new FileReader();
             fileReader.onload = () => {
                 const convertResult = fileReader.result as string;
                 const result = convertResult.split('base64,').pop();
@@ -960,19 +972,22 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             fileReader.readAsDataURL(file);
         });
 
-        return result_base64;
+        return resultBase64;
     }
 
-    private onConvertToMoney(inputStr: string) {
+    private onConvertToMoney(inputStr: string): string {
         if (
             inputStr === null ||
             inputStr === undefined ||
             !inputStr.toString().match(/^[\d,.$]*$/)
-        )
+        ) {
             return inputStr;
+        }
 
         const wipeDollarSymbol = inputStr.toString().split('$').join('');
-        if (!wipeDollarSymbol) return '$';
+        if (!wipeDollarSymbol) {
+            return '$';
+        }
 
         const value = parseFloat(wipeDollarSymbol.split(',').join(''));
 
@@ -984,16 +999,19 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         return `$${result}${inputStr[inputStr.length - 1] === '.' ? '.' : ''}`;
     }
 
-    private onConvertWithComma(inputStr: string) {
+    private onConvertWithComma(inputStr: string): string {
         if (
             inputStr === null ||
             inputStr === undefined ||
             !inputStr.toString().match(/^[\d,.]*$/)
-        )
+        ) {
             return inputStr;
+        }
 
         const splitValue = inputStr.toString().split(',').join('');
-        if (!splitValue) return '';
+        if (!splitValue) {
+            return '';
+        }
 
         const value = parseFloat(splitValue);
         if (value > Number.MAX_SAFE_INTEGER) {
@@ -1004,7 +1022,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         return `${result}${inputStr[inputStr.length - 1] === '.' ? '.' : ''}`;
     }
 
-    private eliminateSymbol(inputStr: string) {
+    private eliminateSymbol(inputStr: string): number {
         return parseFloat(inputStr?.split(',').join('').split('$').join(''));
     }
 }
