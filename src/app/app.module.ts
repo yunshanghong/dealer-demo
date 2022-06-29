@@ -99,7 +99,7 @@ const routes: Routes = [
         ModelFilterPipe,
         PreviewDocNamePipe,
         UploadDocNamePipe,
-		HideCharPipe,
+        HideCharPipe,
         //#endregion
     ],
     imports: [
