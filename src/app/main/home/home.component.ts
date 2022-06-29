@@ -27,6 +27,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
         'Draft',
         'Cancelled',
         'Pending MyInfo',
+        'Pending Submission',
     ];
     addAnimate: boolean = true;
     orderItems: Array<OrderItem> = [];
