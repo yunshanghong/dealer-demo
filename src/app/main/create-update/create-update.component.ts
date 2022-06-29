@@ -170,7 +170,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         };
     };
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.vehicleForm = new FormGroup({
             customerType: new FormControl(null, [Validators.required]),
             vehicleCondition: new FormControl(null, [Validators.required]),
@@ -484,7 +484,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         }
     }
 
-    onDiscard() {
+    onDiscard(): void {
         of(this.updateOrder?.id)
             .pipe(
                 mergeMap((id: number) =>
@@ -498,7 +498,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             });
     }
 
-    onSave() {
+    onSave(): void {
         if (this.onCheckPageValid()) {
             this.onCreateUpdate().subscribe(
                 (resp: string[]) => {
@@ -519,7 +519,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         }
     }
 
-    onPreview() {
+    onPreview(): void {
         if (this.onCheckPageValid()) {
             this.onCreateUpdate().subscribe(
                 (resp: string[]) => {
@@ -557,9 +557,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                               }
                             : null,
                     };
-                    this.router.navigate(['preview', this.updateOrder.id], {
-                        state: { orderInfo: this.updateOrder },
-                    });
+
+                    console.log(this.updateOrder);
+                    this.router.navigate(['preview', this.updateOrder.id]);
                 },
                 (error: HttpErrorResponse) => {
                     super.errorPopup(error);
@@ -568,7 +568,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         }
     }
 
-    onBrandChange() {
+    onBrandChange(): void {
         const brandName = this.vehicleForm.get('brand').value;
         const vehicleCode = this.vehicleBrands?.find(
             (item) => item.brandName === brandName
@@ -576,14 +576,14 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         this.vehicleForm.patchValue({ vehicleModelCode: vehicleCode });
     }
 
-    onSwitchGuarantor() {
+    onSwitchGuarantor(): void {
         this.guarantorOn = !this.guarantorOn;
         this.guarantorForm.patchValue({
             isMyInfo: this.guarantorForm.get('isMyInfo').value,
         });
     }
 
-    onFileAttach(file: File, fileType: 'LogCard' | 'SalesAgreement') {
+    onFileAttach(file: File, fileType: 'LogCard' | 'SalesAgreement'): void {
         const deleteArr: Array<FileRecord> = [];
         const newUploadArr: Array<FileRecord> = [];
         this.uploadAttachFile.forEach((item) => {
@@ -592,15 +592,15 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                 : newUploadArr.push(item);
         });
         newUploadArr.push({
-            fileType: fileType,
+            fileType,
             fileName: file.name,
-            file: file,
+            file,
         });
         this.uploadAttachFile = newUploadArr;
         this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
     }
 
-    onFileDelete(inputIndex: number) {
+    onFileDelete(inputIndex: number): void {
         const deleteArr: Array<FileRecord> = [];
         const newUploadArr: Array<FileRecord> = [];
 
@@ -614,17 +614,17 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
     }
 
-    onDocChange(inputIndex: number, file: File) {
+    onDocChange(inputIndex: number, file: File): void {
         const obj = this.uploadAttachFile[inputIndex];
         const deleteArr: Array<FileRecord> = [];
-        obj.id &&
-            obj.fileType &&
+        if (obj.id && obj.fileType) {
             deleteArr.push({ id: obj.id, fileType: obj.fileType });
+        }
         this.deleteAttachId = this.deleteAttachId.concat(deleteArr);
         this.uploadAttachFile[inputIndex] = {
             fileType: 'GeneralFile',
             fileName: file.name,
-            file: file,
+            file,
         };
     }
 
@@ -806,7 +806,9 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                             : this.customerForm.get('employerName').value,
                         assessmentYear: cIsMyInfo
                             ? null
-                            : this.customerForm.get('assessmentYear').value,
+                            : this.customerForm
+                                  .get('assessmentYear')
+                                  .value.toString(),
                     },
                     guarantor: this.guarantorOn
                         ? {
