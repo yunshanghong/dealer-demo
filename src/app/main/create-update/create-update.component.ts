@@ -421,7 +421,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
             )?.items;
         });
 
-        const updateId = this.route.snapshot.params['id'];
+        const updateId = this.route.snapshot.params?.id;
         // update flow
         if (updateId !== undefined) {
             of(this.updateOrder)

@@ -653,7 +653,10 @@
                                     class="card-section"
                                     *ngIf="orderInfo?.guarantor"
                                 >
-                                    <div class="grid-x grid-margin-x">
+                                    <div
+                                        class="grid-x grid-margin-x"
+                                        *ngIf="orderInfo?.guarantor?.isMyInfo"
+                                    >
                                         <div
                                             class="cell small-6 medium-4 large-12 xlarge-5"
                                         >
@@ -667,7 +670,10 @@
                                             <p class="listValue">Compeleted</p>
                                         </div>
                                     </div>
-                                    <div class="grid-x grid-margin-x">
+                                    <div
+                                        class="grid-x grid-margin-x"
+                                        *ngIf="orderInfo?.guarantor?.isMyInfo"
+                                    >
                                         <div
                                             class="cell small-6 medium-4 large-12 xlarge-5"
                                         >
@@ -721,7 +727,10 @@
                                             class="cell small-6 medium-8 large-12 xlarge-7"
                                         >
                                             <p class="listValue">
-                                                {{ orderInfo?.guarantor?.nric }}
+                                                {{
+                                                    orderInfo?.guarantor?.nric
+                                                        | hideChar
+                                                }}
                                             </p>
                                         </div>
                                     </div>

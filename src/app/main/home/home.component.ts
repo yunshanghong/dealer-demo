@@ -29,7 +29,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
         'Pending MyInfo',
         'Pending Submission',
     ];
-    addAnimate: boolean = true;
+    addAnimate = true;
     orderItems: Array<OrderItem> = [];
     orderInfo: OrderReq = {
         orderNumber: null,
@@ -47,12 +47,12 @@ export class HomeComponent extends BaseComponent implements OnInit {
         private apiService: ApiService,
         private router: Router,
         private searchService: SearchService,
-        @Inject(PLATFORM_ID) public platformId: Object
+        @Inject(PLATFORM_ID) public platformId: object
     ) {
         super(platformId);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.searchService
             .getEmitter()
             .subscribe((searchInfo: SearchBarInfo) => {
@@ -75,15 +75,16 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.getOrder();
     }
 
-    onView(id: number) {
+    onView(id: number): void {
         this.router.navigate([`preview/${id}`]);
     }
 
-    onPrint(id: number) {
+    onPrint(id: number): void {
         this.apiService.OrderPdf(id).subscribe(
             (resp: Blob) => {
-                isPlatformBrowser(this.platformId) &&
+                if (isPlatformBrowser(this.platformId)) {
                     super.downloadFile(resp, `OrderId_${id}`);
+                }
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -91,14 +92,15 @@ export class HomeComponent extends BaseComponent implements OnInit {
         );
     }
 
-    onExport() {
+    onExport(): void {
         this.apiService.OrderExport(this.orderInfo).subscribe(
             (resp: Blob) => {
-                isPlatformBrowser(this.platformId) &&
+                if (isPlatformBrowser(this.platformId)) {
                     super.downloadFile(
                         resp,
                         `Orders_${moment().format('YYYYMMDDHHmmss')}`
                     );
+                }
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -106,26 +108,28 @@ export class HomeComponent extends BaseComponent implements OnInit {
         );
     }
 
-    onChangePage(pageIndex: number) {
+    onChangePage(pageIndex: number): void {
         if (
             pageIndex !== this.orderInfo.pageIndex &&
             pageIndex >= 0 &&
             pageIndex <= this.totalPage.length - 1
         ) {
-            this.orderInfo = { ...this.orderInfo, pageIndex: pageIndex };
+            this.orderInfo = { ...this.orderInfo, pageIndex };
             this.getOrder();
         }
     }
 
-    onChangeStatus(status: string) {
+    onChangeStatus(status: string): void {
         const newStatus = [];
-        status && newStatus.push(status);
+        if (status) {
+            newStatus.push(status);
+        }
         this.orderInfo.status = newStatus;
         this.orderInfo.pageIndex = 0;
         this.getOrder();
     }
 
-    onChangeSort(sortKey: string) {
+    onChangeSort(sortKey: string): void {
         this.orderInfo.pageIndex = 0;
         if (this.orderInfo.sortRequest?.key === sortKey) {
             this.orderInfo.sortRequest = {
@@ -138,9 +142,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.getOrder();
     }
 
-    private getOrder() {
+    private getOrder(): void {
         this.apiService.OrderFilter(this.orderInfo).subscribe(
             (resp: OrderFilterResp) => {
+                console.log(resp);
                 this.orderItems = resp.items;
                 this.totalPage = new Array(resp.totalPages).fill(0);
                 super.unactiveLoader();

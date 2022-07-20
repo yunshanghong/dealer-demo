@@ -14,11 +14,11 @@ import { BaseComponent } from '../base/base.component';
 export class PreviewComponent extends BaseComponent implements OnInit {
     id: number;
     orderInfo: OrderDetail;
-    generalDocsLimit: number = 6;
-    showConfirmModal: boolean = false;
+    generalDocsLimit = 6;
+    showConfirmModal = false;
 
     constructor(
-        @Inject(PLATFORM_ID) protected platformId: Object,
+        @Inject(PLATFORM_ID) protected platformId: object,
         private apiService: ApiService,
         private route: ActivatedRoute,
         private router: Router
@@ -28,8 +28,8 @@ export class PreviewComponent extends BaseComponent implements OnInit {
             this.router.getCurrentNavigation()?.extras?.state?.orderInfo;
     }
 
-    ngOnInit() {
-        this.id = this.route.snapshot.params['id'];
+    ngOnInit(): void {
+        this.id = this.route.snapshot.params?.id;
         if (!this.orderInfo) {
             this.apiService.OrderById(this.id).subscribe(
                 (resp: OrderDetail) => {
@@ -45,17 +45,18 @@ export class PreviewComponent extends BaseComponent implements OnInit {
         }
     }
 
-    onEdit() {
+    onEdit(): void {
         this.router.navigate(['create-update', this.id], {
             state: { orderInfo: this.orderInfo },
         });
     }
 
-    onDownload() {
+    onDownload(): void {
         this.apiService.OrderPdf(this.id).subscribe(
             (resp: Blob) => {
-                isPlatformBrowser(this.platformId) &&
+                if (isPlatformBrowser(this.platformId)) {
                     super.downloadFile(resp, `OrderId_${this.id}`);
+                }
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -63,7 +64,7 @@ export class PreviewComponent extends BaseComponent implements OnInit {
         );
     }
 
-    onSubmit() {
+    onSubmit(): void {
         this.apiService.OrderSubmit(this.id).subscribe(
             () => {
                 super.showPopInfo = {

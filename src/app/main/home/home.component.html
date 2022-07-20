@@ -186,42 +186,18 @@
                             <a
                                 class="linelink"
                                 [routerLink]="['create-update', orderItem.id]"
-                                *ngIf="
-                                    ['Draft'].indexOf(orderItem.status) !== -1
-                                "
+                                *ngIf="orderItem.status === 'Draft'"
                                 >Edit
                             </a>
-                            <a
-                                class="linelink"
-                                (click)="onView(orderItem.id)"
-                                *ngIf="
-                                    [
-                                        'Approved',
-                                        'Pending Approval',
-                                        'Declined',
-                                        'Draft',
-                                        'Cancelled',
-                                        'Pending MyInfo',
-                                        'Processing',
-                                        'PendingSubmission',
-                                        'PendingTKYC'
-                                    ].indexOf(orderItem.status) !== -1
-                                "
+                            <a class="linelink" (click)="onView(orderItem.id)"
                                 >View
                             </a>
                             <a
                                 class="linelink show-for-large"
                                 (click)="onPrint(orderItem.id)"
                                 *ngIf="
-                                    [
-                                        'Approved',
-                                        'Pending Approval',
-                                        'Declined',
-                                        'Pending MyInfo',
-                                        'Processing',
-                                        'PendingSubmission',
-                                        'PendingTKYC'
-                                    ].indexOf(orderItem.status) !== -1
+                                    orderItem.status !== 'Draft' &&
+                                    orderItem.status !== 'Cancelled'
                                 "
                                 >Print</a
                             >
