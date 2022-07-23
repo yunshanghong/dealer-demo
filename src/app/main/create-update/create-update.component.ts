@@ -164,9 +164,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
         AbstractControl
     ) => ValidationErrors | null) => {
         return (control: AbstractControl): ValidationErrors | null => {
-            return this.vehicleForm && control && control.value !== '$'
-                ? null
-                : { isMatching: false };
+            return this.vehicleForm && control ? null : { isMatching: false };
         };
     };
 
@@ -209,7 +207,6 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                 Validators.pattern(/^[\d,.]*$/),
             ]),
             monthlyInstallment: new FormControl(null, [
-                Validators.required,
                 Validators.pattern(/^[\d,.$]*$/),
                 this.onlyDollarSign(),
             ]),
@@ -773,7 +770,7 @@ export class CreateUpdateComponent extends BaseComponent implements OnInit {
                     ),
                     monthlyInstallment: parseFloat(
                         this.financeForm.value.monthlyInstallment
-                            .split('$')
+                            ?.split('$')
                             .join('')
                             .split(',')
                             .join('')
